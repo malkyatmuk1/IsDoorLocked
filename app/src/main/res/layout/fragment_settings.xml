@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:id="@+id/fragment_settings"
+    tools:context=".Settings"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+
+    <EditText
+        android:id="@+id/wifissid"
+        style="@style/Margins"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Wifi-ssid"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"/>
+
+    <EditText
+        android:id="@+id/wifipassword"
+        style="@style/Margins"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Wifi-password"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:id="@+id/wifi"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/sign"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textSize="15sp"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+
+    <EditText
+        android:id="@+id/metersedit"
+        style="@style/Margins"
+        android:layout_width="266dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Meters for reminder"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:id="@+id/meters"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/sign"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textSize="15sp"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iamathome"
+        android:text="I am a home"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/sign"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textSize="10sp"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginTop="20dp"
+        />
+
+</LinearLayout>

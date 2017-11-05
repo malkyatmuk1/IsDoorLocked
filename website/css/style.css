@@ -1,0 +1,490 @@
+/********************************
+    Font iclusion
+********************************/
+
+@charset "UTF-8";
+
+@font-face {
+font-family: 'Myriad Pro Regular';
+font-style: normal;
+font-weight: normal;
+src: local('Myriad Pro Regular'), url('../fonts/MYRIADPRO-REGULAR.woff') format('woff');
+}
+
+/********************************
+    Reset CSS
+********************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,
+ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+a {
+    text-decoration: none;
+    outline: 0;
+}
+/********************************
+    Border Box
+********************************/
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+body {
+    font-family: 'Titillium Web', sans-serif;
+    text-align: center;
+}
+/********************************
+    Clearfix
+********************************/
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix:after {
+    clear: both;
+}
+/*LINE*/
+.line:after{
+    content: '';
+    display: block;
+    width: 87px;
+    height: 4px;
+    margin: 25px auto 0 auto;
+    background-color: black;
+    opacity: 0.149;
+}
+/********************************
+    4 Column Grid
+********************************/
+.col-1 { width: 280px; }
+.col-2 { width: 560px; }
+.col-3 { width: 840px; }
+.col-4 { width: 1120px; }
+
+/*service classes*/
+.width50 {
+    width: 50%;
+}
+.wrapper {
+    margin: 0 auto;
+}
+.block-element {
+    display: block;
+}
+.float-left,
+.float-right {
+    position: relative;
+    display: block;
+    float: left;
+}
+.float-right {
+    float: right;
+}
+.first-heading {
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    line-height: 0.748;
+}
+.second-heading {
+    font-size: 18px;
+    color: white;
+    line-height: 1.444;
+}
+/*header*/
+.header {
+    min-height: 650px;
+    background: url(../images/doorBG.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+   //background: #87509c;
+   padding: 58px 0 148px 0;
+}
+.holding-nav-logo {
+    margin: 0 0 145px 0;
+}
+.logo {
+    display: block;
+    margin: 0 0 0 50px;
+    width: 117px;
+    height: 37px;
+    background: url(../images/logo.png) no-repeat 0 0;
+    text-indent: -9999px;
+}
+.main-nav {
+    font-size: 0;
+}
+.main-nav-link {
+    display: inline-block;
+    padding: 15px 10px;
+    margin: 0 0 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-radius: 3px;
+}
+.main-nav-link.active,
+.main-nav-link:hover {
+    background: #445e77;
+}
+.heading-cta {
+    display: block;
+    margin: 0 0 50px 0;
+    font-size: 20px;
+    line-height: 24px;
+    color: #ffffff;
+    background: #4D6883;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 40px;
+}
+.main-button {
+    display: inline-block;
+    padding: 29px 82px 25px 82px;
+    font-size: 18px;
+    line-height: 18px;
+    color: #ffffff;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 0;
+    cursor: pointer;
+}
+.main-button:hover {
+    -webkit-box-shadow: inset 0px -4px 0px 0px rgba(135,193,184,0.80);
+    -moz-box-shadow: inset 0px -4px 0px 0px rgba(135,193,184,0.80);
+    box-shadow: inset 0px -4px 0px 0px rgba(135,193,184,0.80);
+}
+.orrange-button {
+    background: #eb7d4b;
+    -webkit-box-shadow: inset 0px -4px 0px 0px rgba(235,125,75,0.65);
+    -moz-box-shadow: inset 0px -4px 0px 0px rgba(235,125,75,0.65);
+    box-shadow: inset 0px -4px 0px 0px #c86a40;
+}
+.green-button {
+    background: #17c2a4;
+    -webkit-box-shadow: inset 0px -4px 0px 0px rgba(23,194,164,0.65);
+    -moz-box-shadow: inset 0px -4px 0px 0px rgba(23,194,164,0.65);
+    box-shadow: inset 0px -4px 0px 0px #14a58c;
+}
+.blue-button {
+    background: #4CC5DA;
+    -webkit-box-shadow: inset 0px -4px 0px 0px rgba(48,186,231,0.65);
+    -moz-box-shadow: inset 0px -4px 0px 0px rgba(48,186,231,0.65);
+    box-shadow: inset 0px -4px 0px 0px #299ec5;
+}
+.pink-button {
+    background: #F05478;
+    -webkit-box-shadow: inset 0px -4px 0px 0px rgba(48,186,231,0.65);
+    -moz-box-shadow: inset 0px -4px 0px 0px rgba(48,186,231,0.65);
+    box-shadow: inset 0px -4px 0px 0px #299ec5;
+}
+.download-heading{
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+/*--------------------------------*/
+.services {
+    background: #4CC5DA;
+}
+.section-heading {
+    display: block;
+    margin: 0 0 22px 0;
+}
+.services .wrapper {
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 120px;
+}
+.sub-heading {
+    display: block;
+    margin-top: 25px;
+}
+.service-cols {
+    display: inline-block;
+    margin-top: 82px;
+}
+.service-image {
+    display: inline-block;
+}
+.service-image img {
+    display: inline-block;
+    width: 100%;
+}
+.service-info {
+    min-height: 200px;
+    padding: 58px 58px 0 58px;
+    margin-bottom: 127px;
+}
+.service-heading {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26px;
+    color: #ffffff;
+    margin-bottom: 27px;
+}
+.service-text {
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+}
+/*------------------------------------*/
+.team-section {
+    padding: 120px 0 127px 0;
+    background: #83D2E1;
+    text-align: center;
+}
+.team-headding {
+    margin-bottom: 24px;
+    color: #3c4761;
+}
+.subheadding {
+    margin-bottom: 80px;
+    color: #3c4761;
+}
+.team-members {
+    padding: 0 40px;
+}
+.name-star {
+    font-size: 24px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-weight: bold;
+}
+.blue-text {
+    padding: 15px 0;
+    color: #F05478;
+    font-weight: bold;
+}
+.member-info {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 35px;
+}
+.face-facebook {
+    background: url(../images/facebook.png);
+    display: inline-block;
+    padding: 16px;
+    margin: 6px;
+}
+.face-twitter {
+    background: url(../images/twitter.png);
+    display: inline-block;
+    padding: 16px;
+    margin: 6px;
+}
+.face-linkedin {
+    background: url(../images/linkedin.png);
+    display: inline-block;
+    padding: 16px;
+    margin: 6px;
+}
+.face-mail {
+    background: url(../images/mail.png);
+    display: inline-block;
+    padding: 16px;
+    margin: 6px;
+}
+/*главни букви при започване на css class не е готино*/
+.Base {
+    display: inline-block;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 42px;
+}
+.photo-star {
+    width: 100%;
+    border-radius: 50%;
+}
+/*------------------------*/
+.skills {
+    background: #F05478;
+}
+.skills,
+.contact{
+    padding: 120px 0;
+}
+.section-title {
+    color: #EFF5F6;
+    padding-bottom: 14px;
+}
+.sub-title {
+    color: #EFF5F6;
+    padding-top: 27px;
+}
+.skills-wrapper{
+    padding-top: 84px;
+}
+.description{
+    padding-top: 33px;
+    text-transform: uppercase;
+    color: #EFF5F6;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+/* -------------------------------- */
+.portfolio {
+    background-color: #EFF5F6;
+    padding-top: 115px;
+    padding-bottom: 90px;
+}
+.our-porfolio {
+    text-transform: uppercase;
+    margin-bottom: 21px;
+    color: #393939;
+}
+.secondary-heading {
+    color: #393939;
+}
+
+/*-----------------------------*/
+.dark-blue-section {
+    background-color: #4CC5DA;
+    padding: 115px 0 115px 0;
+}
+.services-provide {
+    padding-bottom: 25px;
+}
+.we-are-heading {
+    margin-bottom: 75px;
+}
+.email {
+    float: left;
+    background-color: #EFF5F6;
+    padding: 20px;
+    border-radius: 3px;
+    border: 0;
+    margin-left: 15px;
+    width: 415px;
+    margin-bottom: 27px;
+}
+.name {
+    float: right;
+    background-color: #EFF5F6;
+    padding: 20px;
+    border-radius: 3px;
+    border: 0;
+    margin-right: 15px;
+    width: 415px;
+    margin-bottom: 27px;
+}
+.message {
+    width: 860px;
+    height: 200px;
+    padding: 20px;
+    margin-bottom: 60px;
+    background-color: #EFF5F6;
+    border-radius: 3px;
+    border: 0;
+}
+.submit-button {
+    display: block;
+    border: 0;
+    padding: 29px 82px 25px 82px;
+    line-height: 1.455;
+    color: #ffffff;
+    background: #30bae7;
+    border-radius: 3px;
+    border-bottom: 4px solid #299ec5;
+    font-size: 13.403px;
+    color: white;
+    margin: 0 auto;
+    width: 295px;
+}
+/*-----------------------------*/
+.footer {
+    background-color: #344b8e;
+}
+.media-social {
+    padding: 40px 100px;
+}
+.social {
+    font-size: 24px;
+    color: white;
+    font-family:'Myriad Pro Regular';
+    font-weight:normal;
+    line-height: 1.246;
+    text-align: center;
+    width: 50%;
+    float: left;
+}
+footer a:hover {
+    color: #30bae7;
+}
+
+/*MEDIA QUERIES FOR RESPONSIVE DESIGN*/
+@media screen and (max-width: 1200px) {
+    .col-1 {width: 25%;}
+    .col-2 {width: 50%;}
+    .col-3 {width: 75%;}
+    .col-4 {width: 100%;}
+}
+@media screen and (max-width: 900px) {
+    .col-1 {width: 50%;}
+    .col-2 {width: 100%;}
+    .col-3 {width: 100%;}
+    .col-4 {width: 100%;}
+    .base2-right {margin-left: 0px;}
+    .base2 {margin-left: 0px;}
+    .social { width: 50%;}
+    .block-element { display: inline-block; }
+    .message { width: 100%; margin:10px 0;}
+    .name { width: 100%; margin:10px 0;}
+    .email { width: 100%; margin:10px 0;}
+}
+@media screen and (max-width: 600px) {
+    .col-1 {width: 100%;}
+    .col-2 {width: 100%;}
+    .col-3 {width: 100%;}
+    .col-4 {width: 100%;}
+    .social { width:50%;}
+}

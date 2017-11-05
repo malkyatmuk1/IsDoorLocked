@@ -1,6 +1,5 @@
 package com.example.malkyatmuk.dooropener;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -28,9 +26,9 @@ public class Start_menu extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        Intent i= new Intent(this, Services.class);
-        i.putExtra("notification", "Value to be used by the service");
-        this.startService(i);
+        //Intent i= new Intent(this, Services.class);
+       // i.putExtra("notification", "Value to be used by the service");
+        //this.startService(i);
 
 
 
@@ -89,21 +87,21 @@ public class Start_menu extends AppCompatActivity
         switch (itemId) {
             case R.id.nav_menu1:
 
-              fragment = new Profil();
+                fragment = new Profil();
                 break;
             case R.id.nav_menu2:
                 if(Global.permission!='d')
-                fragment = new Client_Door();
+                    fragment = new Client_Door();
                 break;
             case R.id.nav_admin:
                 if(Global.permission=='a')
-                fragment = new Client_List();
+                    fragment = new Client_List();
                 break;
             case R.id.nav_signout:
                 Intent intent = new Intent();
-               intent.setClassName("com.example.malkyatmuk.dooropener","com.example.malkyatmuk.dooropener.Signin");
-               startActivity(intent);
-               finish();
+                intent.setClassName("com.example.malkyatmuk.dooropener","com.example.malkyatmuk.dooropener.Signin");
+                startActivity(intent);
+                finish();
                 break;
             case R.id.nav_settings:
                 fragment=new Settings();

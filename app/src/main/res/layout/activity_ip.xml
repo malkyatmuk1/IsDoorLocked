@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     tools:targetApi="11"
 
-    tools:context=".Signup"
+    tools:context=".IP"
     android:orientation="vertical"
     android:gravity="top">
     <TextView
         android:id="@+id/sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign up"
+        android:text="Settings"
         android:textSize="40dp"
         android:textAlignment="center"
         android:background="@drawable/navbar"
@@ -33,59 +33,29 @@
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome, sign up now."
+            android:text="IP settings"
             android:textAlignment="center"
             android:textSize="130px"
             android:textColor="@color/white"
             />
 
 
-
-            <EditText
-                android:id="@+id/username"
-                style="@style/Margins"
-                android:layout_width="266dp"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="Username"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/white"
-                />
-
-
         <EditText
-            android:id="@+id/pass1"
+            android:id="@+id/ip"
             style="@style/Margins"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Password"
+            android:inputType="number"
+            android:digits="0123456789."
+            android:hint="IP"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
-
             />
-
-            <EditText
-                android:id="@+id/pass2"
-                style="@style/Margins"
-                android:layout_width="266dp"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="Rewrite  your password"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/white"
-                />
-        <CheckBox
-            android:id="@+id/check"
-            android:layout_width="266dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Direct connection" />
 
 
 
         <Button
-            android:id="@+id/btnsignup"
+            android:id="@+id/apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
@@ -97,34 +67,16 @@
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
             style="@style/Margins"
-            android:text="Sign up"
+            android:text="Apply"
             android:background="@drawable/sign"
-        />
 
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wifi settings"
+            android:text="Go back"
             android:textColor="@color/colorPrimary"
-            android:id="@+id/wifiset"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign in"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/tv"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IP"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/ip"
-            android:textSize="17dp"
+            android:id="@+id/goback"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>

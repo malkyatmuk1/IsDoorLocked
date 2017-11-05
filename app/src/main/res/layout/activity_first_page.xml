@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Log in with your account or create a new one."
+                    android:text="Sign in with your account or create a new one."
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="30dp" />

@@ -61,7 +61,7 @@ public class Client_Door extends Fragment {
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            outToServer.writeBytes("take" +'\n');
+                            outToServer.writeBytes("take " +Global.username+" "+Global.password+'\n');
                             outToServer.flush();
                             modifiedSentence = inFromServer.readLine();
                             if (modifiedSentence.equals("open!")) {
@@ -104,7 +104,7 @@ public class Client_Door extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Door 1");
+        getActivity().setTitle("Door");
     }
 }
 

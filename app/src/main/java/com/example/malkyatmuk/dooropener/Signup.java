@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 
 public class Signup extends Activity {
-    EditText pass,pass2,username,ip;
+    EditText pass,pass2,username;
 
 
     Button btns;
@@ -35,10 +36,11 @@ public class Signup extends Activity {
     String txt2;
     View v;
     Toast toast;
-    TextView welcome, sign,textView;
+    TextView welcome, sign,textView,ip,settingsbutton;
     private Socket socket;
     private Socket clientSocket;
     String modifiedSentence;
+    CheckBox check;
 
     private static final int SERVERPORT = 3030;
     private static String SERVER_IP;
@@ -52,21 +54,29 @@ public class Signup extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        Global.ipsignin=false;
         pass = (EditText) findViewById(R.id.pass1);
         pass2 = (EditText) findViewById(R.id.pass2);
         username = (EditText) findViewById(R.id.username);
-        ip=(EditText) findViewById(R.id.ip);
+
 
 
         btns = (Button) findViewById(R.id.btnsignup);
-        btns.setOnClickListener(btn);
+        settingsbutton=(TextView) findViewById(R.id.wifiset);
+        check=(CheckBox) findViewById(R.id.check);
+
         welcome = (TextView) findViewById(R.id.welcome);
         sign = (TextView) findViewById(R.id.sign);
         textView=(TextView) findViewById(R.id.tv);
+        ip=(TextView) findViewById(R.id.ip);
 
         pass2.addTextChangedListener(textWatcher);
         pass.addTextChangedListener(textWatcher2);
+
         textView.setOnClickListener(signin);
+        ip.setOnClickListener(iplistener);
+        settingsbutton.setOnClickListener(settingslistener);
+        btns.setOnClickListener(btn);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/abc.ttf");
 
@@ -84,6 +94,24 @@ public class Signup extends Activity {
             Intent intent = new Intent(v.getContext(),Signin.class);
             startActivity(intent);
             finish();
+        }
+    };
+    View.OnClickListener iplistener= new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(),IP.class);
+            startActivity(intent);
+            finish();
+        }
+    };
+    View.OnClickListener settingslistener= new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Global.goback=false;
+            Intent intent = new Intent(v.getContext(),WifiSettings.class);
+
+            startActivity(intent);
+
         }
     };
 
@@ -157,41 +185,42 @@ public class Signup extends Activity {
 
     };
     View.OnClickListener btn = new View.OnClickListener() {
-        public void onClick( View v) {
-
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("ip", ip.getText().toString());
-            editor.commit();
-            //commits your edits
+        public void onClick(View v) {
+            if (check.isChecked() ) {
+                Global.setIP(Global.directip,getApplicationContext());
+            }
+            else {
+                if(Global.ip.isEmpty())
+                {
+                    Intent intent = new Intent(getApplicationContext(), IP.class);
+                    startActivity(intent);
+                    finish();
+                }
+                Global.setIP(Global.ip,getApplicationContext());
+            }
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
 
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                       SERVER_IP = sharedPreferences.getString("ip", "") ;
+                        SERVER_IP = sharedPreferences.getString("ip", "");
 
                         InetAddress ip = InetAddress.getByName(SERVER_IP);
+
                         clientSocket = new Socket(ip, SERVERPORT);
 
 
                         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        outToServer.writeBytes(String.format("signup %s %s \n",username.getText(),pass.getText()));
+                        outToServer.writeBytes(String.format("signup %s %s \n", username.getText(), pass.getText()));
                         outToServer.flush();
                         modifiedSentence = inFromServer.readLine();
-                        if (modifiedSentence.equals("truesignup"))
-                        {
+                        if (modifiedSentence.equals("truesignup")) {
                             Intent intent = new Intent(getApplicationContext(), Signin.class);
                             startActivity(intent);
                             finish();
-                        }
-
-
-                        else {
-
+                        } else {
 
 
                         }
@@ -202,9 +231,6 @@ public class Signup extends Activity {
 
                 }
             }).start();
-            }
-        };
-
-
-
+        }
+    };
 }

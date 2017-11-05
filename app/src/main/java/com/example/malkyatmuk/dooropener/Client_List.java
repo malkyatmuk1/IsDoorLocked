@@ -53,7 +53,7 @@ public class Client_List extends Fragment {
 
                     DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                     BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    outToServer.writeBytes("list " +Global.username+ '\n');
+                    outToServer.writeBytes("list " +Global.username+" "+Global.password+ '\n');
                     outToServer.flush();
                     int i = 0;
                     String line;
@@ -81,7 +81,6 @@ public class Client_List extends Fragment {
         }
         ArrayAdapter mAdapter;
         if(usernames.isEmpty()) {
-
             mAdapter = new ArrayAdapter(getContext(), R.layout.listview_general,R.id.name_general, gen);
             listView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
@@ -103,8 +102,6 @@ public class Client_List extends Fragment {
       View view = inflater.inflate(R.layout.fragment_adduser, container, false);
       return view;
     }
-
-
 
 
 

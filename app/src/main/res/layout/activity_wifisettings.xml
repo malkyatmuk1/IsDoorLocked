@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:targetApi="11"
+
+    tools:context=".WifiSettings"
+    android:orientation="vertical"
+    android:gravity="top">
+    <TextView
+        android:id="@+id/sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Wifi Settings"
+        android:textSize="40dp"
+        android:textAlignment="center"
+        android:background="@drawable/navbar"
+        android:textColor="@color/white"
+        android:gravity="center"
+
+
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wifi settings"
+            android:textAlignment="center"
+            android:textSize="130px"
+            android:textColor="@color/white"
+            />
+
+
+
+        <EditText
+            android:id="@+id/wifissid"
+            style="@style/Margins"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Wifi-ssid"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+            />
+
+
+        <EditText
+            android:id="@+id/wifipass"
+            style="@style/Margins"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Wifi-pass"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+
+            />
+        <EditText
+            android:id="@+id/username"
+            style="@style/Margins"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Username"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+            />
+
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/Margins"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@color/white"
+
+            />
+
+        <Button
+            android:id="@+id/apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="25dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            style="@style/Margins"
+            android:text="Apply"
+            android:background="@drawable/sign"
+
+            />
+       <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/goback"
+        android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

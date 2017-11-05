@@ -103,8 +103,6 @@ public class Adapter extends BaseAdapter {
                     e.printStackTrace();
                 }
                 notifyDataSetChanged();
-
-
             }
         });
         holder.switchP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -26,7 +26,8 @@
         <activity android:name=".FirstFirstPage" />
         <activity android:name=".Start_menu" />
         <activity android:name=".Signup" />
-
+        <activity android:name=".WifiSettings" />
+        <activity android:name=".IP" />
         <service
             android:name="Services"
             android:icon="@drawable/logo"

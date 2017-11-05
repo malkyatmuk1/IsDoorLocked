@@ -1,6 +1,5 @@
 package com.example.malkyatmuk.dooropener;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +23,7 @@ public class Profil extends Fragment {
         View myFragmentView = inflater.inflate(R.layout.fragment_profil, container, false);
         usernamet = (TextView) myFragmentView.findViewById(R.id.usernameprofil);
         permissiont = (TextView) myFragmentView.findViewById(R.id.permissionprofil);
-        getActivity().startService(new Intent(getActivity(),Services.class));
+        //getActivity().startService(new Intent(getActivity(),Services.class));
         return myFragmentView;
     }
 

@@ -8,47 +8,12 @@
     tools:context=".Settings"
     android:orientation="vertical"
     android:gravity="center">
-
-
-
-    <EditText
-        android:id="@+id/wifissid"
-        style="@style/Margins"
-        android:layout_width="266dp"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Wifi-ssid"
-        android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"/>
-
-    <EditText
-        android:id="@+id/wifipassword"
-        style="@style/Margins"
-        android:layout_width="266dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Wifi-password"
-        android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change"
-        android:id="@+id/wifi"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:background="@drawable/sign"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:textSize="15sp"
-        android:paddingLeft="35dp"
-        android:paddingRight="35dp"
-        android:layout_marginBottom="20dp"
-        />
-    <View
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/cordinates"
+        android:textColor="@color/white"
+        />
 
     <EditText
         android:id="@+id/metersedit"
@@ -82,13 +47,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/iamathome"
-        android:text="I am a home"
+        android:text="I am at home"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:background="@drawable/sign"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:textSize="10sp"
+        android:textSize="17sp"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
         android:layout_marginTop="20dp"

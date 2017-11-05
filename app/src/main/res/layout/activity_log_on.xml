@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="Is door open?"
+            android:text="Is door locked?"
             android:textSize="30sp"
             android:textColor="@color/bluewithlogo"/>
 
@@ -60,30 +60,53 @@
             android:hint="Password"
             android:textColorHint="@color/bluewithlogo"
             android:backgroundTint="@color/bluewithlogo"/>
+       <CheckBox
+           android:id="@+id/check"
+           android:layout_width="266dp"
+           android:layout_height="wrap_content"
+           android:textColor="@color/background"
+           android:text="Direct connection" />
 
+       <Button
+           android:id="@+id/signin"
+           style="@style/Margins"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@drawable/sign"
+           android:gravity="center"
+           android:paddingBottom="15dp"
+           android:paddingLeft="35dp"
+           android:paddingRight="35dp"
+           android:paddingTop="15dp"
+           android:text="Sign in"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="25sp" />
 
-        <Button
-            android:id="@+id/signin"
-            android:layout_marginTop="40dp"
-            style="@style/Margins"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sign"
-            android:text="Sign in"
-            android:gravity="center"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:textSize="25sp"
-            android:paddingLeft="35dp"
-            android:paddingRight="35dp"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Wifi settings"
+           android:textColor="@color/colorPrimary"
+           android:id="@+id/wifiset"
+           android:textSize="17dp"
+           android:layout_marginTop="10dp"/>
+
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Sign up"
            android:textColor="@color/colorPrimary"
            android:id="@+id/tv"
+           android:textSize="17dp"
+           android:layout_marginTop="10dp"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="IP"
+           android:textColor="@color/colorPrimary"
+           android:id="@+id/ip"
+           android:textSize="17dp"
            android:layout_marginTop="10dp"/>
     </LinearLayout>
 </LinearLayout>

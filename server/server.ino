@@ -46,7 +46,7 @@ WiFiServer server(3030);
 WiFiClient client;
 
 
-int button = 0;
+int button = 16;
 String str,hsh;
 bool buttonState;
 // eeprom memory byte
@@ -159,6 +159,7 @@ void loop()
           
           if(flag==1)
           {
+           
             strncpy(salt,list[i].salt,12);
             //printt(salt,12);
             pass+=salt;

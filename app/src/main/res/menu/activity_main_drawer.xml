@@ -24,7 +24,7 @@
         <item
             android:id="@+id/nav_admin"
             android:icon="@drawable/add"
-            android:title="Add users" />
+            android:title="Users management" />
     </group>
 
 </menu>

@@ -175,11 +175,24 @@ void loop()
       //v
       else  if(commands[0]=="setWifi")
       {
-       commands[1].toCharArray(ssid,32);
-       commands[2].toCharArray(password,32);
+        int flag;
+        char nameuser[10];
+        commands[3].toCharArray(nameuser,10);
+        
+        for(int i=0;i<10;i++)
+       {
+         if(!strncmp(list[i].username,nameuser,10) && list[i].perm=='a')
+            commands[1].toCharArray(ssid,32);
+            commands[2].toCharArray(password,32);
+            WiFi.begin(ssid, password);
+            writeWifi(commands[1],commands[2]); 
+            flag=1;
+            break;
+         }
+        if(flag==1) {client.println("true");}
+        else client.println("false");
+       }
        
-       writeWifi(commands[1],commands[2]); 
-      }
       //v  
       else if(commands[0]=="setAP")
       {
@@ -188,13 +201,37 @@ void loop()
       else if(commands[0]=="list")
       {
         char nameuser[10];
-        bool flag=false;
-        commands[1].toCharArray(nameuser,10);
+        
+        commands[1].toCharArray(nameuser,10);      
         String str;
+        char perm1;
+        bool flag=0;
+        person p;
+        char passh[20];
+        commands[1].toCharArray(p.username,10);
+        String pass=commands[2];
+        char salt[12];
+                
+        for(int i=0;i<10;i++)
+       {        
+            if(!strncmp(list[i].username,p.username,10))flag=1;
+            else {flag=0;}
+          
+          if(flag==1)
+          {
+            strncpy(salt,list[i].salt,12);
+            //printt(salt,12);
+            pass+=salt;
+            sha1(pass).toCharArray(passh,20);
+            
+            if(!strncmp(passh,list[i].pass_hash,20)){ perm1=list[i].perm;}
+            else flag=0;
+            break;
+          }
+         }
        for(int i=0;i<10;i++)
        {
-         if(!strncmp(list[i].username,nameuser,10) && list[i].perm=='a') flag=true;
-         if(list[i].username[0]!='\0' && flag==true){
+         if(list[i].username[0]!='\0' && flag==1 && list[i].perm!='a'){
             str=str+list[i].username;
            str+=' ';
            str+=list[i].perm;
@@ -257,6 +294,34 @@ void loop()
       //v
       else if (commands[0] == "take")
       {
+        char perm1;
+        bool flag=0;
+        person p;
+        char passh[20];
+        commands[1].toCharArray(p.username,10);
+        String pass=commands[2];
+        char salt[12];
+                
+        for(int i=0;i<10;i++)
+       {        
+            if(!strncmp(list[i].username,p.username,10))flag=1;
+            else {flag=0;}
+          
+          if(flag==1)
+          {
+            strncpy(salt,list[i].salt,12);
+            //printt(salt,12);
+            pass+=salt;
+            sha1(pass).toCharArray(passh,20);
+            
+            if(!strncmp(passh,list[i].pass_hash,20)){ perm1=list[i].perm;}
+            else flag=0;
+            break;
+          }
+         }
+         if(flag==1 && (perm1=='a' || perm1=='p'))
+         {
+          
        // read the state of the pushbutton value:
           buttonState = digitalRead(button);
           if (buttonState == HIGH)
@@ -267,6 +332,7 @@ void loop()
           {
             client.println("close");
           }
+         }
         
       }
       else

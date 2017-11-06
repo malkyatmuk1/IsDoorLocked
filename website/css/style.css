@@ -109,6 +109,9 @@ body {
 .width50 {
     width: 50%;
 }
+.margin-bottom{
+    margin-bottom: 50px;
+}
 .wrapper {
     margin: 0 auto;
 }
@@ -143,7 +146,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-   //background: #87509c;
+   /* //background: #87509c; */
    padding: 58px 0 148px 0;
 }
 .holding-nav-logo {
@@ -250,13 +253,6 @@ body {
 .service-cols {
     display: inline-block;
     margin-top: 82px;
-}
-.service-image {
-    display: inline-block;
-}
-.service-image img {
-    display: inline-block;
-    width: 100%;
 }
 .service-info {
     min-height: 200px;
@@ -365,10 +361,10 @@ body {
     padding-top: 84px;
 }
 .description{
-    padding-top: 33px;
     text-transform: uppercase;
     color: #EFF5F6;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 10px;
     font-size: 24px;
 }
 /* -------------------------------- */
@@ -468,8 +464,8 @@ footer a:hover {
     .col-3 {width: 75%;}
     .col-4 {width: 100%;}
 }
-@media screen and (max-width: 900px) {
-    .col-1 {width: 50%;}
+@media screen and (max-width: 800px) {
+    .col-1 {width: 100%;}
     .col-2 {width: 100%;}
     .col-3 {width: 100%;}
     .col-4 {width: 100%;}

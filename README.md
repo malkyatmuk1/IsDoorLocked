@@ -2,7 +2,7 @@
 
 Have you ever asked yourself, do I locked the door? With this app via your smartphone you can answer this question in 10 seconds. 
 
-[Website](https://http://door.asm32.info)
+[Website](https://door.asm32.info)
 
 # Software 
 

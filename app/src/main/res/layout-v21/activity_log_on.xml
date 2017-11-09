@@ -12,17 +12,20 @@
         android:id="@+id/sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in"
-        android:textSize="40sp"
+        android:text="@string/sign_in"
         android:textAlignment="center"
         android:background="@drawable/navbar"
         android:textColor="@color/white"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:padding="5dp"
+        />
 
 
    <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dp"
     android:layout_weight="0.5"
     android:orientation="vertical"
     android:gravity="center">
@@ -31,25 +34,19 @@
                 android:layout_height="100dp"
                 android:gravity="center"
                 android:src="@drawable/logo"
-                />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="Is door locked?"
-            android:textSize="30sp"
-            android:textColor="@color/bluewithlogo"/>
+                android:contentDescription="@string/logo" />
 
-        <EditText
+       <EditText
             android:id="@+id/username"
             style="@style/Margins"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="Username"
+            android:hint="@string/username"
             android:textColorHint="@color/bluewithlogo"
-            android:backgroundTint="@color/bluewithlogo"/>
+            android:backgroundTint="@color/bluewithlogo"
+            android:layout_marginTop="50dp"
+           />
 
         <EditText
             android:id="@+id/password"
@@ -57,7 +54,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColorHint="@color/bluewithlogo"
             android:backgroundTint="@color/bluewithlogo"/>
        <CheckBox
@@ -65,7 +62,7 @@
            android:layout_width="266dp"
            android:layout_height="wrap_content"
            android:textColor="@color/background"
-           android:text="Direct connection" />
+           android:text="@string/direct_connection" />
 
        <Button
            android:id="@+id/signin"
@@ -78,35 +75,36 @@
            android:paddingLeft="35dp"
            android:paddingRight="35dp"
            android:paddingTop="15dp"
-           android:text="Sign in"
+           android:text="@string/sign_in"
            android:textAllCaps="false"
            android:textColor="@color/white"
-           android:textSize="25sp" />
+           android:textSize="25sp"
+           android:layout_marginTop="10dp"/>
 
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Wifi settings"
-           android:textColor="@color/colorPrimary"
+           android:text="@string/wifi_settings"
+           android:textColor="@color/pink"
            android:id="@+id/wifiset"
-           android:textSize="17dp"
-           android:layout_marginTop="10dp"/>
+           android:textSize="17sp"
+           android:layout_marginTop="2dp"/>
 
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Sign up"
-           android:textColor="@color/colorPrimary"
+           android:text="@string/sign_up"
+           android:textColor="@color/pink"
            android:id="@+id/tv"
-           android:textSize="17dp"
-           android:layout_marginTop="10dp"/>
+           android:textSize="17sp"
+           android:layout_marginTop="2dp"/>
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="IP"
-           android:textColor="@color/colorPrimary"
+           android:text="@string/ip"
+           android:textColor="@color/pink"
            android:id="@+id/ip"
-           android:textSize="17dp"
-           android:layout_marginTop="10dp"/>
+           android:textSize="17sp"
+           android:layout_marginTop="2dp"/>
     </LinearLayout>
 </LinearLayout>

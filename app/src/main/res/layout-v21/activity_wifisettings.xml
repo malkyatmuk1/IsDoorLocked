@@ -12,19 +12,21 @@
         android:id="@+id/sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wifi Settings"
-        android:textSize="40dp"
+        android:text="@string/wifi_settings"
         android:textAlignment="center"
         android:background="@drawable/navbar"
         android:textColor="@color/white"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:padding="5dp"
 
 
 
         />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="0.5"
         android:orientation="vertical"
         android:gravity="center"
@@ -33,9 +35,9 @@
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wifi settings"
+            android:text="@string/wifi_settings"
             android:textAlignment="center"
-            android:textSize="130px"
+            android:textSize="50sp"
             android:textColor="@color/white"
             />
 
@@ -47,9 +49,10 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Wifi-ssid"
+            android:hint="@string/wifi_ssid"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
+            android:layout_marginTop="30dp"
             />
 
 
@@ -59,7 +62,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Wifi-pass"
+            android:hint="@string/wifi_pass"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
 
@@ -70,7 +73,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Username"
+            android:hint="@string/username"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
             />
@@ -82,7 +85,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
 
@@ -92,26 +95,26 @@
             android:id="@+id/apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="20sp"
             android:textColor="@color/white"
             android:textAllCaps="false"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            style="@style/Margins"
-            android:text="Apply"
+            android:text="@string/apply"
             android:background="@drawable/sign"
+
 
             />
        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go back"
-        android:textColor="@color/colorPrimary"
+        android:text="@string/go_back"
+        android:textColor="@color/pink"
         android:id="@+id/goback"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="2dp"/>
 
     </LinearLayout>
 

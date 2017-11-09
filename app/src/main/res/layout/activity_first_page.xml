@@ -17,72 +17,75 @@
                 android:gravity="top"
                 android:textAlignment="center"
                 android:background="@drawable/navbar"
-                android:text="Is door locked?"
+                android:text="@string/name"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="40dp" />
+                android:textSize="35sp"
+                android:padding="5dp"/>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/getstarted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Get started!"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="55dp" />
+        <TextView
+            android:id="@+id/getstarted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/get_started"
+            android:textColor="@color/white"
+            android:textSize="55sp"
+            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/logorcreate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Sign in with your account or create a new one."
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="30dp" />
-
-
-                <Button
-                    style="@style/Margins"
-                    android:id="@+id/signin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/log"
-                    android:textAllCaps="false"
-                    android:textSize="25dp"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingLeft="35dp"
-                    android:paddingRight="35dp"
-                    android:text=" Sign in"
-                    android:textColor="@color/background" />
-
-                <Button
-                    style="@style/Margins"
-                    android:id="@+id/signup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/sign"
-                    android:text="Sign up"
-                    android:textAllCaps="false"
-                    android:textSize="25dp"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp"
-                    android:paddingLeft="35dp"
-                    android:paddingRight="35dp"
-                    android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/logorcreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/create_new"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
 
-            </LinearLayout>
+        <Button
+            android:id="@+id/signin"
+            style="@style/Margins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/log"
+            android:baselineAligned="false"
+            android:paddingBottom="15dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingTop="15dp"
+            android:text="@string/sign_in"
+            android:textAllCaps="false"
+            android:textColor="@color/background"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/signup"
+            style="@style/Margins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/sign"
+            android:paddingBottom="15dp"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingTop="15dp"
+            android:text="@string/sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+
+    </LinearLayout>
 
 
         </LinearLayout>

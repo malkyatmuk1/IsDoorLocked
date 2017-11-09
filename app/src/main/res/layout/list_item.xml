@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal
-"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:focusable="false"
-        />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:paddingLeft="40sp"
+            android:text="@string/username"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    <Button
+        <Button
 
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/sign"
-        android:textAllCaps="false"
-        android:textSize="10dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Delete"
-        android:textColor="@color/white" />
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right"
+            android:layout_marginEnd="49dp"
+            android:background="@drawable/sign"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="Del"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 
     <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="permissions for read"
         android:id="@+id/switchPerm"
-       android:layout_below="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delete"
+        android:paddingLeft="40sp"
+        android:paddingRight="63sp"
+        android:text="permissions"
+        android:textAlignment="textStart"
+        android:textColor="@color/pink"
 
         />
 
-</RelativeLayout>
+</LinearLayout>

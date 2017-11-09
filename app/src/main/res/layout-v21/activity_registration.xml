@@ -12,19 +12,18 @@
         android:id="@+id/sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:textSize="40dp"
+        android:text="@string/sign_up"
         android:textAlignment="center"
         android:background="@drawable/navbar"
         android:textColor="@color/white"
         android:gravity="center"
-
-
-
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:padding="5dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="0.5"
         android:orientation="vertical"
         android:gravity="center"
@@ -33,13 +32,12 @@
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome, sign up now."
+            android:text="@string/welcome"
             android:textAlignment="center"
-            android:textSize="130px"
+            android:textStyle="bold"
+            android:textSize="40sp"
             android:textColor="@color/white"
             />
-
-
 
             <EditText
                 android:id="@+id/username"
@@ -47,7 +45,8 @@
                 android:layout_width="266dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="Username"
+                android:layout_marginTop="20sp"
+                android:hint="@string/username"
                 android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
                 />
@@ -59,7 +58,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
 
@@ -71,7 +70,7 @@
                 android:layout_width="266dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="Rewrite  your password"
+                android:hint="@string/rewrite_your_password"
                 android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
                 />
@@ -80,7 +79,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Direct connection" />
+            android:text="@string/direct_connection" />
 
 
 
@@ -88,44 +87,44 @@
             android:id="@+id/btnsignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="20sp"
             android:textColor="@color/white"
             android:textAllCaps="false"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
             style="@style/Margins"
-            android:text="Sign up"
+            android:text="@string/sign_up"
             android:background="@drawable/sign"
         />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wifi settings"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/wifi_settings"
+            android:textColor="@color/pink"
             android:id="@+id/wifiset"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"/>
+            android:textSize="17sp"
+            android:layout_marginTop="2dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/sign_in"
+            android:textColor="@color/pink"
             android:id="@+id/tv"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"/>
+            android:textSize="17sp"
+            android:layout_marginTop="2dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IP"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/ip"
+            android:textColor="@color/pink"
             android:id="@+id/ip"
-            android:textSize="17dp"
-            android:layout_marginTop="10dp"/>
+            android:textSize="17sp"
+            android:layout_marginTop="2dp"/>
 
     </LinearLayout>
 

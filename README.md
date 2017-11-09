@@ -11,6 +11,6 @@ The android app is used to control ESP8266 remotely through a wifi connection.
 
 # Hardware
 
-The role of a server is played by olimex esp8266-ewb-bat
+The role of a server is played by olimex ESP8266-EVB-BAT
 
-The esp8266-ewb-bat is a standard module available online - https://www.olimex.com/Products/IoT/ESP8266-EVB-BAT/open-source-hardware
+The ESP8266-EVB-BAT is a standard module available online - https://www.olimex.com/Products/IoT/ESP8266-EVB-BAT/open-source-hardware

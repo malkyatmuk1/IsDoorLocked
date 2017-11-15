@@ -22,8 +22,8 @@ using namespace std;
 #define permission_start 120 
 
 // declare the Variables
-char* ssid = "JohnAndWillow";
-char* password = "IamSuperProgrammer";
+char* ssid="JohnAndWillow";
+char* password="IamSuperProgrammer";
 char passAp[10];
 char* ssidAp="isdoor";
 
@@ -55,37 +55,46 @@ int ssidwifi_start = 32, ssidwidi_stop = 63;
 int salt_start = 64, salt_stop = 67;
 
 void setup() {
- 
+ Serial.begin(115200);
   //for(int i=0;i<10;i++) readPerson(i, &list[i]);
-  
-  pinMode(button, INPUT);
-  Serial.begin(115200);
-  WiFi.softAP(ssidAp, passAp);
-  WiFi.begin(ssid, password);
-  Serial.println("");
+  EEPROM.begin(512);
+  int p=76;
+  int k=1;
 
-  while (WiFi.status() != WL_CONNECTED)
+  readPerson(76,&list[0]);
+   
+  
+  Serial.println(list[0].username);
+  Serial.println(list[0].pass_hash);
+  Serial.println(list[0].salt);
+  Serial.println(list[0].perm);
+  pinMode(button, INPUT);
+  
+  WiFi.softAP(ssidAp, passAp);
+  if(strlen(ssid)!=0)
   {
-    delay(500);
-    Serial.print(".");
+    WiFi.begin(ssid, password);
   }
+  Serial.println("");
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
 
   server.begin();
+  Serial.print("tuk");
 }
 
 void loop()
 {
   client = server.available();
+
   if (client)
   {
-    Serial.println("connected to client");
-    client.setTimeout(10000);
-    str=client.readStringUntil('\n');
-    commands=splitString(str,' ');
-  
+      
+      Serial.println("connected to client");
+      client.setTimeout(30000);
+      str=client.readStringUntil('\n');
+      commands=splitString(str,' ');
       //registrirane
       //v
       if(commands[0]=="signup")
@@ -104,6 +113,7 @@ void loop()
         //printt(salt,12);
        
         commands[2]+=salt;
+        strncpy(p.salt,salt,12);
         sha1(commands[2]).toCharArray(p.pass_hash,20);
         
         int ind,br=0;
@@ -129,7 +139,7 @@ void loop()
             strncpy(list[i].salt,salt,12);
             //printt(list[i].salt,12);
             list[i].perm=p.perm;
-            //writePerson(user_start+i*user_step,&p);
+            writePerson(user_start+i*user_step,&p);
             break;
            }
          }
@@ -179,21 +189,33 @@ void loop()
         int flag;
         char nameuser[10];
         commands[3].toCharArray(nameuser,10);
-        
+      /*  
         for(int i=0;i<10;i++)
        {
          if(!strncmp(list[i].username,nameuser,10) && list[i].perm=='a')
-            commands[1].toCharArray(ssid,32);
-            commands[2].toCharArray(password,32);
-            WiFi.begin(ssid, password);
-            writeWifi(commands[1],commands[2]); 
+         {
             flag=1;
             break;
          }
+        }
+        */
+        
+        commands[1].toCharArray(ssid,32);
+        commands[2].toCharArray(password,32);
+        byte value;
+        byte value1;
+        WiFi.begin(ssid, password);
+        writeWifi(commands[1],commands[2]); 
         if(flag==1) {client.println("true");}
         else client.println("false");
        }
-       
+       else if(commands[0]=="e")
+       {
+        for(int i=0;i<512;i++)
+        {
+          Serial.print(char(EEPROM.read(i)));
+        }
+       }
       //v  
       else if(commands[0]=="setAP")
       {
@@ -340,38 +362,40 @@ void loop()
       {
       client.println("error");
       }
-      
     client.flush();
     client.stop();
   }
 }
 void writePerson(int start, person* p)
 {
-  for ( int i = 0; i < sizeof(person); i++); //EEPROM.write(start+i, *((byte*)p+i));
+  for ( int i = 0; i < sizeof(person); i++) 
+  {
+    EEPROM.write(start+i, *((byte*)p+i));
+    Serial.print(char(EEPROM.read(start + i)));
+  }
+  EEPROM.commit();
 }
 //v
-void readPerson(uint index, person* p)
+void readPerson(int start, person* p)
 {
-  if (index<10) {
-    int start = sizeof(person)*index+user_start;
-    //for ( int i = 0; i < sizeof(person); i++) *((byte*)p+i) = EEPROM.read(start + i);
-  }
+    for ( int i = 0; i < sizeof(person); i++) *((byte*)p+i) = EEPROM.read(start + i);
+  
 }
 
 //v
 void writeWifi(String passWifi,String ssidWifi)
-{
-  
+{  
   for(int i=0;i<passWifi.length();i++)
-  {
-    
-    //EEPROM.write(i,passWifi[i]);    
+  {    
+    EEPROM.write(i,passWifi[i]);
+    //Serial.print(char(EEPROM.read(i))); 
   }
   for(int i=0;i<ssidWifi.length();i++)
-  {
-    
-    //EEPROM.write(i+32,ssidWifi[i]);
+  {    
+    EEPROM.write(i+32,ssidWifi[i]);
+   // Serial.print(char(EEPROM.read(i+32))); 
   }
+    EEPROM.commit();
 }
 //v
 char* salt_random()

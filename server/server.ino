@@ -28,6 +28,7 @@ char passAp[10];
 char* ssidAp="isdoor";
 
 person list[10];
+byte listofflags[10];
 vector<String> commands;
 
 vector<String> splitString(String line, char c);
@@ -60,14 +61,19 @@ void setup() {
   EEPROM.begin(512);
   int p=76;
   int k=1;
-
-  readPerson(76,&list[0]);
-   
-  
-  Serial.println(list[0].username);
-  Serial.println(list[0].pass_hash);
-  Serial.println(list[0].salt);
-  Serial.println(list[0].perm);
+  int i=0;
+  int count=user_start;
+  for(int i=0;i<10;i++)
+  {  readPerson(count,&list[i]);
+    if(strlen(list[i].username)==0)listofflags[i]=0;
+    else listofflags[i]=1;
+    count+=user_step;
+  }
+  for(int i=0;i<10;i++)
+  {
+    Serial.println(listofflags[i]);
+  }
+  printlist();
   pinMode(button, INPUT);
   
   WiFi.softAP(ssidAp, passAp);
@@ -163,20 +169,29 @@ void loop()
         for(int i=0;i<10;i++)
        {
         
-          
-            if(!strncmp(list[i].username,p.username,10))flag=1;
+          Serial.println(list[i].username);
+          Serial.println(p.username);
+            if(!strncmp(list[i].username,p.username,10)){flag=1;Serial.println(flag);}
             else {flag=0;}
           
           if(flag==1)
           {
-           
-            strncpy(salt,list[i].salt,12);
+           Serial.println("vuv flag=1");
+           /*
+
             //printt(salt,12);
-            pass+=salt;
+            Serial.println(salt);
+            Serial.println(list[i].salt);
+            */
+            strncpy(salt,list[i].salt,12);
+            perm1=list[i].salt[12];
+            salt[12]='\0';
+            pass+=salt;      
             sha1(pass).toCharArray(passh,20);
-            
-            if(!strncmp(passh,list[i].pass_hash,20)){ perm1=list[i].perm;}
-            else flag=0;
+            Serial.println(passh);
+            Serial.println(list[i].pass_hash);
+            if(strncmp(passh,list[i].pass_hash,20)) flag=0;
+            Serial.println(flag);
             break;
           }
          }
@@ -234,25 +249,38 @@ void loop()
         commands[1].toCharArray(p.username,10);
         String pass=commands[2];
         char salt[12];
-                
+          /*       
         for(int i=0;i<10;i++)
        {        
+            
+           
             if(!strncmp(list[i].username,p.username,10))flag=1;
             else {flag=0;}
-          
+            Serial.println(list[i].perm);
+           ;
           if(flag==1)
           {
             strncpy(salt,list[i].salt,12);
             //printt(salt,12);
+            salt[12]='\0';
             pass+=salt;
             sha1(pass).toCharArray(passh,20);
             
-            if(!strncmp(passh,list[i].pass_hash,20)){ perm1=list[i].perm;}
+            if(!strncmp(passh,list[i].pass_hash,20)){ flag=1;}
             else flag=0;
             break;
           }
          }
-       for(int i=0;i<10;i++)
+      
+       */
+       strncpy(salt,list[0].salt,12);
+      //printt(salt,12);
+       salt[12]='\0';
+       pass+=salt;
+        sha1(pass).toCharArray(passh,20); 
+       if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)&&list[0].perm=='a'){ flag=1;}
+       else flag=0;
+        for(int i=0;i<10;i++)
        {
          if(list[i].username[0]!='\0' && flag==1 && list[i].perm!='a'){
             str=str+list[i].username;
@@ -282,7 +310,7 @@ void loop()
           if(flag==1)
           {
             list[i].perm=perm1;
-           // EEPROM.write(permission_start+i*user_step,perm1);
+           EEPROM.write(permission_start+i*user_step,perm1);
             break;
           }
          }
@@ -302,11 +330,20 @@ void loop()
             if(list[i].username[j]==username1[j])flag=1;
             else {flag=0;break;}
           }
+          int start_fordel=user_start+i*user_step;
+          
           if(flag==1)
           {
             list[i].username[0]=0;
-           // EEPROM.write(user_start+i*user_step,0);
-            for(int i=0;i<10;i++) readPerson(i, &list[i]);
+            for(int j=0;j<user_step;j++)EEPROM.write(start_fordel+j,0);
+            EEPROM.commit(); 
+            int count=user_start;
+            for(int i=0;i<10;i++)
+            {
+              readPerson(count, &list[i]);
+              count+=user_step;
+            }
+            printlist();
             break;
           }
         }
@@ -333,7 +370,9 @@ void loop()
           if(flag==1)
           {
             strncpy(salt,list[i].salt,12);
-            //printt(salt,12);
+            salt[12]='\0';
+          //  printt(salt,12);
+            perm1=list[i].salt[12];
             pass+=salt;
             sha1(pass).toCharArray(passh,20);
             

@@ -64,7 +64,8 @@ void setup() {
   int i=0;
   int count=user_start;
   for(int i=0;i<10;i++)
-  {  readPerson(count,&list[i]);
+  {
+    readPerson(count,&list[i]);
     if(strlen(list[i].username)==0)listofflags[i]=0;
     else listofflags[i]=1;
     count+=user_step;
@@ -121,23 +122,26 @@ void loop()
         commands[2]+=salt;
         strncpy(p.salt,salt,12);
         sha1(commands[2]).toCharArray(p.pass_hash,20);
-        
+        bool haveUser=false;
         int ind,br=0;
         for(ind=0;ind<10;ind++) 
         {
-          if( list[ind].username[0]!='\0')
+          //if there is person, chech if the username is the same as the username that is read form the client 
+          if( listofflags[ind]==1)
           {
             br++;
-            if(!strncmp(p.username,list[ind].username,10))break;
+            if(!strncmp(p.username,list[ind].username,10)){break;haveUser=true;}
           }
         }
+        //if this is the first user, set as admin
         if(br==0)p.perm='a';
         else p.perm='d';
-        if(ind==10)
+        //if there is no user whit this username we signup in the first free space in the list of users and in the EEPROM
+        if(!haveUser)
         {
          for(int i=0;i<10;i++)
          {
-           if(list[i].username[0]=='\0')
+           if(listofflags[i]==0)
            {
             strncpy(list[i].username,p.username,10);
             strncpy(list[i].pass_hash,p.pass_hash,20);
@@ -169,32 +173,43 @@ void loop()
         for(int i=0;i<10;i++)
        {
         
-          Serial.println(list[i].username);
-          Serial.println(p.username);
-            if(!strncmp(list[i].username,p.username,10)){flag=1;Serial.println(flag);}
-            else {flag=0;}
-          
-          if(flag==1)
-          {
-           Serial.println("vuv flag=1");
-           /*
+          //Serial.println(list[i].username);
+          //Serial.println(p.username);
 
-            //printt(salt,12);
-            Serial.println(salt);
-            Serial.println(list[i].salt);
-            */
+          
+          //if the username form the client and the username in the list are equals we return the permission to the client
+          if(!strncmp(list[i].username,p.username,10))
+          {
+            flag=1;
+            //Serial.println(flag);
+            
             strncpy(salt,list[i].salt,12);
             perm1=list[i].salt[12];
             salt[12]='\0';
             pass+=salt;      
+            //we hash the password+salt
             sha1(pass).toCharArray(passh,20);
             Serial.println(passh);
             Serial.println(list[i].pass_hash);
+            //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
             if(strncmp(passh,list[i].pass_hash,20)) flag=0;
             Serial.println(flag);
             break;
           }
-         }
+          else flag=0;
+       }
+          /*
+          if(flag==1)
+          {
+           
+            Serial.println("vuv flag=1");
+            //printt(salt,12);
+            Serial.println(salt);
+            Serial.println(list[i].salt);
+          
+            
+          }
+           */
       if(flag==1) client.println(perm1);
       else client.println("errorsignin");
       }
@@ -204,7 +219,7 @@ void loop()
         int flag;
         char nameuser[10];
         commands[3].toCharArray(nameuser,10);
-      /*  
+         /*  
         for(int i=0;i<10;i++)
        {
          if(!strncmp(list[i].username,nameuser,10) && list[i].perm=='a')
@@ -223,7 +238,8 @@ void loop()
         writeWifi(commands[1],commands[2]); 
         if(flag==1) {client.println("true");}
         else client.println("false");
-       }
+      }
+       
        else if(commands[0]=="e")
        {
         for(int i=0;i<512;i++)
@@ -278,18 +294,26 @@ void loop()
        salt[12]='\0';
        pass+=salt;
         sha1(pass).toCharArray(passh,20); 
+       //check if the user is admin
        if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)&&list[0].perm=='a'){ flag=1;}
        else flag=0;
-        for(int i=0;i<10;i++)
+       //if is admin make the list 
+       if(flag==1)
        {
-         if(list[i].username[0]!='\0' && flag==1 && list[i].perm!='a'){
+        for(int i=0;i<10;i++)
+        {
+          //if the flag is 1 in the list with flags and the user is not an admin then we print username and permission
+         if(listofflags[i]==1 && list[i].perm!='a')
+         {
             str=str+list[i].username;
            str+=' ';
            str+=list[i].perm;
            client.println(str);
            str="";
          }
+        }
        }
+       else client.println("you are not admin");
         client.println("stop");
       }
       //v

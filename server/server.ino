@@ -130,7 +130,7 @@ void loop()
           if( listofflags[ind]==1)
           {
             br++;
-            if(!strncmp(p.username,list[ind].username,10)){break;haveUser=true;}
+            if(!strncmp(p.username,list[ind].username,10)){haveUser=true;break;}
           }
         }
         //if this is the first user, set as admin
@@ -150,10 +150,12 @@ void loop()
             //printt(list[i].salt,12);
             list[i].perm=p.perm;
             writePerson(user_start+i*user_step,&p);
+            listofflags[i]=1;
             break;
            }
          }
          printlist();
+         EEPROM.commit();
          client.println("truesignup");
         }
         else client.println("errorsignup");
@@ -295,7 +297,7 @@ void loop()
        pass+=salt;
         sha1(pass).toCharArray(passh,20); 
        //check if the user is admin
-       if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)&&list[0].perm=='a'){ flag=1;}
+       if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)){ flag=1;}
        else flag=0;
        //if is admin make the list 
        if(flag==1)
@@ -344,35 +346,49 @@ void loop()
       //v
       else if(commands[0]=="del")
       {
-        String username1=commands[1];
-         bool flag=0;
-        for(int i=0;i<10;i++)
+        char username1[10];
+        commands[1].toCharArray(username1,10);
+        bool flag=0;
+        String str;
+        char perm1;
+        person p;
+        char passh[20];
+
+        
+        commands[2].toCharArray(p.username,10);
+        Serial.println(commands[3]);
+        String pass=commands[3];
+        char salt[12];
+        strncpy(salt,list[0].salt,12);
+        //printt(salt,12);
+         salt[12]='\0';
+         pass+=salt;
+         sha1(pass).toCharArray(passh,20); 
+         //check if the user is admin
+         
+         if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)){ flag=1;}
+         else flag=0;
+               Serial.print(flag);
+        for(int i=1;i<10;i++)
        {
-         if(list[i].username[0]==username1[0] && strlen(list[i].username)==username1.length()) {
-          for(int j=1;j<strlen(list[i].username);j++)
-          {
-            if(list[i].username[j]==username1[j])flag=1;
-            else {flag=0;break;}
-          }
+           Serial.println(username1);
+            Serial.println(list[i].username);
+         if(!strncmp(list[i].username,username1,10)&& flag==1) 
+         {
           int start_fordel=user_start+i*user_step;
-          
-          if(flag==1)
+          listofflags[i]=0;
+          for(int j=0;j<user_step;j++)EEPROM.write(start_fordel+j,0);
+          EEPROM.commit(); 
+          int count=user_start;
+          for(int i=0;i<10;i++)
           {
-            list[i].username[0]=0;
-            for(int j=0;j<user_step;j++)EEPROM.write(start_fordel+j,0);
-            EEPROM.commit(); 
-            int count=user_start;
-            for(int i=0;i<10;i++)
-            {
-              readPerson(count, &list[i]);
-              count+=user_step;
-            }
-            printlist();
-            break;
+            readPerson(count, &list[i]);
+            count+=user_step;
           }
+          printlist();
+          break;
         }
        }
-      
       }
       
       //v
@@ -385,26 +401,35 @@ void loop()
         commands[1].toCharArray(p.username,10);
         String pass=commands[2];
         char salt[12];
-                
-        for(int i=0;i<10;i++)
-       {        
-            if(!strncmp(list[i].username,p.username,10))flag=1;
-            else {flag=0;}
+       for(int i=0;i<10;i++)
+       {
+        
+          //Serial.println(list[i].username);
+          //Serial.println(p.username);
+
           
-          if(flag==1)
+          //if the username form the client and the username in the list are equals we return the permission to the client
+          if(!strncmp(list[i].username,p.username,10))
           {
+            flag=1;
+            //Serial.println(flag);
+            
             strncpy(salt,list[i].salt,12);
             salt[12]='\0';
-          //  printt(salt,12);
-            perm1=list[i].salt[12];
-            pass+=salt;
+            pass+=salt;      
+            //we hash the password+salt
             sha1(pass).toCharArray(passh,20);
-            
-            if(!strncmp(passh,list[i].pass_hash,20)){ perm1=list[i].perm;}
-            else flag=0;
+            Serial.println(passh);
+            Serial.println(list[i].pass_hash);
+            //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
+            if(strncmp(passh,list[i].pass_hash,20)) flag=0;
+            perm1=list[i].perm;
             break;
           }
-         }
+          else flag=0;
+       }
+         
+        
          if(flag==1 && (perm1=='a' || perm1=='p'))
          {
           
@@ -419,6 +444,7 @@ void loop()
             client.println("close");
           }
          }
+         else client.println(perm1);
         
       }
       else

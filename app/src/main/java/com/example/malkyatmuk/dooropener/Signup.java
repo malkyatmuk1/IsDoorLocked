@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -30,7 +32,7 @@ import java.util.regex.Matcher;
 public class Signup extends Activity {
     EditText pass,pass2,username;
 
-
+    int br=0;
     Button btns;
     String txt;
     String txt2;
@@ -46,6 +48,7 @@ public class Signup extends Activity {
     private static String SERVER_IP;
     public static SharedPreferences settings;
     static SharedPreferences.Editor editor;
+    private TextInputLayout pass1TextLayout,pass2TextLayout;
 
     private Matcher matcher;
 
@@ -59,6 +62,8 @@ public class Signup extends Activity {
         pass2 = (EditText) findViewById(R.id.pass2);
         username = (EditText) findViewById(R.id.username);
 
+        pass1TextLayout=(TextInputLayout) findViewById(R.id.pass1TextLayout);
+        pass2TextLayout=(TextInputLayout) findViewById(R.id.pass2TextLayout);
 
 
         btns = (Button) findViewById(R.id.btnsignup);
@@ -70,8 +75,9 @@ public class Signup extends Activity {
         textView=(TextView) findViewById(R.id.tv);
         ip=(TextView) findViewById(R.id.ip);
 
-        pass2.addTextChangedListener(textWatcher);
-        pass.addTextChangedListener(textWatcher2);
+        pass2.addTextChangedListener(textWatcherPassAgain);
+        pass.addTextChangedListener(textWatcherPass);
+      //;  username.addTextChangedListener(textWatcherUsername);
 
         textView.setOnClickListener(signin);
         ip.setOnClickListener(iplistener);
@@ -116,7 +122,9 @@ public class Signup extends Activity {
     };
 
 
-    TextWatcher textWatcher2 = new TextWatcher() {
+
+    TextWatcher textWatcherPass= new TextWatcher() {
+
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -129,23 +137,37 @@ public class Signup extends Activity {
 
         @Override
         public void afterTextChanged(Editable editable) {
+
             txt = pass.getText().toString();
             txt2 = pass2.getText().toString();
-
+/*
             if (txt2.equals(txt)) {
                 pass.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
                 pass2.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
             }
+*/
 
             if (pass.length() < 5)
+            {
+                pass1TextLayout.setHint("Your password is too short!");
+                /*
                 toast = Toast.makeText(getBaseContext(), "Your password is too short!", Toast.LENGTH_SHORT);
-
-            toast.setGravity(Gravity.TOP, 0, 0);
-            toast.show();
+                toast.setGravity(Gravity.TOP, 0, 0);
+                toast.show();
+                br++;
+                */
+            }
+            if(pass.length()<5)
             pass.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            else {pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);pass1TextLayout.setHint("Password");}
+            if(txt.length()==0) {
+                pass1TextLayout.setHint("Password");
+                pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                pass2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+            }
         }
     };
-    TextWatcher textWatcher = new TextWatcher() {
+    TextWatcher textWatcherPassAgain = new TextWatcher() {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -154,15 +176,7 @@ public class Signup extends Activity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            txt = pass.getText().toString();
-            txt2 = pass2.getText().toString();
 
-
-            if (!txt2.equals(txt)) {
-                pass.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-                pass2.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-
-            }
 
         }
 
@@ -170,16 +184,25 @@ public class Signup extends Activity {
         public void afterTextChanged(Editable arg0) {
             txt = pass.getText().toString();
             txt2 = pass2.getText().toString();
-            if (txt2.equals(txt)) {
-                pass.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-                pass2.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-            }
-
 
             if (!txt2.equals(txt)) {
-                Toast.makeText(getBaseContext(), "The two passwords don't match!", Toast.LENGTH_SHORT).show();
+                pass2TextLayout.setHint("The two passwords don't match!");
+                pass.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
                 pass2.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+
+            } else {
+                pass2TextLayout.setHint("The two passwords match!");
+                pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                pass2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
             }
+
+
+            if(txt2.length()==0) {
+                pass2TextLayout.setHint("Rewrite your password");
+                pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                pass2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+            }
+
         }
 
 

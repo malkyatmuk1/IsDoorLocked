@@ -38,7 +38,13 @@
             android:textSize="40sp"
             android:textColor="@color/white"
             />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
 
+            >
             <EditText
                 android:id="@+id/username"
                 style="@style/Margins"
@@ -49,8 +55,16 @@
                 android:hint="@string/username"
                 android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
+                android:maxLength="10"
                 />
-
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pass1TextLayout"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+            >
 
         <EditText
             android:id="@+id/pass1"
@@ -63,7 +77,16 @@
             android:backgroundTint="@color/white"
 
             />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pass2TextLayout"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+
+            >
             <EditText
                 android:id="@+id/pass2"
                 style="@style/Margins"
@@ -74,6 +97,7 @@
                 android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
                 />
+        </android.support.design.widget.TextInputLayout>
         <CheckBox
             android:id="@+id/check"
             android:layout_width="266dp"

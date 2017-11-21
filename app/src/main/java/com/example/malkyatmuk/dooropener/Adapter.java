@@ -121,8 +121,8 @@ public class Adapter extends BaseAdapter {
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            if(isChecked)outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +" p"+'\n');
-                            else outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +" d"+'\n');
+                            if(isChecked)outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +Global.username+" "+Global.password+'\n');
+                            else outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +Global.username+" "+Global.password+'\n');
                             outToServer.flush();
                             clientSocket.close();
                         } catch (IOException e) {
@@ -142,6 +142,10 @@ public class Adapter extends BaseAdapter {
 
         spliter=mList.get(position).split(" ");
         holder.textView.setText(spliter[0]);
+        if(spliter[1].equals("d")) holder.switchP.setText("non-user");
+        else holder.switchP.setText("user");
+
+
         if(spliter[1].equals("p") || spliter[1].equals("a"))holder.switchP.setChecked(true);
         else holder.switchP.setChecked(false);
         return convertView;

@@ -61,7 +61,7 @@ public class Client_List extends Fragment {
                     while (true) {
                         line = inFromServer.readLine();
                         if (!line.equals("stop")) {
-                            if(!line.equals(Global.username+" a"))usernames.add(line);
+                            usernames.add(line);
                         } else break;
                         i++;
                     }

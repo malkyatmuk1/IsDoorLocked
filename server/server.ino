@@ -321,27 +321,43 @@ void loop()
       //v
       else if(commands[0]=="setPermission")
       {
+        char nameuser[10];
+        
+        commands[1].toCharArray(nameuser,10);      
+        String str;
         bool flag=0;
-        String username1=commands[1];
+        person p;
+        char passh[20];
+        commands[3].toCharArray(p.username,10);
+        String pass=commands[4];
+        char salt[12];
+        strncpy(salt,list[0].salt,12);
+      //printt(salt,12);
+       salt[12]='\0';
+       pass+=salt;
+        sha1(pass).toCharArray(passh,20); 
+        //setPermission name perm nameadmin passadmin
+        char username1[10];
+        commands[1].toCharArray(username1,10);
         String permission=commands[2];
         char perm1=permission[0];
+        if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)){ flag=1;}
+          else flag=0;
         for(int i=0;i<10;i++)
         {
-         if(list[i].username[0]==username1[0] && strlen(list[i].username)==username1.length()) {
-          for(int j=1;j<strlen(list[i].username);j++)
-          {
-            if(list[i].username[j]==username1[j])flag=1;
-            else {flag=0;break;}
+          if(!strncmp(list[i].username,username1,10))
+          {         
+            if(flag==1)
+            {
+              list[i].perm=perm1;
+              EEPROM.write(permission_start+i*user_step,perm1);
+              EEPROM.commit();
+              client.println(perm1);
+              break;
+            }
           }
-          if(flag==1)
-          {
-            list[i].perm=perm1;
-           EEPROM.write(permission_start+i*user_step,perm1);
-            break;
-          }
-         }
-       }
-        
+          else client.println("NoUserError");
+        }
       }
       //v
       else if(commands[0]=="del")

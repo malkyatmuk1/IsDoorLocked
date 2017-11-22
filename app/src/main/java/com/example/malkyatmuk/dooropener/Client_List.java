@@ -40,6 +40,8 @@ public class Client_List extends Fragment {
         ListView listView;
         listView = (ListView)view.findViewById(R.id.list);
 
+        for (int i=0;i<usernames.size();i++) usernames.set(i,null);
+
 //        for (int i = 0; i<1000; i++) usernames[i] = "koko";
 
         thr = new Thread(new Runnable() {

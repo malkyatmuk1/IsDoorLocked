@@ -352,11 +352,12 @@ void loop()
               list[i].perm=perm1;
               EEPROM.write(permission_start+i*user_step,perm1);
               EEPROM.commit();
+              Serial.println(EEPROM.read(permission_start+i*user_step));
               client.println(perm1);
               break;
             }
           }
-          else client.println("NoUserError");
+         
         }
       }
       //v

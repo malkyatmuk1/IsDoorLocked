@@ -33,6 +33,7 @@ public class Adapter extends BaseAdapter {
     private Socket clientSocket;
     Thread thrSwitch,thrButton;
     String[] spliter;
+    String modif;
 
     public Adapter(Context context,ArrayList<String> list){
         mContext=context;
@@ -85,7 +86,7 @@ public class Adapter extends BaseAdapter {
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            outToServer.writeBytes("del " +holder.textView.getText().toString() +'\n');
+                            outToServer.writeBytes("del " +holder.textView.getText().toString() +" "+Global.username+" "+Global.password+'\n');
                             outToServer.flush();
                             mList.remove(position);
 
@@ -121,8 +122,10 @@ public class Adapter extends BaseAdapter {
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            if(isChecked)outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +Global.username+" "+Global.password+'\n');
-                            else outToServer.writeBytes("setPermission " +holder.textView.getText().toString() +Global.username+" "+Global.password+'\n');
+                            if(isChecked)outToServer.writeBytes("setPermission " +holder.textView.getText().toString()+" p " +Global.username+" "+Global.password+'\n');
+                            else outToServer.writeBytes("setPermission " +holder.textView.getText().toString()+" d "+Global.username+" "+Global.password+'\n');
+                            modif=inFromServer.readLine();
+                            mList.set(position,holder.textView.getText().toString()+" "+modif);
                             outToServer.flush();
                             clientSocket.close();
                         } catch (IOException e) {
@@ -137,6 +140,9 @@ public class Adapter extends BaseAdapter {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if(modif.equals("p")) holder.switchP.setText("user");
+                else holder.switchP.setText("non-user");
+
             }
         });
 

@@ -336,31 +336,35 @@ body {
     margin-bottom: 35px;
 }
 .face-facebook {
-    background: url(../images/facebook.png);
-    display: inline-block;
+    background: url(../images/fb.png);
+    background-size: 32px;
+    background-repeat: no-repeat;
     padding: 16px;
     margin: 6px;
 }
-.face-twitter {
-    background: url(../images/twitter.png);
-    display: inline-block;
+.face-git {
+    background: url(../images/git.png);
+    background-size: 32px;
+    background-repeat: no-repeat;
     padding: 16px;
     margin: 6px;
 }
 .face-linkedin {
     background: url(../images/linkedin.png);
-    display: inline-block;
+    background-size: 32px;
+    background-repeat: no-repeat;
     padding: 16px;
     margin: 6px;
 }
 .face-mail {
-    background: url(../images/mail.png);
-    display: inline-block;
+    background: url(../images/email.png);
+    background-size: 32px;
+    background-repeat: no-repeat;
     padding: 16px;
     margin: 6px;
 }
-/*главни букви при започване на css class не е готино*/
-.Base {
+
+.base {
     display: inline-block;
     border-radius: 50%;
     width: 200px;
@@ -637,7 +641,7 @@ footer a:hover {
     display: table;
     clear: both;
   }
-  .cd-top {
+  .cdTop {
     display: inline-block;
     height: 40px;
     width: 40px;
@@ -656,32 +660,32 @@ footer a:hover {
     -moz-transition: opacity .3s 0s, visibility 0s .3s;
     transition: opacity .3s 0s, visibility 0s .3s;
   }
-  .cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
+  .cdTop.cd-is-visible, .cdTop.cd-fade-out, .no-touch .cdTop:hover {
     -webkit-transition: opacity .3s 0s, visibility 0s 0s;
     -moz-transition: opacity .3s 0s, visibility 0s 0s;
     transition: opacity .3s 0s, visibility 0s 0s;
   }
-  .cd-top.cd-is-visible {
+  .cdTop.cd-is-visible {
     /* the button becomes visible */
     visibility: visible;
     opacity: 1;
   }
-  .cd-top.cd-fade-out {
+  .cdTop.cd-fade-out {
     /* if the user keeps scrolling down, the button is out of focus and becomes less visible */
     opacity: .8;
   }
-  .no-touch .cd-top:hover {
+  .no-touch .cdTop:hover {
     background-color: #e86256;
     opacity: 1;
   }
   @media only screen and (min-width: 768px) {
-    .cd-top {
+    .cdTop {
       right: 20px;
       bottom: 20px;
     }
   }
   @media only screen and (min-width: 1024px) {
-    .cd-top {
+    .cdTop {
       height: 60px;
       width: 60px;
       right: 30px;

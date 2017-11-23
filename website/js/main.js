@@ -1,30 +1,35 @@
-jQuery(document).ready(function($){
-	// browser window scroll (in pixels) after which the "back to top" link is shown
-	var offset = 300,
-		//browser window scroll (in pixels) after which the "back to top" link opacity is reduced
-		offset_opacity = 1200,
-		//duration of the top scrolling animation (in ms)
-		scroll_top_duration = 700,
-		//grab the "back to top" link
-		$back_to_top = $('.cd-top');
+// Scroll to top 
+// browser window scroll (in pixels) after which the "back to top" link is shown
+const offset = 300,
+//browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+offsetOpacity = 1200,
+//duration of the top scrolling animation (in ms)
+scrollTopDuration = 700,
+//grab the "back to top" link
+backToTop = document.querySelector('.cdTop');
 
-	//hide or show the "back to top" link
-	$(window).scroll(function(){
-		( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
-		if( $(this).scrollTop() > offset_opacity ) { 
-			$back_to_top.addClass('cd-fade-out');
+window.addEventListener('scroll', function(e) {
+
+	if(document.body.scrollTop > offset || document.documentElement.scrollTop > offset){
+		backToTop.classList.add("cd-is-visible");
+	}else{
+		backToTop.classList.remove("cd-is-visible");
+		backToTop.classList.remove("cd-fade-out");
+	}
+
+	if(document.body.scrollTop > offsetOpacity || document.documentElement.scrollTop > offsetOpacity){
+		backToTop.classList.add("cd-fade-out");
+	}
+});
+
+backToTop.addEventListener('click', () => {
+	(function smoothscroll(){
+		var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+		if (currentScroll > 0) {
+			 window.requestAnimationFrame(smoothscroll);
+			 window.scrollTo (0,currentScroll - (currentScroll/5));
 		}
-	});
-
-	//smooth scroll to top
-	$back_to_top.on('click', function(event){
-		event.preventDefault();
-		$('body,html').animate({
-			scrollTop: 0 ,
-		 	}, scroll_top_duration
-		);
-	});
-
+	})();
 });
 
 /* Get Our Elements */

@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Client_List extends Fragment {
 
@@ -33,7 +31,8 @@ public class Client_List extends Fragment {
         Thread thr;
         ListView listView;
         listView = (ListView)view.findViewById(R.id.list);
-        for (int i=0;i<10;i++) Global.usernames.add("no users");
+       // for (int i=0;i<10;i++) Global.usernames.add("no users");
+        Global.usernames.clear();
         thr = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -52,10 +51,11 @@ public class Client_List extends Fragment {
                     String[] spliter;
                     while (true) {
                         line = inFromServer.readLine();
-                        if (!line.equals("stop") || !line.equals("error")) {
+                        if (!line.equals("stop") && !line.equals("error")) {
                             Global.usernames.add(line);
-                        } else break;
-                        i++;
+                        }
+                        else break;
+
                     }
 
                     clientSocket.close();

@@ -16,7 +16,7 @@ public class Global extends Application {
     public static String username;
     public static String password;
     public static char permission;
-    public static ArrayList<String> usernames;
+    public static ArrayList<String> usernames=new ArrayList<String>();
     public static double longetudeHome;
     public static double latitudeHome;
     public static double meters=100;

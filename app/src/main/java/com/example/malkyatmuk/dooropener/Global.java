@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by malkyatmuk on 10/22/17.
  */
@@ -14,7 +16,7 @@ public class Global extends Application {
     public static String username;
     public static String password;
     public static char permission;
-    public static String[] usernamees=new String[10];
+    public static ArrayList<String> usernames;
     public static double longetudeHome;
     public static double latitudeHome;
     public static double meters=100;

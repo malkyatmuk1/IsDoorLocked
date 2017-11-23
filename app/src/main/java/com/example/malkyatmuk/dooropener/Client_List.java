@@ -26,12 +26,6 @@ public class Client_List extends Fragment {
     private Socket socket;
     Thread thr;
     String[] gen=new String[]{"There are no other users!"};
-
-
-    ArrayAdapter<List<String>> adapter;
-
-
-    private ArrayList usernames=new ArrayList<String>();
     private static final int SERVERPORT = 3030;
     private static  String SERVER_IP ;
     private Socket clientSocket;
@@ -39,11 +33,7 @@ public class Client_List extends Fragment {
         Thread thr;
         ListView listView;
         listView = (ListView)view.findViewById(R.id.list);
-
-        for (int i=0;i<usernames.size();i++) usernames.set(i,null);
-
-//        for (int i = 0; i<1000; i++) usernames[i] = "koko";
-
+        for (int i=0;i<10;i++) Global.usernames.add("no users");
         thr = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -62,8 +52,8 @@ public class Client_List extends Fragment {
                     String[] spliter;
                     while (true) {
                         line = inFromServer.readLine();
-                        if (!line.equals("stop")) {
-                            usernames.add(line);
+                        if (!line.equals("stop") || !line.equals("error")) {
+                            Global.usernames.add(line);
                         } else break;
                         i++;
                     }
@@ -82,13 +72,13 @@ public class Client_List extends Fragment {
             e.printStackTrace();
         }
         ArrayAdapter mAdapter;
-        if(usernames.isEmpty()) {
+        if(Global.usernames.isEmpty()) {
             mAdapter = new ArrayAdapter(getContext(), R.layout.listview_general,R.id.name_general, gen);
             listView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         }
         else{
-            Adapter adapter = new Adapter(getContext(), usernames);
+            Adapter adapter = new Adapter(getContext(), Global.usernames);
 
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();

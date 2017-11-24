@@ -19,7 +19,7 @@ public class Global extends Application {
     public static ArrayList<String> usernames=new ArrayList<String>();
     public static double longetudeHome;
     public static double latitudeHome;
-    public static double meters=100;
+    public static float meters=100;
     public static String wifiusername="";
     public static String wifiPassword="";
     public static String ip="";

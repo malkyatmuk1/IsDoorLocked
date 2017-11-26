@@ -1,11 +1,7 @@
-// Scroll to top 
-// browser window scroll (in pixels) after which the "back to top" link is shown
+// Scroll to top
 const offset = 300,
-//browser window scroll (in pixels) after which the "back to top" link opacity is reduced
 offsetOpacity = 1200,
-//duration of the top scrolling animation (in ms)
 scrollTopDuration = 700,
-//grab the "back to top" link
 backToTop = document.querySelector('.cdTop');
 
 window.addEventListener('scroll', function(e) {

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.android.gms.location.GeofencingClient;
+
 import java.util.ArrayList;
 
 /**
@@ -17,10 +19,10 @@ public class Global extends Application {
     public static String password;
     public static char permission;
     public static ArrayList<String> usernames=new ArrayList<String>();
-    public static double longetudeHome;
-    public static double latitudeHome;
+    public static double longetudeHome=20;
+    public static double latitudeHome=20;
     public static float meters=100;
-    public static String wifiusername="";
+    public static String wifiusername="";;;;
     public static String wifiPassword="";
     public static String ip="";
     public static String directip="192.168.4.1";
@@ -28,6 +30,7 @@ public class Global extends Application {
     public static boolean checksignin=false;
     public static boolean checksignup=false;
     public static boolean goback;
+    public static GeofencingClient mGeofencingClient;
 
     public String getUsername() {
         return username;

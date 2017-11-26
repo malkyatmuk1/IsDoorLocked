@@ -28,10 +28,7 @@
         <activity android:name=".Signup" />
         <activity android:name=".WifiSettings" />
         <activity android:name=".IP" />
-        <service
-            android:name=".GeofenceTransitionsIntentService">
-        </service>
-
+        <service android:name=".GeofenceTransitionsIntentService"/>
 
     </application>
 

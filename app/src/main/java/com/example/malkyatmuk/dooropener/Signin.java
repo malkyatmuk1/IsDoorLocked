@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,7 +25,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 
-public class Signin extends Activity {
+public class Signin extends Activity implements GoogleApiClient.ConnectionCallbacks,
+                GoogleApiClient.OnConnectionFailedListener{
 Button btn1;
 EditText username,password;
     TextView signup,ip,settings;
@@ -55,7 +62,6 @@ EditText username,password;
 
 
     }
-
 
     View.OnClickListener textview= new View.OnClickListener() {
         @Override
@@ -120,6 +126,12 @@ EditText username,password;
                             Global.permission = modifiedSentence.charAt(0);
                             Global.username = username.getText().toString();
                             Global.password = password.getText().toString();
+
+                            Geofencing.makeGeofence();
+
+                            Global.mGeofencingClient= LocationServices.getGeofencingClient(getBaseContext());
+
+
                             startActivity(intent);
                             finish();
                         }
@@ -133,6 +145,22 @@ EditText username,password;
             }).start();
         }
     };
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
 
 

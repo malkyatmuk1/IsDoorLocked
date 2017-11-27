@@ -26,6 +26,7 @@ public class Services extends Service {
     private LocationManager locationManager;
     private LocationListener locationListener;Location location;
 
+
     @Override
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -36,7 +37,9 @@ public class Services extends Service {
             public void onLocationChanged(Location location) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                double dis = distFrom(latitude, longitude, Global.latitudeHome, Global.longetudeHome);
+                 Distence distence=new Distence(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
+
+                double dis = distence.getDistance(distence.Expression(distence.DigToRad(latitude),distence.DigToRad(longitude),distence.DigToRad(Global.latitudeHome),distence.DigToRad(Global.longetudeHome)),6371.0);
                 if (dis >= Global.meters) {
                     sendNotification();
                 }

@@ -12,7 +12,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -32,7 +31,8 @@ public class Services extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        new LocationListener() {
+
+        locationListener=new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 latitude = location.getLatitude();
@@ -58,10 +58,11 @@ public class Services extends Service {
 
             @Override
             public void onProviderDisabled(String provider) {
-
+                Intent i = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(i);
             }
         };
-
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
 
         return Services.START_REDELIVER_INTENT;
     }
@@ -72,40 +73,18 @@ public class Services extends Service {
         return null;
     }
 
-    public static double distFrom(double lat1, double lon1, double lat2, double lon2) {
-        Double earthRadiusKm = 6371000.0;
-
-        Double dLat = deg2rad(lat2-lat1);
-        Double dLon = deg2rad(lon2-lon1);
-
-        lat1 = deg2rad(lat1);
-        lat2 = deg2rad(lat2);
-
-        Double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return earthRadiusKm * c;
-    }
     public void sendNotification()
     {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.logo)
                         .setContentTitle("IsDoorLocked")
-                        .setContentText("Don't forget to lock your door!");
+                        .setContentText("Don't forget to lock your door!")
+                .addAction(R.drawable.ok,);
         NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(001, mBuilder.build());
     }
-    private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
 
-    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-	/*::	This function converts radians to decimal degrees						 :*/
-	/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-    private static double rad2deg(double rad) {
-        return (rad * 180 / Math.PI);
-    }
     private void sendBroadcastMessage(double latitude,double longitude,double dis) {
 
             Intent intent = new Intent("ACTION_LOCATION_BROADCAST");
@@ -114,18 +93,6 @@ public class Services extends Service {
             intent.putExtra("DIS", dis);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-    }
-    public  void loc(Location location) {
-
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        double dis = distFrom(latitude, longitude, Global.latitudeHome, Global.longetudeHome);
-        Log.d("CREATION", String.valueOf(dis));
-        sendBroadcastMessage(latitude,longitude,dis);
-        if (dis >= Global.meters) {
-
-            sendNotification();
-        }
     }
 
 }

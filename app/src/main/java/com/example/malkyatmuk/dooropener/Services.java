@@ -1,6 +1,7 @@
 package com.example.malkyatmuk.dooropener;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ public class Services extends Service {
     private TextView t;
     private LocationManager locationManager;
     private LocationListener locationListener;Location location;
+    public PendingIntent pendingIntent;
 
 
     @Override
@@ -40,9 +42,12 @@ public class Services extends Service {
                  Distence distence=new Distence(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
 
                 double dis = distence.getDistance(distence.Expression(distence.DigToRad(latitude),distence.DigToRad(longitude),distence.DigToRad(Global.latitudeHome),distence.DigToRad(Global.longetudeHome)),6371.0);
+                //if the flag is true, the notification should be send
+                dis=dis*1000;
                 if (dis >= Global.meters) {
-                    sendNotification();
+                    if(Global.flag){sendNotification();Global.flag=false;}
                 }
+                if(dis*2<=Global.meters) Global.flag=true;
 
             }
 
@@ -75,13 +80,13 @@ public class Services extends Service {
 
     public void sendNotification()
     {
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.logo)
                         .setContentTitle("IsDoorLocked")
-                        .setContentText("Don't forget to lock your door!")
-                .addAction(R.drawable.ok,);
-        NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        .setContentText("Don't forget to lock your door!");
+             NotificationManager mNotificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(001, mBuilder.build());
     }
 
@@ -94,5 +99,6 @@ public class Services extends Service {
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
     }
+
 
 }

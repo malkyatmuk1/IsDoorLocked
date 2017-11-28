@@ -23,6 +23,7 @@ public class Global extends Application {
     public static double latitudeHome=0;
     public static float meters=100;
     public static String wifiusername="";
+    public static boolean flag=true;
     public static String wifiPassword="";
     public static String ip="";
     public static String directip="192.168.4.1";

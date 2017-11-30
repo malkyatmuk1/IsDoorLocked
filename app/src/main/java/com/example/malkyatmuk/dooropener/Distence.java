@@ -16,9 +16,9 @@ public class Distence {
 
     }
 
-    public double DigToRad(double digrees)
+    public double DegToRad(double degrees)
     {
-        return digrees*Math.PI/180.0;
+        return degrees*Math.PI/180.0;
     }
     public double Expression(double lat1,double long1,double lat2, double long2)
     {

@@ -106,17 +106,17 @@ public class WifiSettings extends Activity {
                 e.printStackTrace();
             }
 
-
-            if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
+            if(modifiedSentence==null) modifiedSentence="";
+            else if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
                 Toast toast=Toast.makeText(view.getContext(),"The wifi is set",Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
 
             }
             else
             {
                 Toast toast=Toast.makeText(view.getContext(),"The wifi is not set",Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
 
 

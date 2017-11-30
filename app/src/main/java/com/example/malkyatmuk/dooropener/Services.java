@@ -10,7 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.TextView;
@@ -41,7 +40,7 @@ public class Services extends Service {
                 longitude = location.getLongitude();
                  Distence distence=new Distence(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
 
-                double dis = distence.getDistance(distence.Expression(distence.DigToRad(latitude),distence.DigToRad(longitude),distence.DigToRad(Global.latitudeHome),distence.DigToRad(Global.longetudeHome)),6371.0);
+                double dis = distence.getDistance(distence.Expression(distence.DegToRad(latitude),distence.DegToRad(longitude),distence.DegToRad(Global.latitudeHome),distence.DegToRad(Global.longetudeHome)),6371.0);
                 //if the flag is true, the notification should be send
                 dis=dis*1000;
                 if (dis >= Global.meters) {
@@ -72,7 +71,7 @@ public class Services extends Service {
         return Services.START_REDELIVER_INTENT;
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;

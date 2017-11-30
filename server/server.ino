@@ -22,9 +22,9 @@ using namespace std;
 #define permission_start 120 
 
 // declare the Variables
-char* ssid="JohnAndWillow";
-char* password="IamSuperProgrammer";
-char passAp[10]=123456;
+char* ssid="TN";
+char* password="tanqnaid";
+char* passAp="123456";
 char* ssidAp="isdoor";
 
 person list[10];
@@ -77,11 +77,11 @@ void setup() {
   printlist();
   pinMode(button, INPUT);
   
-  WiFi.softAP(ssidAp, passAp);
   if(strlen(ssid)!=0)
   {
     WiFi.begin(ssid, password);
   }
+   WiFi.softAP(ssidAp, passAp);
   Serial.println("");
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);

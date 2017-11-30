@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -127,9 +126,10 @@ EditText username,password;
                             Global.username = username.getText().toString();
                             Global.password = password.getText().toString();
 
-                            Geofencing.makeGeofence();
-
-                            Global.mGeofencingClient= LocationServices.getGeofencingClient(getBaseContext());
+                           if(Global.longetudeHome!=0 && Global.latitudeHome!=0)
+                           {
+                               startService(new Intent(getApplicationContext(),Services.class));
+                           }
 
 
                             startActivity(intent);

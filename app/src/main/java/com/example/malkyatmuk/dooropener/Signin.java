@@ -56,8 +56,17 @@ EditText username,password;
 
         signup.setOnClickListener(textview);
         ip.setOnClickListener(iplistener);
-        username.setHint("Username");
-        password.setHint("Password");
+        if(Global.username.isEmpty() && Global.password.isEmpty())
+        {
+            username.setHint("Username");
+            password.setHint("Password");
+        }
+        else
+        {
+            username.setText(Global.username);
+            password.setText(Global.password);
+        }
+
 
 
     }
@@ -91,7 +100,8 @@ EditText username,password;
 
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(final View v) {
-
+            Global.username=username.getText().toString();
+            Global.password=password.getText().toString();
             if (check.isChecked() ) {
                 Global.setIP(Global.directip,getApplicationContext());
             }

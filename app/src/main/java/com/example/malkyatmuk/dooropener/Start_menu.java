@@ -10,10 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Start_menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,10 +94,16 @@ public class Start_menu extends AppCompatActivity
             case R.id.nav_menu2:
                 if(Global.permission!='d')
                     fragment = new Client_Door();
+                else {Toast toast=Toast.makeText(this,"You don't have permissions!",Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                    toast.show();}
                 break;
             case R.id.nav_admin:
                 if(Global.permission=='a')
                     fragment = new Client_List();
+                else {Toast toast=Toast.makeText(this,"You don't have permissions!",Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
+                toast.show();}
                 break;
             case R.id.nav_signout:
                 Intent intent = new Intent();

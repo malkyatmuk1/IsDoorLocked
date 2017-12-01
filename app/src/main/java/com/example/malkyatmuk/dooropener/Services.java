@@ -44,9 +44,9 @@ public class Services extends Service {
                 //if the flag is true, the notification should be send
                 dis=dis*1000;
                 if (dis >= Global.meters) {
-                    if(Global.flag){sendNotification();Global.flag=false;}
+                    if(Global.flagforNotify){sendNotification();Global.flagforNotify=false;}
                 }
-                if(dis*2<=Global.meters) Global.flag=true;
+                if(dis*2<=Global.meters) Global.flagforNotify=true;
 
             }
 

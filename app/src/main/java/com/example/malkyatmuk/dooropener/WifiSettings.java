@@ -38,7 +38,7 @@ public class WifiSettings extends Activity {
         setContentView(R.layout.activity_wifisettings);
 
         Toast toast=Toast.makeText(getApplicationContext(),"You should be connected to isdoor wifi",Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
         toast.show();
         apply=(Button) findViewById(R.id.apply);
         apply.setOnClickListener(applylistener);
@@ -109,17 +109,15 @@ public class WifiSettings extends Activity {
             if(modifiedSentence==null) modifiedSentence="";
             else if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
                 Toast toast=Toast.makeText(view.getContext(),"The wifi is set",Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
 
             }
             else
             {
                 Toast toast=Toast.makeText(view.getContext(),"The wifi is not set",Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
-
-
             }
         }
     };

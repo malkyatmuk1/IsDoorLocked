@@ -66,7 +66,7 @@ public class Settings extends Fragment implements LocationListener {
 
                 Global.latitudeHome = location.getLatitude();
                 Global.longetudeHome = location.getLongitude();
-
+                Global.flagforNotify=true;
                 getActivity().startService(new Intent(getContext(),Services.class));
             }
         });

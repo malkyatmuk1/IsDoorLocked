@@ -92,6 +92,7 @@ public class Client_List extends Fragment {
                              @Nullable Bundle savedInstanceState)
     {
       View view = inflater.inflate(R.layout.fragment_adduser, container, false);
+      readUsers(view);
       return view;
     }
 
@@ -102,7 +103,7 @@ public class Client_List extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("User List");
         view.setFocusable(false);
-        readUsers(view);
+
 //        listView.setAdapter(adapter);
 
     }

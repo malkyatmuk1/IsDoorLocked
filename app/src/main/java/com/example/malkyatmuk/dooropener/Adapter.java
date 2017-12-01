@@ -136,6 +136,7 @@ public class Adapter extends BaseAdapter {
                 thrSwitch.start();
 
                 try {
+
                     thrSwitch.join(0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

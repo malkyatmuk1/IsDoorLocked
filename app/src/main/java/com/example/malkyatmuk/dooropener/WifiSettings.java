@@ -37,7 +37,7 @@ public class WifiSettings extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifisettings);
 
-        Toast toast=Toast.makeText(getApplicationContext(),"You should be connected to isdoor wifi",Toast.LENGTH_SHORT);
+        Toast toast=Toast.makeText(getApplicationContext(),"You should be connected to isdoor WiFi!",Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
         toast.show();
         apply=(Button) findViewById(R.id.apply);

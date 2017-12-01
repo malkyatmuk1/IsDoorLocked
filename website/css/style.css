@@ -141,6 +141,17 @@ section {
     padding: 100px 0 50px 0;
 }
 
+.disabled {
+    background: gray !important;
+    cursor: none !important;
+}
+.disabled:hover {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
 .width50 {
     width: 50%;
 }

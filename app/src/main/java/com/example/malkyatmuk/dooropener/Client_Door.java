@@ -23,17 +23,12 @@ import java.net.Socket;
 
 public class Client_Door extends Fragment {
 
-    private Socket socket;
-
     private static final int SERVERPORT = 3030;
     private static  String SERVER_IP ;
     Button check;
     String modifiedSentence;
-    String sentence;
     private Socket clientSocket;
-    EditText et;
     TextView text;
-    String str;
     ImageView door;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

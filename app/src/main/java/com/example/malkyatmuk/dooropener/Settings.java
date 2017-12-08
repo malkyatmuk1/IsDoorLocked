@@ -30,13 +30,7 @@ public class Settings extends Fragment implements LocationListener {
     Button iamathome,meters;
     LocationManager locationManager;
     EditText metersedit;
-    private Button b, b2;
-    private TextView t;
-    private LocationListener listener;
-    double myHomeLatitude, getMyHomeLongitude;
-    double latitude, longitude;
     Location location;
-    LocationResult locationResult;
 
 
     @Nullable

@@ -21,12 +21,9 @@ import android.widget.TextView;
 public class Services extends Service {
 
     double latitude, longitude;
-    private TextView t;
     private LocationManager locationManager;
-    private LocationListener locationListener;Location location;
-    public PendingIntent pendingIntent;
-
-
+    private LocationListener locationListener;
+    
     @Override
 
     public int onStartCommand(Intent intent, int flags, int startId) {

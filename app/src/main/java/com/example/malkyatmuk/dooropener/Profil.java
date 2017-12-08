@@ -23,7 +23,6 @@ public class Profil extends Fragment {
         View myFragmentView = inflater.inflate(R.layout.fragment_profil, container, false);
         usernamet = (TextView) myFragmentView.findViewById(R.id.usernameprofil);
         permissiont = (TextView) myFragmentView.findViewById(R.id.permissionprofil);
-        //getActivity().startService(new Intent(getActivity(),Services.class));
         return myFragmentView;
     }
 

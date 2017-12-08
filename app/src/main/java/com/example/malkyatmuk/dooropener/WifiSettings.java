@@ -19,15 +19,13 @@ import java.net.Socket;
 
 
 public class WifiSettings extends Activity {
-    CheckBox check;
     Button apply;
-    EditText ip,wifiusername,wifipassword,username,password;
+    EditText wifiusername,wifipassword,username,password;
     TextView goback;
 
     private Socket clientSocket;
     public static String modifiedSentence;
     private static final int SERVERPORT = 3030;
-    private static String SERVER_IP ;
     private String send;
     Thread trd;
 

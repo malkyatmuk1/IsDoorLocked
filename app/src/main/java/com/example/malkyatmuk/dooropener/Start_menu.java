@@ -20,7 +20,6 @@ import android.widget.Toast;
 public class Start_menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView LV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +27,6 @@ public class Start_menu extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        //Intent i= new Intent(this, Services.class);
-       // i.putExtra("notification", "Value to be used by the service");
-        //this.startService(i);
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

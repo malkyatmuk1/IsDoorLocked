@@ -20,6 +20,9 @@ using namespace std;
 #define passAP_start  68
 #define passAP_stop  77 
 #define permission_start 120 
+#define wifi_step 32
+#define wifipass_start 0
+#define wifipass_stop 31
 
 // declare the Variables
 char* ssid="TN";
@@ -40,6 +43,7 @@ void writePerson(int start, person* p);
 char ishavingPermission(String username1);
 void printlist();
 void printt(char* s,int n);
+char* readWifi();
 
 //create wifi server listen on a given port
 WiFiServer server(3030);
@@ -51,7 +55,6 @@ int button = 16;
 String str,hsh;
 bool buttonState;
 // eeprom memory byte
-int passwifi_start = 0, passwifi_stop = 31;
 int ssidwifi_start = 32, ssidwidi_stop = 63;
 int salt_start = 64, salt_stop = 67;
 
@@ -63,6 +66,7 @@ void setup() {
   int k=1;
   int i=0;
   int count=user_start;
+  //read users
   for(int i=0;i<10;i++)
   {
     readPerson(count,&list[i]);
@@ -75,12 +79,28 @@ void setup() {
     Serial.println(listofflags[i]);
   }
   printlist();
-  pinMode(button, INPUT);
-  
-  if(strlen(ssid)!=0)
+  pinMode(button, INPUT); 
+  char* ssidpass;
+  ssidpass=readWifi();
+  //readWifi
+  for(int i=0;i!='~';i++)
   {
-    WiFi.begin(ssid, password);
+    ssid+=ssidpass[i];
+    password+=ssidpass[i+32];
   }
+  //connect to wifi
+  if(strlen(ssid)!=0)
+  { 
+    int br=0;
+    WiFi.begin(ssid, password);
+    while(br<500)
+    {
+      Serial.print('.');
+      br++;
+    }
+    if(br==500) Serial.println("Dont connect");
+  }
+  //start Access Point
    WiFi.softAP(ssidAp, passAp);
   Serial.println("");
   //Print status to Serial Monitor
@@ -88,7 +108,6 @@ void setup() {
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
 
   server.begin();
-  Serial.print("tuk");
 }
 
 void loop()
@@ -514,6 +533,16 @@ char* salt_random()
   salt[i]=char(random_number);
   }
   return salt;
+}
+char* readWifi()
+{
+  char ssid[32],password[32];
+  for(int i=wifipass_start;i<=wifipass_stop;i++)
+  {
+    password[i]=EEPROM.read(i);
+    ssid[i]=EEPROM.read(i+wifi_step);
+  }
+  return strcat(strcat(ssid,"~"),password);
 }
 //v
 void writePassAp(String pass,int start)

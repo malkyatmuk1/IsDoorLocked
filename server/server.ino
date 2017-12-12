@@ -24,7 +24,7 @@ using namespace std;
 // declare the Variables
 char* ssid="TN";
 char* password="tanqnaid";
-char* passAp="123456";
+char* passAp="12345678";
 char* ssidAp="isdoor";
 
 person list[10];

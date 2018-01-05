@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -106,7 +105,7 @@ public class WifiSettings extends Activity {
 
             if(modifiedSentence==null) modifiedSentence="";
             else if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
-                Toast toast=Toast.makeText(view.getContext(),"The wifi is set",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(view.getContext(),"The wifi was set",Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
 
@@ -121,4 +120,6 @@ public class WifiSettings extends Activity {
     };
 
 }
+//JohnAndWillow
+//IamSuperProgrammer
 

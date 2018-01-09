@@ -20,16 +20,20 @@ using namespace std;
 #define passAP_start  68
 #define passAP_stop  77 
 #define permission_start 120 
-
+#define wifi_step 32
+#define wifipass_start 0
+#define wifipass_stop 31
+#define usercount 10
 // declare the Variables
-char* ssid="TN";
-char* password="tanqnaid";
-char* passAp="123456";
+char ssid[64];
+char password[64];
+char* passAp="12345678";
 char* ssidAp="isdoor";
 
 person list[10];
 byte listofflags[10];
 vector<String> commands;
+vector<String>wifi;
 
 vector<String> splitString(String line, char c);
 void writePassAp(String pass);
@@ -37,9 +41,10 @@ void writeWifi(String passWifi,String ssidWifi);
 char* salt_random();
 void readPerson(uint index, person* p);
 void writePerson(int start, person* p);
-char ishavingPermission(String username1);
+char isHavingPermission(char* usernamePerson,String passwordPerson);
 void printlist();
 void printt(char* s,int n);
+String readWifi();
 
 //create wifi server listen on a given port
 WiFiServer server(3030);
@@ -51,18 +56,18 @@ int button = 16;
 String str,hsh;
 bool buttonState;
 // eeprom memory byte
-int passwifi_start = 0, passwifi_stop = 31;
 int ssidwifi_start = 32, ssidwidi_stop = 63;
 int salt_start = 64, salt_stop = 67;
 
 void setup() {
  Serial.begin(115200);
-  //for(int i=0;i<10;i++) readPerson(i, &list[i]);
+ WiFi.begin(ssidAp,passAp);
   EEPROM.begin(512);
   int p=76;
   int k=1;
   int i=0;
   int count=user_start;
+  //read users
   for(int i=0;i<10;i++)
   {
     readPerson(count,&list[i]);
@@ -75,20 +80,39 @@ void setup() {
     Serial.println(listofflags[i]);
   }
   printlist();
-  pinMode(button, INPUT);
-  
-  if(strlen(ssid)!=0)
-  {
-    WiFi.begin(ssid, password);
+  pinMode(button, INPUT); 
+  String ssidpass;
+  ssidpass=readWifi();
+  Serial.println(ssidpass);
+ commands=splitString(ssidpass,' ');
+ // //readWifi
+ 
+
+ commands[1].toCharArray(ssid,32);
+ commands[0].toCharArray(password,32);
+ 
+Serial.println(ssid);
+Serial.println(password);
+  //connect to wifi
+  if(ssid!="d")
+  { 
+    int br=0;
+    
+    while(WiFi.begin(ssid, password)!=WL_CONNECTED && br<5)
+    {
+      Serial.print('.');
+      br++;
+    }
+    if(br==5) Serial.println("connection failed");
   }
-   WiFi.softAP(ssidAp, passAp);
+  //start Access Point
+ 
   Serial.println("");
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
 
   server.begin();
-  Serial.print("tuk");
 }
 
 void loop()
@@ -99,9 +123,12 @@ void loop()
   {
       
       Serial.println("connected to client");
-      client.setTimeout(30000);
-      str=client.readStringUntil('\n');
+      //client.setTimeout();
+       Serial.println("az sum predi stringa");
+      str=client.readStringUntil('\r\n');
+     // Serial.println(str);
       commands=splitString(str,' ');
+      Serial.println(str);
       //registrirane
       //v
       if(commands[0]=="signup")
@@ -169,50 +196,15 @@ void loop()
         person p;
         char passh[20];
         commands[1].toCharArray(p.username,10);
-        String pass=commands[2];
-        char salt[12];
-                
-        for(int i=0;i<10;i++)
-       {
+        char* pass;
         
-          //Serial.println(list[i].username);
-          //Serial.println(p.username);
-
+        char salt[12];
+        commands[2].toCharArray(pass,commands[2].length());
           
           //if the username form the client and the username in the list are equals we return the permission to the client
-          if(!strncmp(list[i].username,p.username,10))
-          {
-            flag=1;
-            //Serial.println(flag);
-            
-            strncpy(salt,list[i].salt,12);
-            perm1=list[i].salt[12];
-            salt[12]='\0';
-            pass+=salt;      
-            //we hash the password+salt
-            sha1(pass).toCharArray(passh,20);
-            Serial.println(passh);
-            Serial.println(list[i].pass_hash);
-            //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
-            if(strncmp(passh,list[i].pass_hash,20)) flag=0;
-            Serial.println(flag);
-            break;
-          }
-          else flag=0;
-       }
-          /*
-          if(flag==1)
-          {
-           
-            Serial.println("vuv flag=1");
-            //printt(salt,12);
-            Serial.println(salt);
-            Serial.println(list[i].salt);
-          
-            
-          }
-           */
-      if(flag==1) client.println(perm1);
+          perm1=isHavingPermission(p.username,commands[2]);
+
+      if(perm1!='x') client.println(perm1);
       else client.println("errorsignin");
       }
       //v
@@ -220,24 +212,34 @@ void loop()
       {
         int flag;
         char nameuser[10];
-        commands[3].toCharArray(nameuser,10);
-         /*  
-        for(int i=0;i<10;i++)
-       {
-         if(!strncmp(list[i].username,nameuser,10) && list[i].perm=='a')
-         {
-            flag=1;
-            break;
-         }
-        }
-        */
+        char* passworduser;
+        char perm1;
+        Serial.println(commands[0]);
+        Serial.println(commands[1]);
+        Serial.println(commands[2]);
+        Serial.println(commands[3]);
+        Serial.println(commands[4]);
         
+        commands[3].toCharArray(nameuser,10);
+        perm1=isHavingPermission(nameuser,commands[4]);
         commands[1].toCharArray(ssid,32);
         commands[2].toCharArray(password,32);
-        byte value;
-        byte value1;
-        WiFi.begin(ssid, password);
-        writeWifi(commands[1],commands[2]); 
+        Serial.println(ssid);
+        Serial.println(password);
+        if(perm1=='a') 
+        {
+          Serial.println();
+          WiFi.begin(ssid, password);
+          writeWifi(commands[1],commands[2]);
+          flag=1; 
+        }
+        int br=0;
+        while(br<500)
+        {
+          Serial.print('.');
+          br++;
+        }
+        if(br==500) Serial.println("Dont connect");
         if(flag==1) {client.println("true");}
         else client.println("false");
       }
@@ -265,40 +267,8 @@ void loop()
         person p;
         char passh[20];
         commands[1].toCharArray(p.username,10);
-        String pass=commands[2];
-        char salt[12];
-          /*       
-        for(int i=0;i<10;i++)
-       {        
-            
-           
-            if(!strncmp(list[i].username,p.username,10))flag=1;
-            else {flag=0;}
-            Serial.println(list[i].perm);
-           ;
-          if(flag==1)
-          {
-            strncpy(salt,list[i].salt,12);
-            //printt(salt,12);
-            salt[12]='\0';
-            pass+=salt;
-            sha1(pass).toCharArray(passh,20);
-            
-            if(!strncmp(passh,list[i].pass_hash,20)){ flag=1;}
-            else flag=0;
-            break;
-          }
-         }
-      
-       */
-       strncpy(salt,list[0].salt,12);
-      //printt(salt,12);
-       salt[12]='\0';
-       pass+=salt;
-        sha1(pass).toCharArray(passh,20); 
-       //check if the user is admin
-       if(!strncmp(passh,list[0].pass_hash,20)&&!strncmp(list[0].username,p.username,10)){ flag=1;}
-       else flag=0;
+        if(isHavingPermission(p.username,commands[2])=='a')flag=1;
+        else flag=0; 
        //if is admin make the list 
        if(flag==1)
        {
@@ -416,38 +386,15 @@ void loop()
         person p;
         char passh[20];
         commands[1].toCharArray(p.username,10);
-        String pass=commands[2];
+        char* pass;
+        int len=commands[2].length()+1;
+        commands[2].toCharArray(pass,commands[2].length());
         char salt[12];
-       for(int i=0;i<10;i++)
-       {
-        
-          //Serial.println(list[i].username);
-          //Serial.println(p.username);
-
-          
-          //if the username form the client and the username in the list are equals we return the permission to the client
-          if(!strncmp(list[i].username,p.username,10))
-          {
-            flag=1;
-            //Serial.println(flag);
-            
-            strncpy(salt,list[i].salt,12);
-            salt[12]='\0';
-            pass+=salt;      
-            //we hash the password+salt
-            sha1(pass).toCharArray(passh,20);
-            Serial.println(passh);
-            Serial.println(list[i].pass_hash);
-            //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
-            if(strncmp(passh,list[i].pass_hash,20)) flag=0;
-            perm1=list[i].perm;
-            break;
-          }
-          else flag=0;
-       }
+        Serial.println(commands[2].length());
+        perm1=isHavingPermission(p.username,commands[2]);
          
         
-         if(flag==1 && (perm1=='a' || perm1=='p'))
+         if(perm1=='a' || perm1=='p')
          {
           
        // read the state of the pushbutton value:
@@ -515,6 +462,17 @@ char* salt_random()
   }
   return salt;
 }
+String readWifi()
+{
+  char ssid[32],password[32];
+  for(int i=wifipass_start;i<=wifipass_stop;i++)
+  {
+    password[i]=EEPROM.read(i);
+    ssid[i]=EEPROM.read(i+wifi_step);
+  }
+  //Serial.println(strcat(strcat(ssid,"~"),password));
+  return strcat(strcat(ssid," "),password);
+}
 //v
 void writePassAp(String pass,int start)
 {
@@ -541,30 +499,48 @@ vector<String> splitString(String line, char c)
         str.push_back(curr_string);
         curr_string = "";
       }
+     
       else curr_string+=line[i];
+      Serial.println(line[i]);
     }
 
     str.push_back(curr_string);
     return str;
 }
-char ishavingPermission(String username1)
+char isHavingPermission(char* usernamePerson,String passwordPerson)
 {
- bool flag=0;
- char perm='d';
-  
-  for(int i=0;i<10;i++)
-  {
-    if(list[i].username[0]==username1[0])
-    {
-      for(int j=1;j<username1.length();j++)
+ // Serial.println(usernamePerson);
+ // Serial.println(passwordPerson);
+  char passh[20];
+  char salt[12];
+  char perm1;
+  bool flag;
+  for(int i=0;i<usercount;i++)
+   {   
+    //Serial.println(list[i].username);
+    if(!strncmp(list[i].username,usernamePerson,10))
       {
-          if(list[i].username[j]==username1[j]){flag=1;perm=list[i].perm;}
-          else {flag=0;perm='d';break;}
-          
-      }
+            flag=1;
+            //Serial.println(flag);
+            
+            strncpy(salt,list[i].salt,12);
+            perm1=list[i].salt[12];
+            salt[12]='\0';     
+            passwordPerson+=salt;
+            //we hash the password+salt
+            sha1(passwordPerson).toCharArray(passh,20);
+           // Serial.println(passh);
+            //Serial.println(list[i].pass_hash);
+            //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
+            if(strncmp(passh,list[i].pass_hash,20)) flag=0;
+           // Serial.println(flag);
+            break;
+          }
+          else flag=0;
     }
-  }
-  return perm;
+  if(flag==1)return perm1;
+  else return 'x';
+       
 }
 void printlist()
 {

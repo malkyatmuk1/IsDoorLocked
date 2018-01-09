@@ -21,8 +21,7 @@ import java.net.Socket;
 
 public class Client_List extends Fragment {
 
-    private Socket socket;
-    Thread thr;
+
     String[] gen=new String[]{"There are no other users!"};
     private static final int SERVERPORT = 3030;
     private static  String SERVER_IP ;

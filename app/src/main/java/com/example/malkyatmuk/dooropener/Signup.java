@@ -32,25 +32,17 @@ import java.util.regex.Matcher;
 public class Signup extends Activity {
     EditText pass,pass2,username;
 
-    int br=0;
-    Button btns;
+    Button btnsignup;
     String txt;
     String txt2;
-    View v;
-    Toast toast;
     TextView welcome, sign,textView,ip,settingsbutton;
-    private Socket socket;
     private Socket clientSocket;
     String modifiedSentence;
     CheckBox check;
-
     private static final int SERVERPORT = 3030;
     private static String SERVER_IP;
     public static SharedPreferences settings;
-    static SharedPreferences.Editor editor;
     private TextInputLayout pass1TextLayout,pass2TextLayout;
-
-    private Matcher matcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +58,7 @@ public class Signup extends Activity {
         pass2TextLayout=(TextInputLayout) findViewById(R.id.pass2TextLayout);
 
 
-        btns = (Button) findViewById(R.id.btnsignup);
+        btnsignup = (Button) findViewById(R.id.btnsignup);
         settingsbutton=(TextView) findViewById(R.id.wifiset);
         check=(CheckBox) findViewById(R.id.check);
 
@@ -77,12 +69,11 @@ public class Signup extends Activity {
 
         pass2.addTextChangedListener(textWatcherPassAgain);
         pass.addTextChangedListener(textWatcherPass);
-      //;  username.addTextChangedListener(textWatcherUsername);
 
         textView.setOnClickListener(signin);
         ip.setOnClickListener(iplistener);
         settingsbutton.setOnClickListener(settingslistener);
-        btns.setOnClickListener(btn);
+        btnsignup.setOnClickListener(btn);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/abc.ttf");
 
@@ -140,22 +131,10 @@ public class Signup extends Activity {
 
             txt = pass.getText().toString();
             txt2 = pass2.getText().toString();
-/*
-            if (txt2.equals(txt)) {
-                pass.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-                pass2.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
-            }
-*/
 
             if (pass.length() < 5)
             {
                 pass1TextLayout.setHint("Your password is too short!");
-                /*
-                toast = Toast.makeText(getBaseContext(), "Your password is too short!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 0);
-                toast.show();
-                br++;
-                */
             }
             if(pass.length()<5)
             pass.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);

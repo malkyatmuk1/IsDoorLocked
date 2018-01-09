@@ -19,10 +19,6 @@ public class FirstFirstPage extends AppCompatActivity {
         TextView txv=(TextView) findViewById(R.id.tittle);
         TextView txv1=(TextView) findViewById(R.id.text);
         Typeface custom_font=Typeface.createFromAsset(getAssets(), "fonts/abc.ttf");
-
-       // Typeface boldTypeface = Typeface.create(custom_font,Typeface.DEFAULT_BOLD);
-        //txv.setTypeface(boldTypeface);
-        //txv1.setTypeface(boldTypeface);
         txv1.setTypeface(custom_font,Typeface.BOLD);
         txv.setTypeface(custom_font,Typeface.BOLD);
         new Handler().postDelayed(new Runnable() {

@@ -27,8 +27,8 @@ using namespace std;
 // declare the Variables
 char ssid[64];
 char password[64];
-char* passAp="12345678";
-char* ssidAp="isdoor";
+const char passAp[]="12345678";
+const char ssidAp[]="espd";
 
 person list[10];
 byte listofflags[10];
@@ -61,7 +61,8 @@ int salt_start = 64, salt_stop = 67;
 
 void setup() {
  Serial.begin(115200);
- WiFi.begin(ssidAp,passAp);
+ WiFi.softAP(ssidAp,passAp);
+  
   EEPROM.begin(512);
   int p=76;
   int k=1;

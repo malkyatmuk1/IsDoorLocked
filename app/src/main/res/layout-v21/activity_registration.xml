@@ -21,23 +21,24 @@
         android:textSize="35sp"
         android:padding="5dp"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:orientation="vertical"
         android:gravity="center"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome"
             android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="40sp"
             android:textColor="@color/white"
-            />
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,110 +46,110 @@
             android:textColorHint="@color/white"
 
             >
+
             <EditText
                 android:id="@+id/username"
                 style="@style/Margins"
                 android:layout_width="266dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:layout_marginTop="20sp"
-                android:hint="@string/username"
-                android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
+                android:hint="@string/username"
+                android:inputType="text"
                 android:maxLength="10"
+                android:textColorHint="@color/white" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pass1TextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white">
+
+            <EditText
+                android:id="@+id/pass1"
+                style="@style/Margins"
+                android:layout_width="266dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/white"
+
                 />
         </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pass1TextLayout"
-            android:backgroundTint="@color/white"
-            android:textColorHint="@color/white"
-            >
-
-        <EditText
-            android:id="@+id/pass1"
-            style="@style/Margins"
-            android:layout_width="266dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:textColorHint="@color/white"
-            android:backgroundTint="@color/white"
-
-            />
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/pass2TextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/white"
 
             >
+
             <EditText
                 android:id="@+id/pass2"
                 style="@style/Margins"
                 android:layout_width="266dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/rewrite_your_password"
-                android:textColorHint="@color/white"
                 android:backgroundTint="@color/white"
-                />
+                android:hint="@string/rewrite_your_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/white" />
         </android.support.design.widget.TextInputLayout>
+
         <CheckBox
             android:id="@+id/check"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="@string/direct_connection" />
-
+            android:text="@string/direct_connection"
+            android:textColor="@color/white" />
 
 
         <Button
             android:id="@+id/btnsignup"
+            style="@style/Margins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textSize="25sp"
+            android:background="@drawable/sign"
             android:paddingBottom="15dp"
-            android:paddingTop="15dp"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
-            style="@style/Margins"
+            android:paddingTop="15dp"
             android:text="@string/sign_up"
-            android:background="@drawable/sign"
-        />
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
         <TextView
+            android:id="@+id/wifiset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="@string/wifi_settings"
             android:textColor="@color/pink"
-            android:id="@+id/wifiset"
-            android:textSize="17sp"
-            android:layout_marginTop="2dp"/>
+            android:textSize="17sp" />
 
         <TextView
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="@string/sign_in"
             android:textColor="@color/pink"
-            android:id="@+id/tv"
-            android:textSize="17sp"
-            android:layout_marginTop="2dp"/>
+            android:textSize="17sp" />
+
         <TextView
+            android:id="@+id/ip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="@string/ip"
             android:textColor="@color/pink"
-            android:id="@+id/ip"
-            android:textSize="17sp"
-            android:layout_marginTop="2dp"/>
+            android:textSize="17sp" />
 
     </LinearLayout>
 

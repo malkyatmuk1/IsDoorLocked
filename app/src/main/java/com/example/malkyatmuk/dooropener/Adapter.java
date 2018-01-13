@@ -93,8 +93,11 @@ public class Adapter extends BaseAdapter {
                             clientSocket.close();
                         } catch (IOException e) {
                             System.out.println("Exception " + e);
+
                         }
+
                     }
+
                 });
                 thrButton.start();
 
@@ -103,6 +106,7 @@ public class Adapter extends BaseAdapter {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                thrButton.interrupt();
                 notifyDataSetChanged();
             }
         });
@@ -131,6 +135,7 @@ public class Adapter extends BaseAdapter {
                         } catch (IOException e) {
                             System.out.println("Exception " + e);
                         }
+                        return;
                     }
                 });
                 thrSwitch.start();
@@ -143,7 +148,7 @@ public class Adapter extends BaseAdapter {
                 }
                 if(modif.equals("p")) holder.switchP.setText("user");
                 else holder.switchP.setText("non-user");
-
+return;
             }
         });
 

@@ -25,16 +25,17 @@ import java.net.Socket;
 
 
 public class Signin extends Activity implements GoogleApiClient.ConnectionCallbacks,
-                GoogleApiClient.OnConnectionFailedListener{
-Button btn1;
-EditText username,password;
-    TextView signup,ip,settings;
+                GoogleApiClient.OnConnectionFailedListener {
+    Button btn1;
+    EditText username, password;
+    TextView signup, ip, settings;
     private Socket clientSocket;
     public String modifiedSentence;
     private static final int SERVERPORT = 3030;
-    private static String SERVER_IP ;
+    private static String SERVER_IP;
     public String send;
     CheckBox check;
+    Thread thr;
 
 
     @Override
@@ -43,56 +44,52 @@ EditText username,password;
 
 
         setContentView(R.layout.activity_log_on);
-        Global.ipsignin=true;
+        Global.ipsignin = true;
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        signup=(TextView) findViewById(R.id.tv);
-        ip=(TextView) findViewById(R.id.ip);
-        btn1=(Button) findViewById(R.id.signin);
-        settings=(TextView) findViewById(R.id.wifiset);
-        check=(CheckBox) findViewById(R.id.check);
+        signup = (TextView) findViewById(R.id.tv);
+        ip = (TextView) findViewById(R.id.ip);
+        btn1 = (Button) findViewById(R.id.signin);
+        settings = (TextView) findViewById(R.id.wifiset);
+        check = (CheckBox) findViewById(R.id.check);
         btn1.setOnClickListener(btn);
         settings.setOnClickListener(settingslistener);
 
         signup.setOnClickListener(textview);
         ip.setOnClickListener(iplistener);
-        if(Global.username.isEmpty() && Global.password.isEmpty())
-        {
+        if (Global.username.isEmpty() && Global.password.isEmpty()) {
             username.setHint("Username");
             password.setHint("Password");
-        }
-        else
-        {
+        } else {
             username.setText(Global.username);
             password.setText(Global.password);
         }
 
 
-
     }
 
-    View.OnClickListener textview= new View.OnClickListener() {
+    View.OnClickListener textview = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),Signup.class);
+            Intent intent = new Intent(v.getContext(), Signup.class);
             startActivity(intent);
             finish();
         }
     };
-    View.OnClickListener iplistener= new View.OnClickListener() {
+    View.OnClickListener iplistener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),IP.class);
-            Global.ipsignin=true;
+            Intent intent = new Intent(v.getContext(), IP.class);
+            Global.ipsignin = true;
             startActivity(intent);
             finish();
         }
     };
-    View.OnClickListener settingslistener= new View.OnClickListener() {
+    View.OnClickListener settingslistener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),WifiSettings.class);
-            Global.goback=true;
+            Intent intent = new Intent(v.getContext(), WifiSettings.class);
+            Global.goback = true;
             startActivity(intent);
 
         }
@@ -100,22 +97,20 @@ EditText username,password;
 
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(final View v) {
-            Global.username=username.getText().toString();
-            Global.password=password.getText().toString();
-            if (check.isChecked() ) {
-                Global.setIP(Global.directip,getApplicationContext());
-            }
-            else {
-                if(Global.ip.isEmpty())
-                {
+            Global.username = username.getText().toString();
+            Global.password = password.getText().toString();
+            if (check.isChecked()) {
+                Global.setIP(Global.directip, getApplicationContext());
+            } else {
+                if (Global.ip.isEmpty()) {
                     Intent intent = new Intent(getApplicationContext(), IP.class);
                     startActivity(intent);
                     finish();
                 }
-                Global.setIP(Global.ip,getApplicationContext());
+                Global.setIP(Global.ip, getApplicationContext());
             }
 
-            new Thread(new Runnable() {
+            thr = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -136,10 +131,9 @@ EditText username,password;
                             Global.username = username.getText().toString();
                             Global.password = password.getText().toString();
 
-                           if(Global.longetudeHome!=0 && Global.latitudeHome!=0)
-                           {
-                               startService(new Intent(getApplicationContext(),Services.class));
-                           }
+                            if (Global.longetudeHome != 0 && Global.latitudeHome != 0) {
+                                startService(new Intent(getApplicationContext(), Services.class));
+                            }
 
 
                             startActivity(intent);
@@ -150,11 +144,16 @@ EditText username,password;
                     } catch (IOException e) {
                         System.out.println("Exception " + e);
                     }
-
+                    return;
                 }
-            }).start();
+            });
+            thr.start();
+
+        thr.interrupt();
         }
+
     };
+
 
 
     @Override

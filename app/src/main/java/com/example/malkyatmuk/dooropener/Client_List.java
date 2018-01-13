@@ -26,15 +26,20 @@ public class Client_List extends Fragment {
     private static final int SERVERPORT = 3030;
     private static  String SERVER_IP ;
     private Socket clientSocket;
+    public Thread thr;
+    boolean isWork=true;
     public void readUsers(View view) {
-        Thread thr;
+
         ListView listView;
         listView = (ListView)view.findViewById(R.id.list);
-       // for (int i=0;i<10;i++) Global.usernames.add("no users");
+
+        // for (int i=0;i<10;i++) Global.usernames.add("no users");
         Global.usernames.clear();
+
         thr = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 try {
                     SERVER_IP = pref.getString("ip", "");
@@ -45,31 +50,33 @@ public class Client_List extends Fragment {
                     BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     outToServer.writeBytes("list " +Global.username+" "+Global.password+ '\n');
                     outToServer.flush();
-                    int i = 0;
                     String line;
                     String[] spliter;
                     while (true) {
                         line = inFromServer.readLine();
-                        if (!line.equals("stop") && !line.equals("error")) {
-                            Global.usernames.add(line);
+                      if (line!=null) {
+                            if ( !line.equals("stop") && !line.equals("error")) {
+                                Global.usernames.add(line);
+                            }
                         }
-                        else break;
-
+                        else{thr.interrupt(); break;}
                     }
-
                     clientSocket.close();
                 } catch (IOException e) {
                     System.out.println("Exception " + e);
                 }
+
             }
         });
         thr.start();
 
-        try {
+       try {
             thr.join(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //thr.interrupt();
+
         ArrayAdapter mAdapter;
         if(Global.usernames.isEmpty()) {
             mAdapter = new ArrayAdapter(getContext(), R.layout.listview_general,R.id.name_general, gen);

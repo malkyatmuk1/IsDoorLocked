@@ -80,9 +80,10 @@ public class Client_Door extends Fragment {
                         } catch (IOException e) {
                             System.out.println("Exception " + e);
                         }
-
+                        return;
                     }
                 }).start();
+
             }
         });
 

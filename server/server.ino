@@ -60,6 +60,11 @@ int ssidwifi_start = 32, ssidwidi_stop = 63;
 int salt_start = 64, salt_stop = 67;
 
 void setup() {
+  
+  ESP.eraseConfig();
+
+  // Set WiFi to station mode and disconnect from an AP if it was previously connected
+  WiFi.mode(WIFI_AP_STA);
  Serial.begin(115200);
  WiFi.softAP(ssidAp,passAp);
   
@@ -262,6 +267,7 @@ void loop()
         char nameuser[10];
         
         commands[1].toCharArray(nameuser,10);      
+        Serial.println(nameuser);
         String str;
         char perm1;
         bool flag=0;
@@ -281,6 +287,7 @@ void loop()
             str=str+list[i].username;
            str+=' ';
            str+=list[i].perm;
+           Serial.println(str);
            client.println(str);
            str="";
          }
@@ -439,6 +446,7 @@ void readPerson(int start, person* p)
 //v
 void writeWifi(String passWifi,String ssidWifi)
 {  
+  for(int i=0;i<64;i++)  EEPROM.write(i,0);
   for(int i=0;i<passWifi.length();i++)
   {    
     EEPROM.write(i,passWifi[i]);

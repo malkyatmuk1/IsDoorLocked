@@ -2,6 +2,7 @@ package com.example.malkyatmuk.dooropener;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,14 +61,15 @@ public class Adapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         //use convertView recycle
-        if(convertView==null){
-            holder=new ViewHolder();
+        if (convertView == null) {
+            holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
-            holder.textView= (TextView) convertView.findViewById(R.id.name);
-           holder.DelButton= (Button) convertView.findViewById(R.id.delete);
-            holder.switchP=(Switch) convertView.findViewById(R.id.switchPerm);
+            holder.textView = (TextView) convertView.findViewById(R.id.name);
+            holder.DelButton = (Button) convertView.findViewById(R.id.delete);
+            holder.switchP = (Switch) convertView.findViewById(R.id.switchPerm);
+
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -75,50 +77,66 @@ public class Adapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                thrButton = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+                notifyDataSetChanged();
+                mList.remove(position);
+                class LongOperation extends AsyncTask<String, Void, Void> {
+                    private static final int SERVERPORT = 3030;
+                    private String SERVER_IP;
+                    private Socket clientSocket;
+
+                    protected Void doInBackground(String... Param) {
                         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
-                        try {
+
+                         try {
                             SERVER_IP = pref.getString("ip", "");
                             InetAddress ip = InetAddress.getByName(SERVER_IP);
                             clientSocket = new Socket(ip, SERVERPORT);
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            outToServer.writeBytes("del " +holder.textView.getText().toString() +" "+Global.username+" "+Global.password+'\n');
+                            outToServer.writeBytes("del " + holder.textView.getText().toString() + " " + Global.username + " " + Global.password + '\n');
                             outToServer.flush();
-                            mList.remove(position);
+
 
                             clientSocket.close();
                         } catch (IOException e) {
                             System.out.println("Exception " + e);
-
                         }
-
+                        return null;
                     }
 
-                });
-                thrButton.start();
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        notifyDataSetChanged();
+                    }
 
-                try {
-                    thrButton.join(0);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    @Override
+                    protected void onPreExecute() {}
+
+                    @Override
+                    protected void onProgressUpdate(Void... values) {}
                 }
-                thrButton.interrupt();
-                notifyDataSetChanged();
+
+                new LongOperation().execute("");
             }
         });
-        holder.switchP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+        CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          final boolean isChecked) {
+                if (isChecked) {
+                    holder.switchP.setText("user");
+                } else holder.switchP.setText("non-user");
+                class LongOperation extends AsyncTask<String, Void, Void> {
+                    private static final int SERVERPORT = 3030;
+                    private String SERVER_IP;
+                    private Socket clientSocket;
 
-                thrSwitch = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+                    protected Void doInBackground(String... Param) {
                         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+
                         try {
                             SERVER_IP = pref.getString("ip", "");
                             InetAddress ip = InetAddress.getByName(SERVER_IP);
@@ -126,31 +144,37 @@ public class Adapter extends BaseAdapter {
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                            if(isChecked)outToServer.writeBytes("setPermission " +holder.textView.getText().toString()+" p " +Global.username+" "+Global.password+'\n');
-                            else outToServer.writeBytes("setPermission " +holder.textView.getText().toString()+" d "+Global.username+" "+Global.password+'\n');
-                            modif=inFromServer.readLine();
-                            mList.set(position,holder.textView.getText().toString()+" "+modif);
+                            if (isChecked)
+                                outToServer.writeBytes("setPermission " + holder.textView.getText().toString() + " p " + Global.username + " " + Global.password + '\n');
+                            else
+                                outToServer.writeBytes("setPermission " + holder.textView.getText().toString() + " d " + Global.username + " " + Global.password + '\n');
+                            modif = inFromServer.readLine();
+                            mList.set(position, holder.textView.getText().toString() + " " + modif);
+
                             outToServer.flush();
                             clientSocket.close();
                         } catch (IOException e) {
                             System.out.println("Exception " + e);
                         }
-                        return;
+                        return null;
                     }
-                });
-                thrSwitch.start();
 
-                try {
+                    @Override
+                    protected void onPostExecute(Void result) {
 
-                    thrSwitch.join(0);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    }
+
+                    @Override
+                    protected void onPreExecute() {}
+
+                    @Override
+                    protected void onProgressUpdate(Void... values) {}
                 }
-                if(modif.equals("p")) holder.switchP.setText("user");
-                else holder.switchP.setText("non-user");
-return;
+                new LongOperation().execute("");
+
+
             }
-        });
+        };
 
         spliter=mList.get(position).split(" ");
         holder.textView.setText(spliter[0]);
@@ -158,8 +182,8 @@ return;
         else holder.switchP.setText("user");
 
 
-        if(spliter[1].equals("p") || spliter[1].equals("a"))holder.switchP.setChecked(true);
-        else holder.switchP.setChecked(false);
+        if(spliter[1].equals("p") || spliter[1].equals("a")){holder.switchP.setOnCheckedChangeListener(null);holder.switchP.setChecked(true);holder.switchP.setOnCheckedChangeListener(checkListener);}
+        else {holder.switchP.setOnCheckedChangeListener (null);holder.switchP.setChecked(false);holder.switchP.setOnCheckedChangeListener(checkListener);}
         return convertView;
     }
 

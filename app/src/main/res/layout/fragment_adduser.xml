@@ -8,6 +8,20 @@
     tools:context=".Client_List"
     android:orientation="vertical"
     android:gravity="top">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            />
+
+    </RelativeLayout>
 
         <ListView
             android:id="@+id/list"

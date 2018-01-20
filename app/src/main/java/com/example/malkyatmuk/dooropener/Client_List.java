@@ -2,6 +2,7 @@ package com.example.malkyatmuk.dooropener;
 
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -21,97 +23,93 @@ import java.net.Socket;
 
 public class Client_List extends Fragment {
 
-
     String[] gen=new String[]{"There are no other users!"};
-    private static final int SERVERPORT = 3030;
-    private static  String SERVER_IP ;
-    private Socket clientSocket;
-    public Thread thr;
-    boolean isWork=true;
+    ProgressBar progressBar;
+
     public void readUsers(View view) {
 
-        ListView listView;
-        listView = (ListView)view.findViewById(R.id.list);
-
-        // for (int i=0;i<10;i++) Global.usernames.add("no users");
+        final ListView listView = (ListView)view.findViewById(R.id.list);
+        progressBar.setVisibility(View.VISIBLE);
         Global.usernames.clear();
+        final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        class LongOperation extends AsyncTask<String, Void, Void> {
+            private static final int SERVERPORT = 3030;
+            private String SERVER_IP;
+            private Socket clientSocket;
 
-        thr = new Thread(new Runnable() {
-            @Override
-            public void run() {
+            protected Void doInBackground(String... Param) {
+                SERVER_IP = pref.getString("ip", "");
+                InetAddress ip = null;
 
-                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                try {
-                    SERVER_IP = pref.getString("ip", "");
-                    InetAddress ip = InetAddress.getByName(SERVER_IP);
-                    clientSocket = new Socket(ip, SERVERPORT);
+              try
+              {
+                  ip = InetAddress.getByName(SERVER_IP);
+                  Socket clientSocket;
+                  clientSocket = new Socket(ip, SERVERPORT);
+                  BufferedReader inFromServer ;
+                  String line;
+                  DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                  inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                  outToServer.writeBytes("list " + Global.username + " " + Global.password + '\n');
+                  outToServer.flush();
+                  String[] spliter;
+                  while (true)
+                  {
+                      line = inFromServer.readLine();
+                      if (line != null) {
+                          if (!line.equals("stop") && !line.equals("error")) {
+                              Global.usernames.add(line);
+                          }
+                          else break;
+                      }
 
-                    DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                    BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    outToServer.writeBytes("list " +Global.username+" "+Global.password+ '\n');
-                    outToServer.flush();
-                    String line;
-                    String[] spliter;
-                    while (true) {
-                        line = inFromServer.readLine();
-                      if (line!=null) {
-                            if ( !line.equals("stop") && !line.equals("error")) {
-                                Global.usernames.add(line);
-                            }
-                        }
-                        else{thr.interrupt(); break;}
-                    }
-                    clientSocket.close();
-                } catch (IOException e) {
-                    System.out.println("Exception " + e);
-                }
-
+                  }
+              }
+              catch (IOException e){ e.printStackTrace();}
+              return null;
             }
-        });
-        thr.start();
+            @Override
+            protected void onPostExecute(Void result) {
+                progressBar.setVisibility(View.GONE);
+                ArrayAdapter mAdapter;
+                if(Global.usernames.isEmpty()) {
+                    mAdapter = new ArrayAdapter(getContext(), R.layout.listview_general,R.id.name_general, gen);
+                    listView.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else{
+                    Adapter adapter = new Adapter(getContext(), Global.usernames);
 
-       try {
-            thr.join(0);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //thr.interrupt();
+                    listView.setAdapter(adapter);
 
-        ArrayAdapter mAdapter;
-        if(Global.usernames.isEmpty()) {
-            mAdapter = new ArrayAdapter(getContext(), R.layout.listview_general,R.id.name_general, gen);
-            listView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-        }
-        else{
-            Adapter adapter = new Adapter(getContext(), Global.usernames);
+                    adapter.notifyDataSetChanged();
+                }
+            }
 
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            @Override
+            protected void onPreExecute() {}
+
+            @Override
+            protected void onProgressUpdate(Void... values) {}
         }
-     //   adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, Global.usernamees);
+        new LongOperation().execute("");
     }
 
   @Nullable
   @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
-    {
-      View view = inflater.inflate(R.layout.fragment_adduser, container, false);
-      readUsers(view);
-      return view;
+                             @Nullable Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_adduser, container, false);
+        progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
+        readUsers(view);
+        return view;
     }
-
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("User List");
         view.setFocusable(false);
-
-//        listView.setAdapter(adapter);
-
     }
 }
 

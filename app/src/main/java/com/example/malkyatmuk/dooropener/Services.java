@@ -1,7 +1,6 @@
 package com.example.malkyatmuk.dooropener;
 
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.TextView;
 
 /**
  * Created by malkyatmuk on 10/27/17.
@@ -35,7 +33,7 @@ public class Services extends Service {
             public void onLocationChanged(Location location) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                 Distence distence=new Distence(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
+                 Distance distence=new Distance(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
 
                 double dis = distence.getDistance(distence.Expression(distence.DegToRad(latitude),distence.DegToRad(longitude),distence.DegToRad(Global.latitudeHome),distence.DegToRad(Global.longetudeHome)),6371.0);
                 //if the flag is true, the notification should be send

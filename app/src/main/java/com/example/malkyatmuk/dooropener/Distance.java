@@ -4,10 +4,10 @@ package com.example.malkyatmuk.dooropener;
  * Created by malkyatmuk on 11/27/17.
  */
 
-public class Distence {
+public class Distance {
    private double lat1,  long1, lat2,long2;
    private double distance;
-    public Distence (double lat1, double long1,double lat2, double long2)
+    public Distance(double lat1, double long1, double lat2, double long2)
     {
         this.lat1=lat1;
         this.long1=long1;

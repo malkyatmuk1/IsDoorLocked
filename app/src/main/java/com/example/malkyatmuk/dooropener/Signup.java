@@ -15,6 +15,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,7 +32,8 @@ import java.net.Socket;
 import java.util.regex.Matcher;
 
 public class Signup extends Activity {
-    EditText pass,pass2,username;
+    EditText pass,pass2;
+    AutoCompleteTextView username;
 
     Button btnsignup;
     String txt;
@@ -52,7 +55,7 @@ public class Signup extends Activity {
         Global.ipsignin=false;
         pass = (EditText) findViewById(R.id.pass1);
         pass2 = (EditText) findViewById(R.id.pass2);
-        username = (EditText) findViewById(R.id.username);
+        username = (AutoCompleteTextView) findViewById(R.id.username);
 
         pass1TextLayout=(TextInputLayout) findViewById(R.id.pass1TextLayout);
         pass2TextLayout=(TextInputLayout) findViewById(R.id.pass2TextLayout);
@@ -200,6 +203,9 @@ public class Signup extends Activity {
                 }
                 Global.setIP(Global.ip,getApplicationContext());
             }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplication(),android.R.layout.simple_expandable_list_item_1,Global.users);
+            username.setThreshold(1);
+            username.setAdapter(adapter);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

@@ -32,6 +32,7 @@ public class Global extends Application {
     public static boolean checksignup=false;
     public static boolean goback;
     public static GeofencingClient mGeofencingClient;
+    public static ArrayList<String> users= new ArrayList<String>();
 
     public String getUsername() {
         return username;

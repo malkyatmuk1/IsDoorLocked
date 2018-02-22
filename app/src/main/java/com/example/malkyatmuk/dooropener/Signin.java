@@ -8,9 +8,12 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,7 +30,8 @@ import java.net.Socket;
 public class Signin extends Activity implements GoogleApiClient.ConnectionCallbacks,
                 GoogleApiClient.OnConnectionFailedListener {
     Button btn1;
-    EditText username, password;
+    AutoCompleteTextView username;
+    EditText password;
     TextView signup, ip, settings;
     private Socket clientSocket;
     public String modifiedSentence;
@@ -45,8 +49,11 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
 
         setContentView(R.layout.activity_log_on);
         Global.ipsignin = true;
-        username = (EditText) findViewById(R.id.username);
+        username = (AutoCompleteTextView) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,Global.users);
+        username.setThreshold(1);
+        username.setAdapter(adapter);
         signup = (TextView) findViewById(R.id.tv);
         ip = (TextView) findViewById(R.id.ip);
         btn1 = (Button) findViewById(R.id.signin);
@@ -99,6 +106,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
         public void onClick(final View v) {
             Global.username = username.getText().toString();
             Global.password = password.getText().toString();
+            if(!Global.users.contains(username.getText().toString()))Global.users.add(username.getText().toString());
             if (check.isChecked()) {
                 Global.setIP(Global.directip, getApplicationContext());
             } else {
@@ -130,6 +138,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                             Global.permission = modifiedSentence.charAt(0);
                             Global.username = username.getText().toString();
                             Global.password = password.getText().toString();
+
 
                             if (Global.longetudeHome != 0 && Global.latitudeHome != 0) {
                                 startService(new Intent(getApplicationContext(), Services.class));

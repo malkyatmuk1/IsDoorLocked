@@ -47,7 +47,7 @@
 
             >
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/username"
                 style="@style/Margins"
                 android:layout_width="266dp"

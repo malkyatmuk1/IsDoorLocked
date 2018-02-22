@@ -36,9 +36,10 @@
                 android:src="@drawable/logo"
                 android:contentDescription="@string/logo" />
 
-       <EditText
+       <AutoCompleteTextView
             android:id="@+id/username"
             style="@style/Margins"
+            android:ems="10"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"

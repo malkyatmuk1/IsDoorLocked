@@ -62,11 +62,10 @@ int salt_start = 64, salt_stop = 67;
 void setup() {
   
   ESP.eraseConfig();
-
   // Set WiFi to station mode and disconnect from an AP if it was previously connected
   WiFi.mode(WIFI_AP_STA);
- Serial.begin(115200);
- WiFi.softAP(ssidAp,passAp);
+  Serial.begin(115200);
+  WiFi.softAP(ssidAp,passAp);
   
   EEPROM.begin(512);
   int p=76;
@@ -220,6 +219,7 @@ void loop()
         char nameuser[10];
         char* passworduser;
         char perm1;
+        Serial.println("predi print na commands");
         Serial.println(commands[0]);
         Serial.println(commands[1]);
         Serial.println(commands[2]);
@@ -228,6 +228,7 @@ void loop()
         
         commands[3].toCharArray(nameuser,10);
         perm1=isHavingPermission(nameuser,commands[4]);
+        Serial.println(perm1);
         commands[1].toCharArray(ssid,32);
         commands[2].toCharArray(password,32);
         Serial.println(ssid);
@@ -235,17 +236,15 @@ void loop()
         if(perm1=='a') 
         {
           Serial.println();
-          WiFi.begin(ssid, password);
           writeWifi(commands[1],commands[2]);
           flag=1; 
         }
         int br=0;
-        while(br<500)
+        while(WiFi.begin(ssid, password)!=WL_CONNECTED && br<5)
         {
           Serial.print('.');
           br++;
         }
-        if(br==500) Serial.println("Dont connect");
         if(flag==1) {client.println("true");}
         else client.println("false");
       }
@@ -447,15 +446,17 @@ void readPerson(int start, person* p)
 void writeWifi(String passWifi,String ssidWifi)
 {  
   for(int i=0;i<64;i++)  EEPROM.write(i,0);
+  Serial.println("tuk sam");
   for(int i=0;i<passWifi.length();i++)
   {    
     EEPROM.write(i,passWifi[i]);
-    //Serial.print(char(EEPROM.read(i))); 
+    
+    Serial.print(char(EEPROM.read(i))); 
   }
   for(int i=0;i<ssidWifi.length();i++)
   {    
     EEPROM.write(i+32,ssidWifi[i]);
-   // Serial.print(char(EEPROM.read(i+32))); 
+    Serial.print(char(EEPROM.read(i+32))); 
   }
     EEPROM.commit();
 }
@@ -518,8 +519,8 @@ vector<String> splitString(String line, char c)
 }
 char isHavingPermission(char* usernamePerson,String passwordPerson)
 {
- // Serial.println(usernamePerson);
- // Serial.println(passwordPerson);
+  Serial.println(usernamePerson);
+  Serial.println(passwordPerson);
   char passh[20];
   char salt[12];
   char perm1;
@@ -529,6 +530,8 @@ char isHavingPermission(char* usernamePerson,String passwordPerson)
     //Serial.println(list[i].username);
     if(!strncmp(list[i].username,usernamePerson,10))
       {
+        Serial.print(usernamePerson);
+        Serial.println(".");
             flag=1;
             //Serial.println(flag);
             
@@ -536,13 +539,14 @@ char isHavingPermission(char* usernamePerson,String passwordPerson)
             perm1=list[i].salt[12];
             salt[12]='\0';     
             passwordPerson+=salt;
+            Serial.println(passwordPerson);
             //we hash the password+salt
             sha1(passwordPerson).toCharArray(passh,20);
-           // Serial.println(passh);
-            //Serial.println(list[i].pass_hash);
+            Serial.println(passh);
+            Serial.println(list[i].pass_hash);
             //check if the hashed pass form the client and the hashed password form the list are the same-> if is false the flag  become 0 
             if(strncmp(passh,list[i].pass_hash,20)) flag=0;
-           // Serial.println(flag);
+           Serial.println(flag);
             break;
           }
           else flag=0;

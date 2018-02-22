@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,10 @@ public class Client_List extends Fragment {
     String[] gen=new String[]{"There are no other users!"};
     ProgressBar progressBar;
 
-    public void readUsers(View view) {
+    public void readUsers(View view,boolean isProgressbar) {
 
         final ListView listView = (ListView)view.findViewById(R.id.list);
-        progressBar.setVisibility(View.VISIBLE);
+        if(isProgressbar)  progressBar.setVisibility(View.VISIBLE);
         Global.usernames.clear();
         final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         class LongOperation extends AsyncTask<String, Void, Void> {
@@ -101,15 +102,23 @@ public class Client_List extends Fragment {
                              @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_adduser, container, false);
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
-        readUsers(view);
+        readUsers(view,true);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("User List");
         view.setFocusable(false);
+       final SwipeRefreshLayout sr=(SwipeRefreshLayout) view.findViewById(R.id.mSwipeRefreshLayout);
+        sr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                readUsers(view,false);
+                sr.setRefreshing(false);
+            }
+        });
     }
 }
 

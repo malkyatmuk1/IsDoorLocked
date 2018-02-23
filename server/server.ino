@@ -578,5 +578,32 @@ void printt(char* s,int n)
   }
   Serial.println();
 }
+String getIP()
+{
+
+  WiFiClient client= server.available();
+  if (client.connect("api.ipify.org", 80)) {
+    //Serial.println("connected");
+    client.println("GET /?format=txt HTTP/1.0");
+    client.println("Host: api.ipify.org");
+    client.println();
+  } else {
+    Serial.println("connection failed");
+  }
+  delay(50);
+  int a = 1;
+  while (client.connected()) {
+    a = a + 1;
+    String line = client.readStringUntil('\n');
+    if (a == 10) {
+      Serial.println(line);
+      return line;
+    }
+  }
+  return "";
+
+
+
+}
 
 

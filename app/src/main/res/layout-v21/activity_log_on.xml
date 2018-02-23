@@ -47,6 +47,7 @@
             android:textColorHint="@color/bluewithlogo"
             android:backgroundTint="@color/bluewithlogo"
             android:layout_marginTop="50dp"
+           android:imeOptions="actionNext"
            />
 
         <EditText

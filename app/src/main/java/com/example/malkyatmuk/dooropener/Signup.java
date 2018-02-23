@@ -55,7 +55,11 @@ public class Signup extends Activity {
         Global.ipsignin=false;
         pass = (EditText) findViewById(R.id.pass1);
         pass2 = (EditText) findViewById(R.id.pass2);
+
         username = (AutoCompleteTextView) findViewById(R.id.username);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,Global.users);
+        username.setThreshold(1);
+        username.setAdapter(adapter);
 
         pass1TextLayout=(TextInputLayout) findViewById(R.id.pass1TextLayout);
         pass2TextLayout=(TextInputLayout) findViewById(R.id.pass2TextLayout);
@@ -191,6 +195,7 @@ public class Signup extends Activity {
     };
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(View v) {
+            if(!Global.users.contains(username.getText().toString()))Global.users.add(username.getText().toString());
             if (check.isChecked() ) {
                 Global.setIP(Global.directip,getApplicationContext());
             }
@@ -203,9 +208,7 @@ public class Signup extends Activity {
                 }
                 Global.setIP(Global.ip,getApplicationContext());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplication(),android.R.layout.simple_expandable_list_item_1,Global.users);
-            username.setThreshold(1);
-            username.setAdapter(adapter);
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {

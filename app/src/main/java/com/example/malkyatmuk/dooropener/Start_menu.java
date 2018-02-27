@@ -121,3 +121,5 @@ public class Start_menu extends AppCompatActivity
     }
 
 }
+//kogato kazvame wifi to shte se znae za koe ustroistvo sme vzimame ip
+// kogato sme izvun nas moje da iskame kum drugo ip da se svurjem, to moje da ima menu s ip i da si izbirame kum koq vrata da se svurjem

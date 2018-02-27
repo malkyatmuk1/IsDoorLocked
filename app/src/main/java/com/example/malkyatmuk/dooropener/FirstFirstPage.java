@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class FirstFirstPage extends AppCompatActivity {
 
-    int TIME_OUT=4000;
+    int TIME_OUT=3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +29,6 @@ public class FirstFirstPage extends AppCompatActivity {
                 finish();
             }
         }, TIME_OUT);
+
     }
 }

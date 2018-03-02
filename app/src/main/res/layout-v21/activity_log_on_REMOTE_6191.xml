@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgroundwithlogo"
+    tools:context=".Signin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top">
+
+
+    <TextView
+        android:id="@+id/sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        android:textAlignment="center"
+        android:background="@drawable/navbar"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:padding="5dp"
+        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wifi"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:background="@color/backgroundwithlogo"
+        />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.5"
+    android:orientation="vertical"
+    android:gravity="center">
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:src="@drawable/logo"
+                android:contentDescription="@string/logo" />
+
+       <AutoCompleteTextView
+            android:id="@+id/username"
+            style="@style/Margins"
+            android:ems="10"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="@string/username"
+            android:textColorHint="@color/bluewithlogo"
+            android:backgroundTint="@color/bluewithlogo"
+            android:layout_marginTop="50dp"
+           android:imeOptions="actionNext"
+           />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/Margins"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:textColorHint="@color/bluewithlogo"
+            android:backgroundTint="@color/bluewithlogo"/>
+       <CheckBox
+           android:id="@+id/check"
+           android:layout_width="266dp"
+           android:layout_height="wrap_content"
+           android:textColor="@color/background"
+           android:text="@string/direct_connection" />
+
+       <Button
+           android:id="@+id/signin"
+           style="@style/Margins"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@drawable/sign"
+           android:gravity="center"
+           android:paddingBottom="15dp"
+           android:paddingLeft="35dp"
+           android:paddingRight="35dp"
+           android:paddingTop="15dp"
+           android:text="@string/sign_in"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="25sp"
+           android:layout_marginTop="10dp"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/wifi_settings"
+           android:textColor="@color/pink"
+           android:id="@+id/wifiset"
+           android:textSize="17sp"
+           android:layout_marginTop="2dp"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/sign_up"
+           android:textColor="@color/pink"
+           android:id="@+id/tv"
+           android:textSize="17sp"
+           android:layout_marginTop="2dp"/>
+   </LinearLayout>
+
+</LinearLayout>

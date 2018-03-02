@@ -593,65 +593,31 @@ void printt(char* s,int n)
   }
   Serial.println();
 }
-
-int GetExternalIP()
+void GetExternalIP()
 {
   WiFiClient client;
-
-
-
-   if (client.connect("api.ipify.org", 80)) {
-        Serial.println("connected");
-        client.println("GET / HTTP/1.1");
-        client.println("Host: api.ipify.org");
-        client.println();
-
-       while(client)
-       {
-        /*if(client.readStringUntil('\n').length()==0)
-        {
-        */
-        String line =client.readStringUntil('\n');
-        
-        if(line.length()==1)
-        {
-          line=client.readStringUntil('\n');
-           Serial.println(line);
-           break;
-        }
-        }
-              
-       
-
-         
-  
- 
-    } else {
-        Serial.println("connection failed");
-    }
-    return 0;
-/*
-  if (!client1.connect("api.ipify.org", 80)) {
-    Serial.println("Failed to connect with 'api.ipify.org' !");
-  }
-  else {
-    int timeout = millis() + 5000;
-    client.print("GET /?format=json HTTP/1.1\r\nHost: api.ipify.org\r\n\r\n");
-    while (client1.available() == 0) {
-      if (timeout - millis() < 0) {
-        Serial.println(">>> Client Timeout !");
-        client1.stop();
-        return;
+  if (client.connect("api.ipify.org", 80))
+  {
+    Serial.println("connected");
+    client.println("GET / HTTP/1.1");
+    client.println("Host: api.ipify.org");
+    client.println();
+    
+    while(client)
+    {
+      String line =client.readStringUntil('\n');
+      
+      if(line.length()==1)
+      {
+        line=client.readStringUntil('\n');
+        Serial.println(line);
+        break;
       }
-    }
-    int size;
-    while ((size = client1.available()) > 0) {
-      uint8_t* msg = (uint8_t*)malloc(size);
-      size = client1.read(msg, size);
-      Serial.write(msg, size);
-      free(msg);
-    }
+    }  
   }
-  */
+  else 
+  {
+    Serial.println("connection failed");
+  }
 }
 

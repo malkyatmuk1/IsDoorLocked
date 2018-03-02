@@ -136,6 +136,9 @@ void loop()
       Serial.println(str);
       //registrirane
       //v
+
+
+      
       if(commands[0]=="signup")
       {
         bool flag=0,flag1=1;
@@ -202,6 +205,7 @@ void loop()
         char passh[20];
         commands[1].toCharArray(p.username,10);
         char* pass;
+            
         
         char salt[12];
         commands[2].toCharArray(pass,commands[2].length());
@@ -219,6 +223,7 @@ void loop()
         char nameuser[10];
         char* passworduser;
         char perm1;
+        String ip=getIP();
         Serial.println("predi print na commands");
         Serial.println(commands[0]);
         Serial.println(commands[1]);
@@ -236,6 +241,7 @@ void loop()
         if(perm1=='a') 
         {
           Serial.println();
+          
           writeWifi(commands[1],commands[2]);
           flag=1; 
         }
@@ -245,7 +251,12 @@ void loop()
           Serial.print('.');
           br++;
         }
-        if(flag==1) {client.println("true");}
+        if(flag==1)
+        {
+          ip="ture "+ip;
+          client.println(ip);
+        
+        }
         else client.println("false");
       }
        

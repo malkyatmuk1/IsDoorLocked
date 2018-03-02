@@ -1,7 +1,9 @@
 package com.example.malkyatmuk.dooropener;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +29,7 @@ public class WifiSettings extends Activity {
     private static final int SERVERPORT = 3030;
     private String send;
     Thread trd;
+    public SharedPreferences pref;
 
 
     @Override
@@ -102,9 +105,15 @@ public class WifiSettings extends Activity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            String[] ip = new String[2];
+            ip=modifiedSentence.split(" ");
+            if(ip[0]==null) modifiedSentence="";
+            else if(!ip[0].equals("false") && !ip[0].equals("error")) {
+                pref = getApplicationContext().getSharedPreferences("IP", Context.MODE_PRIVATE);
 
-            if(modifiedSentence==null) modifiedSentence="";
-            else if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("ip",ip[1]);
+                editor.apply();
                 Toast toast=Toast.makeText(view.getContext(),"The wifi was set",Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();

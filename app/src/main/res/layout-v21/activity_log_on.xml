@@ -21,6 +21,14 @@
         android:textSize="35sp"
         android:padding="5dp"
         />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wifi"
+        android:layout_gravity="right"
+        android:background="@color/backgroundwithlogo"
+        android:layout_margin="10dp"
+        />
 
 
    <LinearLayout
@@ -100,13 +108,5 @@
            android:id="@+id/tv"
            android:textSize="17sp"
            android:layout_marginTop="2dp"/>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/ip"
-           android:textColor="@color/pink"
-           android:id="@+id/ip"
-           android:textSize="17sp"
-           android:layout_marginTop="2dp"/>
-    </LinearLayout>
+   </LinearLayout>
 </LinearLayout>

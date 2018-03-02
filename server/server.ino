@@ -116,7 +116,7 @@ Serial.println(password);
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
-
+  //GetExternalIP();
   server.begin();
 }
 
@@ -138,8 +138,11 @@ void loop()
       //v
 
 
-      
-      if(commands[0]=="signup")
+      if(commands[0]=="ip")
+      {
+        GetExternalIP();
+      }
+      else if(commands[0]=="signup")
       {
         bool flag=0,flag1=1;
         int j=0;
@@ -223,7 +226,7 @@ void loop()
         char nameuser[10];
         char* passworduser;
         char perm1;
-        String ip=getIP();
+    
         Serial.println("predi print na commands");
         Serial.println(commands[0]);
         Serial.println(commands[1]);
@@ -253,8 +256,8 @@ void loop()
         }
         if(flag==1)
         {
-          ip="ture "+ip;
-          client.println(ip);
+          //ip="ture "+ip;
+          //client.println(ip);
         
         }
         else client.println("false");
@@ -589,56 +592,43 @@ void printt(char* s,int n)
   }
   Serial.println();
 }
-String getIP()
-{
 
-  WiFiClient client= server.available();
-  if (client.connect("api.ipify.org", 80)) {
-    //Serial.println("connected");
-    client.println("GET /?format=txt HTTP/1.0");
-    client.println("Host: api.ipify.org");
-    client.println();
-  } else {
-    Serial.println("connection failed");
-  }
-  delay(50);
-  int a = 1;
-  while (client.connected()) {
-    a = a + 1;
-    String line = client.readStringUntil('\n');
-    if (a == 10) {
-      Serial.println(line);
-      return line;
-    }
-  }
-  return "";
-
-
-
-}
 void GetExternalIP()
 {
   WiFiClient client;
-  if (!client.connect("api.ipify.org", 80)) {
+
+
+   if (client.connect("api.ipify.org", 80)) {
+        Serial.println("connected");
+        client.println("GET / HTTP/1.1");
+        client.println("Host: api.ipify.org");
+        client.println();
+        Serial.println( client.read());
+    } else {
+        Serial.println("connection failed");
+    }
+/*
+  if (!client1.connect("api.ipify.org", 80)) {
     Serial.println("Failed to connect with 'api.ipify.org' !");
   }
   else {
     int timeout = millis() + 5000;
     client.print("GET /?format=json HTTP/1.1\r\nHost: api.ipify.org\r\n\r\n");
-    while (client.available() == 0) {
+    while (client1.available() == 0) {
       if (timeout - millis() < 0) {
         Serial.println(">>> Client Timeout !");
-        client.stop();
+        client1.stop();
         return;
       }
     }
     int size;
-    while ((size = client.available()) > 0) {
+    while ((size = client1.available()) > 0) {
       uint8_t* msg = (uint8_t*)malloc(size);
-      size = client.read(msg, size);
+      size = client1.read(msg, size);
       Serial.write(msg, size);
       free(msg);
     }
   }
+  */
 }
 

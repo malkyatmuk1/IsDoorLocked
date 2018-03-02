@@ -5,6 +5,7 @@
 #include <vector>
 #include<Hash.h>
 
+
 using namespace std;
 
  struct person 
@@ -593,9 +594,10 @@ void printt(char* s,int n)
   Serial.println();
 }
 
-void GetExternalIP()
+int GetExternalIP()
 {
   WiFiClient client;
+
 
 
    if (client.connect("api.ipify.org", 80)) {
@@ -603,10 +605,31 @@ void GetExternalIP()
         client.println("GET / HTTP/1.1");
         client.println("Host: api.ipify.org");
         client.println();
-        Serial.println( client.read());
+
+       while(client)
+       {
+        /*if(client.readStringUntil('\n').length()==0)
+        {
+        */
+        String line =client.readStringUntil('\n');
+        
+        if(line.length()==1)
+        {
+          line=client.readStringUntil('\n');
+           Serial.println(line);
+           break;
+        }
+        }
+              
+       
+
+         
+  
+ 
     } else {
         Serial.println("connection failed");
     }
+    return 0;
 /*
   if (!client1.connect("api.ipify.org", 80)) {
     Serial.println("Failed to connect with 'api.ipify.org' !");

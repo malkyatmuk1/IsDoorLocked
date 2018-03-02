@@ -24,11 +24,12 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/ip"
         android:src="@drawable/wifi"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@color/backgroundwithlogo"
         android:layout_margin="10dp"
-        />
+        android:contentDescription="@string/connect_ip" />
 
 
    <LinearLayout

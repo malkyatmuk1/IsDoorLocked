@@ -25,4 +25,5 @@
     <string name="wifi_pass">Wifi-pass</string>
     <string name="permisson">permisson</string>
     <string name="mask">mask</string>
+    <string name="connect_ip">connect-ip</string>
 </resources>

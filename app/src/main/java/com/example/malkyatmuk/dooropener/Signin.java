@@ -13,7 +13,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -122,6 +121,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 @Override
                 public void run() {
                     try {
+
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SERVER_IP = sharedPreferences.getString("ip", "");
                         InetAddress ip = InetAddress.getByName(SERVER_IP);

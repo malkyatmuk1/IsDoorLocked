@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,7 +32,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     Button btn1;
     AutoCompleteTextView username;
     EditText password;
-    TextView signup, ip, settings;
+    TextView signup, settings;
     private Socket clientSocket;
     public String modifiedSentence;
     private static final int SERVERPORT = 3030;
@@ -39,6 +40,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     public String send;
     CheckBox check;
     Thread thr;
+    ImageButton ip;
 
 
     @Override
@@ -54,7 +56,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
         username.setThreshold(1);
         username.setAdapter(adapter);
         signup = (TextView) findViewById(R.id.tv);
-        ip = (TextView) findViewById(R.id.ip);
+        ip = (ImageButton) findViewById(R.id.ip);
         btn1 = (Button) findViewById(R.id.signin);
         settings = (TextView) findViewById(R.id.wifiset);
         check = (CheckBox) findViewById(R.id.check);
@@ -85,10 +87,35 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     View.OnClickListener iplistener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), IP.class);
-            Global.ipsignin = true;
-            startActivity(intent);
-            finish();
+
+            WifiDialog wifidialog=new WifiDialog();
+            wifidialog.show(getFragmentManager(),"wifi");
+            thr = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SERVER_IP = sharedPreferences.getString("ip", "");
+                        InetAddress ip = InetAddress.getByName(Global.directip);
+                        clientSocket = new Socket(ip, SERVERPORT);
+                        send = "ip"+'\n';
+
+                        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        outToServer.writeBytes(send);
+                        outToServer.flush();
+                        Global.ip=modifiedSentence;
+                        clientSocket.close();
+                    } catch (IOException e) {
+                        System.out.println("Exception " + e);
+                    }
+                    return;
+                }
+            });
+            thr.start();
+
+            thr.interrupt();
         }
     };
     View.OnClickListener settingslistener = new View.OnClickListener() {
@@ -100,6 +127,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
 
         }
     };
+
 
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(final View v) {

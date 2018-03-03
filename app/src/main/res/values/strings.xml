@@ -26,4 +26,6 @@
     <string name="permisson">permisson</string>
     <string name="mask">mask</string>
     <string name="connect_ip">connect-ip</string>
+    <string name="connectButton">CONNECT</string>
+    <string name="wifi">Choose a WIFI</string>
 </resources>

@@ -2,9 +2,7 @@ package com.example.malkyatmuk.dooropener;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -95,8 +93,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 public void run() {
                     try {
 
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SERVER_IP = sharedPreferences.getString("ip", "");
                         InetAddress ip = InetAddress.getByName(Global.directip);
                         clientSocket = new Socket(ip, SERVERPORT);
                         send = "ip"+'\n';
@@ -116,6 +112,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
             thr.start();
 
             thr.interrupt();
+            Global.setIP(Global.ip,getApplicationContext());
         }
     };
     View.OnClickListener settingslistener = new View.OnClickListener() {
@@ -138,9 +135,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 Global.setIP(Global.directip, getApplicationContext());
             } else {
                 if (Global.ip.isEmpty()) {
-                    Intent intent = new Intent(getApplicationContext(), IP.class);
-                    startActivity(intent);
-                    finish();
+                    //TODO
                 }
                 Global.setIP(Global.ip, getApplicationContext());
             }
@@ -149,9 +144,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 @Override
                 public void run() {
                     try {
-
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SERVER_IP = sharedPreferences.getString("ip", "");
+                        SERVER_IP =Global.ip;
                         InetAddress ip = InetAddress.getByName(SERVER_IP);
                         clientSocket = new Socket(ip, SERVERPORT);
                         send = "signin " + username.getText() + " " + password.getText() + '\n';
@@ -166,7 +159,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                             Global.permission = modifiedSentence.charAt(0);
                             Global.username = username.getText().toString();
                             Global.password = password.getText().toString();
-
 
                             if (Global.longetudeHome != 0 && Global.latitudeHome != 0) {
                                 startService(new Intent(getApplicationContext(), Services.class));
@@ -207,6 +199,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
 }
 
 

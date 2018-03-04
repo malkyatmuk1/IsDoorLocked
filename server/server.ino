@@ -141,7 +141,9 @@ void loop()
 
       if(commands[0]=="ip")
       {
-        GetExternalIP();
+        String ip;
+        GetExternalIP(ip);
+        client.println(ip);
       }
       else if(commands[0]=="signup")
       {
@@ -593,7 +595,7 @@ void printt(char* s,int n)
   }
   Serial.println();
 }
-void GetExternalIP()
+void GetExternalIP(String &ip)
 {
   WiFiClient client;
   if (client.connect("api.ipify.org", 80))
@@ -610,7 +612,7 @@ void GetExternalIP()
       if(line.length()==1)
       {
         line=client.readStringUntil('\n');
-        Serial.println(line);
+        ip=line;
         break;
       }
     }  

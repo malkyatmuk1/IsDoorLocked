@@ -13,6 +13,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,42 +35,7 @@ public class WifiDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
-        final ArrayList<String> WifiArray = new ArrayList<String>();
-        mainWifi = (WifiManager) getContext().getApplicationContext().getSystemService(WIFI_SERVICE);
-        receiverWifi = new WifiReceiver();
-        getContext().getApplicationContext().registerReceiver(receiverWifi, new IntentFilter(
-                WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        mainWifi.startScan();
-        for (ScanResult wifi : mainWifi.getScanResults())
-        {
-            WifiArray.add(wifi.SSID);
-        }
-
-
-
-        final CharSequence[] WifiArrayChar = WifiArray.toArray(new String[WifiArray.size()]);
-
-
-        AlertDialog.Builder builderWifi = new AlertDialog.Builder(getActivity());
-
-        builderWifi .setTitle(R.string.wifi)
-                .setItems(WifiArrayChar,new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int selectedIndex) {
-                        networkSSID = WifiArray.get(selectedIndex);
-                        PasswordDialog(getContext().getApplicationContext());
-                        conf = new WifiConfiguration();
-                        conf.SSID = "\"" + networkSSID + "\"";
-                        conf.preSharedKey = "\""+ networkPass +"\"";
-
-                    }
-                })
-                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                     public void onClick(DialogInterface dialog, int id) {
-
-                     }
-                });
-        // Create the AlertDialog object and return it
-        return builderWifi.create();
+        return  AutoOrHandDialog(getActivity());
 
     }
 
@@ -82,8 +48,8 @@ public class WifiDialog extends DialogFragment {
      }
     void PasswordDialog(final Context context)
     {
-        AlertDialog.Builder builderPass = new AlertDialog.Builder(getActivity());
-        final EditText input = new EditText(getContext());
+        AlertDialog.Builder builderPass = new AlertDialog.Builder(context);
+        final EditText input = new EditText(context);
         builderPass .setTitle("Password for "+ networkSSID)
                 .setView(input)
                 .setPositiveButton(R.string.connectButton, new DialogInterface.OnClickListener() {
@@ -111,6 +77,73 @@ public class WifiDialog extends DialogFragment {
                     }
                 }).create().show();
 
+    }
+     Dialog AutoOrHandDialog(final Context context)
+    {
+        AlertDialog.Builder builderPass = new AlertDialog.Builder(getActivity());
+
+       TextView inputAuto = new TextView(getActivity());
+        String auto= getResources().getString(R.string.auto);
+        inputAuto.setText(auto);
+        final TextView inputHand = new TextView(getContext());
+        inputAuto.setText(getResources().getString(R.string.hand));
+
+                builderPass .setTitle("Set IP")
+                            .setMessage(getResources().getString(R.string.auto)+"\n"+getResources().getString(R.string.hand))
+                            .setPositiveButton(R.string.AutoButton, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    wifiDialog(context).show();
+
+                                }
+                            })
+                            .setNegativeButton(R.string.HandButton, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(context, IP.class);
+                                    startActivity(intent);
+                                }
+                            });
+        return builderPass.create();
+
+    }
+    Dialog wifiDialog(final Context context)
+    {
+
+        final ArrayList<String> WifiArray = new ArrayList<String>();
+        mainWifi = (WifiManager) context.getSystemService(WIFI_SERVICE);
+        receiverWifi = new WifiReceiver();
+        getContext().getApplicationContext().registerReceiver(receiverWifi, new IntentFilter(
+                WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        mainWifi.startScan();
+        for (ScanResult wifi : mainWifi.getScanResults())
+        {
+            WifiArray.add(wifi.SSID);
+        }
+
+
+
+        final CharSequence[] WifiArrayChar = WifiArray.toArray(new String[WifiArray.size()]);
+
+
+        AlertDialog.Builder builderWifi = new AlertDialog.Builder(getActivity());
+
+        builderWifi .setTitle(R.string.wifi)
+                .setItems(WifiArrayChar,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int selectedIndex) {
+                        networkSSID = WifiArray.get(selectedIndex);
+                        PasswordDialog(context);
+                        conf = new WifiConfiguration();
+                        conf.SSID = "\"" + networkSSID + "\"";
+                        conf.preSharedKey = "\""+ networkPass +"\"";
+
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builderWifi.create();
     }
 
 }

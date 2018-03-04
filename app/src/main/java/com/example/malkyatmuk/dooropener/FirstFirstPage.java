@@ -1,11 +1,12 @@
 package com.example.malkyatmuk.dooropener;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Handler;
-import android.support.constraint.solver.SolverVariable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class FirstFirstPage extends AppCompatActivity {
@@ -29,6 +30,10 @@ public class FirstFirstPage extends AppCompatActivity {
                 finish();
             }
         }, TIME_OUT);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Global.ip = sharedPreferences.getString("ip", "");
+
 
     }
 }

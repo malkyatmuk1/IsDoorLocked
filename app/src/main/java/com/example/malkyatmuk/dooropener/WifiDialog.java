@@ -101,7 +101,7 @@ public class WifiDialog extends DialogFragment {
                         LongOperation lg=new  LongOperation();
                         lg.execute("");
 
-                       
+
 
 
                     }

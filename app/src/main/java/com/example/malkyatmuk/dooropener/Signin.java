@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -38,6 +39,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     public String send;
     CheckBox check;
     Thread thr;
+    public  ProgressBar progressBar;
     ImageButton ip;
 
 
@@ -48,6 +50,8 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
 
         setContentView(R.layout.activity_log_on);
         Global.ipsignin = true;
+        //progressBar=(ProgressBar) findViewById(R.id.progressBar);
+       // progressBar.setVisibility(View.INVISIBLE);
         username = (AutoCompleteTextView) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,Global.users);
@@ -88,31 +92,8 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
 
             WifiDialog wifidialog=new WifiDialog();
             wifidialog.show(getFragmentManager(),"wifi");
-            thr = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
 
-                        InetAddress ip = InetAddress.getByName(Global.directip);
-                        clientSocket = new Socket(ip, SERVERPORT);
-                        send = "ip"+'\n';
 
-                        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                        outToServer.writeBytes(send);
-                        outToServer.flush();
-                        Global.ip=modifiedSentence;
-                        clientSocket.close();
-                    } catch (IOException e) {
-                        System.out.println("Exception " + e);
-                    }
-                    return;
-                }
-            });
-            thr.start();
-
-            thr.interrupt();
-            Global.setIP(Global.ip,getApplicationContext());
         }
     };
     View.OnClickListener settingslistener = new View.OnClickListener() {
@@ -132,11 +113,15 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
             Global.password = password.getText().toString();
             if(!Global.users.contains(username.getText().toString()))Global.users.add(username.getText().toString());
             if (check.isChecked()) {
-                Global.setIP(Global.directip, getApplicationContext());
+               SERVER_IP=Global.directip;
+               //Global.setIP(Global.directip, getApplicationContext());
             } else {
                 if (Global.ip.isEmpty()) {
-                    //TODO
+                    WifiDialog wifidialog=new WifiDialog();
+                    wifidialog.show(getFragmentManager(),"wifi");
+
                 }
+                SERVER_IP=Global.ip;
                 Global.setIP(Global.ip, getApplicationContext());
             }
 
@@ -144,7 +129,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 @Override
                 public void run() {
                     try {
-                        SERVER_IP =Global.ip;
                         InetAddress ip = InetAddress.getByName(SERVER_IP);
                         clientSocket = new Socket(ip, SERVERPORT);
                         send = "signin " + username.getText() + " " + password.getText() + '\n';

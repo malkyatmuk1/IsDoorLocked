@@ -11,10 +11,18 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +40,8 @@ public class WifiDialog extends DialogFragment {
     private String networkPass;
     private WifiConfiguration conf;
     private String networkSSID;
+    public WifiManager wifiManager;
+    Socket clientSocket;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -46,28 +56,53 @@ public class WifiDialog extends DialogFragment {
 
         }
      }
-    void PasswordDialog(final Context context)
+   public void PasswordDialog(final Context context)
     {
         AlertDialog.Builder builderPass = new AlertDialog.Builder(context);
         final EditText input = new EditText(context);
+       input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builderPass .setTitle("Password for "+ networkSSID)
                 .setView(input)
                 .setPositiveButton(R.string.connectButton, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String pass;
                         networkPass=input.getText().toString();
-                        WifiManager wifiManager = (WifiManager)context.getSystemService(WIFI_SERVICE);
-                        wifiManager.addNetwork(conf);
+                        if(networkPass.isEmpty()) networkPass="";
+                        conf = new WifiConfiguration();
+                        conf.SSID = "\"" + networkSSID + "\"";
+                        conf.preSharedKey = "\""+ networkPass +"\"";
+
+                         wifiManager = (WifiManager)context.getSystemService(WIFI_SERVICE);
+                        wifiManager.setWifiEnabled(true);
+                        Boolean flag=false;
                         List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
                         for( WifiConfiguration i : list ) {
-                            if(i.SSID != null && i.SSID.equals("\"" + networkSSID + "\""))
-                            {
+                            if (i.SSID != null && i.SSID.equals("\"" + networkSSID + "\"")) {
+                                flag=false;
                                 wifiManager.disconnect();
                                 wifiManager.enableNetwork(i.networkId, true);
                                 wifiManager.reconnect();
                                 break;
                             }
+                            else if(i.SSID!=null)
+                            {
+                                flag=true;
+                            }
+
                         }
+                        if(flag)
+                        {
+                            wifiManager.addNetwork(conf);
+                            wifiManager.disconnect();
+                            wifiManager.enableNetwork(0, true);
+                            wifiManager.reconnect();
+                        }
+
+                        LongOperation lg=new  LongOperation();
+                        lg.execute("");
+
+                       
+
 
                     }
                 })
@@ -76,6 +111,8 @@ public class WifiDialog extends DialogFragment {
                        networkPass="";
                     }
                 }).create().show();
+        Global.setIP(Global.ip,getContext().getApplicationContext());
+
 
     }
      Dialog AutoOrHandDialog(final Context context)
@@ -131,9 +168,7 @@ public class WifiDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int selectedIndex) {
                         networkSSID = WifiArray.get(selectedIndex);
                         PasswordDialog(context);
-                        conf = new WifiConfiguration();
-                        conf.SSID = "\"" + networkSSID + "\"";
-                        conf.preSharedKey = "\""+ networkPass +"\"";
+
 
                     }
                 })
@@ -147,4 +182,46 @@ public class WifiDialog extends DialogFragment {
     }
 
 }
+class LongOperation extends AsyncTask<String, Void, Void> {
+    private static final int SERVERPORT = 3030;
+    private String SERVER_IP;
+    private Socket clientSocket;
 
+
+    protected Void doInBackground(String ...Params) {
+
+        Thread thr = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    int SERVERPORT = 3030;
+                    InetAddress ip = InetAddress.getByName(Global.directip);
+                    clientSocket = new Socket(ip, SERVERPORT);
+                    String send = "ip\n";
+
+                    DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                    BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                    outToServer.writeBytes(send);
+                    outToServer.flush();
+                    String modifiedSentence = inFromServer.readLine();
+                    Global.ip = modifiedSentence;
+
+                    clientSocket.close();
+
+                } catch (IOException e) {
+                    System.out.println("Exception " + e);
+                }
+                return;
+            }
+        });
+        thr.start();
+
+        //thr.interrupt();
+
+        return null;
+    }
+    protected void onPostExecute(Void result) {
+
+    }
+}

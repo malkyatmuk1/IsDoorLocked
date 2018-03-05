@@ -29,10 +29,12 @@ public class Global extends Application {
     public static String directip="192.168.4.1";
     public static boolean ipsignin=false;
     public static boolean checksignin=false;
-    public static boolean checksignup=false;
+    public static boolean checkProgress=false;
     public static boolean goback;
+
     public static GeofencingClient mGeofencingClient;
     public static ArrayList<String> users= new ArrayList<String>();
+
 
     public String getUsername() {
         return username;
@@ -52,7 +54,7 @@ public class Global extends Application {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putString("ip", ip);
-        editor.commit();
+        editor.apply();
 
     }
 }

@@ -621,5 +621,6 @@ void GetExternalIP(String &ip)
   {
     Serial.println("connection failed");
   }
+
 }
 

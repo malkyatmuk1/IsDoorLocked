@@ -8,13 +8,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -41,6 +44,7 @@ public class WifiDialog extends DialogFragment {
     private WifiConfiguration conf;
     private String networkSSID;
     public WifiManager wifiManager;
+    public ProgressBar progressBar;
     Socket clientSocket;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class WifiDialog extends DialogFragment {
      }
    public void PasswordDialog(final Context context)
     {
+        progressBar= (ProgressBar) getView().findViewById(R.id.progressBar);
+
         AlertDialog.Builder builderPass = new AlertDialog.Builder(context);
         final EditText input = new EditText(context);
        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -97,8 +103,8 @@ public class WifiDialog extends DialogFragment {
                             wifiManager.enableNetwork(0, true);
                             wifiManager.reconnect();
                         }
-
-                        LongOperation lg=new  LongOperation();
+                        progressBar.setVisibility(View.VISIBLE);
+                        LongOperation lg=new  LongOperation(getContext().getApplicationContext(),getView(),wifiManager);
                         lg.execute("");
 
 
@@ -186,10 +192,23 @@ class LongOperation extends AsyncTask<String, Void, Void> {
     private static final int SERVERPORT = 3030;
     private String SERVER_IP;
     private Socket clientSocket;
+    public Context mContext;
+    public View mView;
+    public ProgressBar progressBar;
+    public WifiManager wifi;
 
 
+    LongOperation (Context context,View view,WifiManager wifiManager)
+    {
+
+        super();
+        this.mContext=context;
+        this.mView=view;
+        this.wifi=wifiManager;
+    }
     protected Void doInBackground(String ...Params) {
 
+        progressBar = (ProgressBar)  mView.findViewById(R.id.progressBar);
         Thread thr = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -206,10 +225,22 @@ class LongOperation extends AsyncTask<String, Void, Void> {
                     outToServer.flush();
                     String modifiedSentence = inFromServer.readLine();
                     Global.ip = modifiedSentence;
-
+                    Global.setIP(modifiedSentence,mContext);
+                    wifi.disconnect();
+                    progressBar.setVisibility(View.INVISIBLE);
                     clientSocket.close();
 
                 } catch (IOException e) {
+                    final AlertDialog.Builder builderWifi = new AlertDialog.Builder(mContext);
+
+                    builderWifi.setTitle("Problem")
+                                .setMessage("Connection abort!")
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                }).create().show();
                     System.out.println("Exception " + e);
                 }
                 return;

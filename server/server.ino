@@ -35,6 +35,7 @@ person list[10];
 byte listofflags[10];
 vector<String> commands;
 vector<String>wifi;
+String ip;
 
 vector<String> splitString(String line, char c);
 void writePassAp(String pass);
@@ -117,7 +118,7 @@ Serial.println(password);
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
-  //GetExternalIP();
+  GetExternalIP(ip);
   server.begin();
 }
 
@@ -141,8 +142,7 @@ void loop()
 
       if(commands[0]=="ip")
       {
-        String ip;
-        GetExternalIP(ip);
+        
         client.println(ip);
       }
       else if(commands[0]=="signup")
@@ -272,6 +272,7 @@ void loop()
         {
           Serial.print(char(EEPROM.read(i)));
         }
+        GetExternalIP(ip);
        }
       //v  
       else if(commands[0]=="setAP")

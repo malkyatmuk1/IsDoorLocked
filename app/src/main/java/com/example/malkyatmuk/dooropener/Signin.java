@@ -117,8 +117,8 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                //Global.setIP(Global.directip, getApplicationContext());
             } else {
                 if (Global.ip.isEmpty()) {
-                    WifiDialog wifidialog=new WifiDialog();
-                    wifidialog.show(getFragmentManager(),"wifi");
+                  //  WifiDialog wifidialog=new WifiDialog();
+                   // wifidialog.show(getFragmentManager(),"wifi");
 
                 }
                 SERVER_IP=Global.ip;
@@ -130,6 +130,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 public void run() {
                     try {
                         InetAddress ip = InetAddress.getByName(SERVER_IP);
+                        //Thread.sleep(2000);
                         clientSocket = new Socket(ip, SERVERPORT);
                         send = "signin " + username.getText() + " " + password.getText() + '\n';
 

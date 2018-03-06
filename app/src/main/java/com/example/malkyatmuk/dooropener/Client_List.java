@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client_List extends Fragment {
@@ -39,14 +38,12 @@ public class Client_List extends Fragment {
             private Socket clientSocket;
 
             protected Void doInBackground(String... Param) {
-                SERVER_IP = pref.getString("ip", "");
-                InetAddress ip = null;
 
               try
               {
-                  ip = InetAddress.getByName(SERVER_IP);
+
                   Socket clientSocket;
-                  clientSocket = new Socket(ip, SERVERPORT);
+                  clientSocket = new Socket(Global.ip, SERVERPORT);
                   BufferedReader inFromServer ;
                   String line;
                   DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());

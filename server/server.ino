@@ -32,10 +32,11 @@ const char passAp[]="12345678";
 const char ssidAp[]="espd";
 
 person list[10];
-byte listofflags[10];
+byte listofflags[10]; 
 vector<String> commands;
 vector<String>wifi;
-String ip;
+String ip="";
+bool flagChangedWifi= true;
 
 vector<String> splitString(String line, char c);
 void writePassAp(String pass);
@@ -46,6 +47,7 @@ void writePerson(int start, person* p);
 char isHavingPermission(char* usernamePerson,String passwordPerson);
 void printlist();
 void printt(char* s,int n);
+void GetExternalIP(String* s);
 String readWifi();
 
 //create wifi server listen on a given port
@@ -118,14 +120,15 @@ Serial.println(password);
   //Print status to Serial Monitor
   Serial.print("connected to: "); Serial.println(ssid);
   Serial.print("IP Address: "); Serial.println(WiFi.localIP());
-  GetExternalIP(ip);
+  
   server.begin();
+
 }
 
 void loop()
 {
   client = server.available();
-
+if(ip.length()==0 || flagChangedWifi) {GetExternalIP(ip);flagChangedWifi=false;}
   if (client)
   {
       
@@ -142,7 +145,8 @@ void loop()
 
       if(commands[0]=="ip")
       {
-        
+
+        //GetExternalIP(ip);
         client.println(ip);
       }
       else if(commands[0]=="signup")
@@ -264,6 +268,7 @@ void loop()
         
         }
         else client.println("false");
+        flagChangedWifi=true;
       }
        
        else if(commands[0]=="e")
@@ -272,7 +277,7 @@ void loop()
         {
           Serial.print(char(EEPROM.read(i)));
         }
-        GetExternalIP(ip);
+        
        }
       //v  
       else if(commands[0]=="setAP")
@@ -599,9 +604,13 @@ void printt(char* s,int n)
 void GetExternalIP(String &ip)
 {
   WiFiClient client;
-  if (client.connect("api.ipify.org", 80))
+  
+  int p;
+  p=client.connect("api.ipify.org", 80);
+  //Serial.println(p);
+  if (p)
   {
-    Serial.println("connected");
+    Serial.println("connectedtuk");
     client.println("GET / HTTP/1.1");
     client.println("Host: api.ipify.org");
     client.println();
@@ -620,7 +629,7 @@ void GetExternalIP(String &ip)
   }
   else 
   {
-    Serial.println("connection failed");
+    //Serial.println("connection failedpopop");
   }
 
 }

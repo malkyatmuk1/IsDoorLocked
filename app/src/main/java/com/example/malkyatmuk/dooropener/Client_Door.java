@@ -1,16 +1,13 @@
 package com.example.malkyatmuk.dooropener;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client_Door extends Fragment {
@@ -48,10 +44,8 @@ public class Client_Door extends Fragment {
                     @Override
                     public void run() {
                         try {
-                            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                            SERVER_IP = pref.getString("ip", "") ;
-                            InetAddress ip = InetAddress.getByName(SERVER_IP);
-                            clientSocket = new Socket(ip, SERVERPORT);
+
+                            clientSocket = new Socket(Global.ip, SERVERPORT);
 
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());

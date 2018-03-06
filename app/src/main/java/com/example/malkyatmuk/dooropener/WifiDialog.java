@@ -8,13 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -49,7 +49,7 @@ public class WifiDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
-        return  AutoOrHandDialog(getActivity());
+        return  AutoOrHandDialog(getContext());
 
     }
 
@@ -62,7 +62,8 @@ public class WifiDialog extends DialogFragment {
      }
    public void PasswordDialog(final Context context)
     {
-        progressBar= (ProgressBar) getView().findViewById(R.id.progressBar);
+
+        Log.e("tukotPass","tukotPass");
 
         AlertDialog.Builder builderPass = new AlertDialog.Builder(context);
         final EditText input = new EditText(context);
@@ -103,12 +104,12 @@ public class WifiDialog extends DialogFragment {
                             wifiManager.enableNetwork(0, true);
                             wifiManager.reconnect();
                         }
-                        progressBar.setVisibility(View.VISIBLE);
-                        LongOperation lg=new  LongOperation(getContext().getApplicationContext(),getView(),wifiManager);
-                        lg.execute("");
+                        Log.e("tukotPass","prediLong");
+                        LongOperation lg=new  LongOperation(context,wifiManager);
+                        Log.e("tukotPass","SledLog1");
+                        lg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
-
+//                        progressBar.setVisibility(View.VISIBLE);
 
                     }
                 })
@@ -117,7 +118,8 @@ public class WifiDialog extends DialogFragment {
                        networkPass="";
                     }
                 }).create().show();
-        Global.setIP(Global.ip,getContext().getApplicationContext());
+
+        Global.setIP(Global.ip,context);
 
 
     }
@@ -198,25 +200,26 @@ class LongOperation extends AsyncTask<String, Void, Void> {
     public WifiManager wifi;
 
 
-    LongOperation (Context context,View view,WifiManager wifiManager)
+    LongOperation (Context context,WifiManager wifiManager)
     {
 
         super();
+        Log.e("hh","vKonstruktora");
         this.mContext=context;
-        this.mView=view;
+
         this.wifi=wifiManager;
     }
     protected Void doInBackground(String ...Params) {
 
-        progressBar = (ProgressBar)  mView.findViewById(R.id.progressBar);
-        Thread thr = new Thread(new Runnable() {
-            @Override
-            public void run() {
+
                 try {
 
                     int SERVERPORT = 3030;
                     InetAddress ip = InetAddress.getByName(Global.directip);
+                    Log.e("p","tuk");
+                    Thread.sleep(2000);
                     clientSocket = new Socket(ip, SERVERPORT);
+                    Log.e("phg","tuk");
                     String send = "ip\n";
 
                     DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -227,32 +230,27 @@ class LongOperation extends AsyncTask<String, Void, Void> {
                     Global.ip = modifiedSentence;
                     Global.setIP(modifiedSentence,mContext);
                     wifi.disconnect();
-                    progressBar.setVisibility(View.INVISIBLE);
+
                     clientSocket.close();
 
-                } catch (IOException e) {
-                    final AlertDialog.Builder builderWifi = new AlertDialog.Builder(mContext);
-
-                    builderWifi.setTitle("Problem")
-                                .setMessage("Connection abort!")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                }).create().show();
-                    System.out.println("Exception " + e);
                 }
-                return;
-            }
-        });
-        thr.start();
+                catch (IOException e) {
 
-        //thr.interrupt();
+                    System.out.println("Exception " + e);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
 
         return null;
     }
     protected void onPostExecute(Void result) {
 
     }
+    @Override
+    protected void onPreExecute() {}
+
+    @Override
+    protected void onProgressUpdate(Void... values) {}
 }

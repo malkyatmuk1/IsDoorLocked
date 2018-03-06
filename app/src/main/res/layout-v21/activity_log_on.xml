@@ -21,30 +21,18 @@
         android:textSize="35sp"
         android:padding="5dp"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_marginEnd="70dp"
-            android:layout_marginStart="190dp" />
 
 
         <ImageButton
             android:id="@+id/ip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
             android:layout_gravity="end"
 
-            android:layout_marginEnd="12dp"
+            android:layout_margin="12dp"
             android:background="@color/backgroundwithlogo"
             android:src="@drawable/wifi" />
-    </LinearLayout>
+
 
 
 

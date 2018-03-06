@@ -5,15 +5,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,15 +18,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.util.regex.Matcher;
 
 public class Signup extends Activity {
     EditText pass,pass2;
@@ -78,7 +72,7 @@ public class Signup extends Activity {
         pass.addTextChangedListener(textWatcherPass);
 
         textView.setOnClickListener(signin);
-        ip.setOnClickListener(iplistener);
+        //ip.setOnClickListener(iplistener);
         settingsbutton.setOnClickListener(settingslistener);
         btnsignup.setOnClickListener(btn);
 
@@ -100,6 +94,7 @@ public class Signup extends Activity {
             finish();
         }
     };
+    /*
     View.OnClickListener iplistener= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -108,6 +103,7 @@ public class Signup extends Activity {
             finish();
         }
     };
+    */
     View.OnClickListener settingslistener= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -214,12 +210,9 @@ public class Signup extends Activity {
                 public void run() {
                     try {
 
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SERVER_IP = sharedPreferences.getString("ip", "");
 
-                        InetAddress ip = InetAddress.getByName(SERVER_IP);
 
-                        clientSocket = new Socket(ip, SERVERPORT);
+                        clientSocket = new Socket(Global.ip, SERVERPORT);
 
 
                         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());

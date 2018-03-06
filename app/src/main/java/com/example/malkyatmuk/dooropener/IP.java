@@ -47,6 +47,7 @@ public class IP extends AppCompatActivity {
 
         public void onClick(View view) {
             Global.ip=ip.getText().toString();
+            Global.setIP(Global.ip,getApplicationContext());
             Toast toast=Toast.makeText(getApplicationContext(),"The IP was set",Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
             toast.show();

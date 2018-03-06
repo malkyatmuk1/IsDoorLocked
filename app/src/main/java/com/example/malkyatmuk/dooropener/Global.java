@@ -50,7 +50,7 @@ public class Global extends Application {
     }
     public static void setIP(String ip, Context context)
     {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("ip",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putString("ip", ip);

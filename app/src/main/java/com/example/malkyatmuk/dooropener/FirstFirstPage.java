@@ -30,8 +30,7 @@ public class FirstFirstPage extends AppCompatActivity {
                 finish();
             }
         }, TIME_OUT);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("ip",MODE_PRIVATE);
         Global.ip = sharedPreferences.getString("ip", "");
 
 

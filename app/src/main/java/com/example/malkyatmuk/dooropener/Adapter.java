@@ -88,8 +88,7 @@ public class Adapter extends BaseAdapter {
                         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
                          try {
-                            SERVER_IP = pref.getString("ip", "");
-                            InetAddress ip = InetAddress.getByName(SERVER_IP);
+                            InetAddress ip = InetAddress.getByName(Global.ip);
                             clientSocket = new Socket(ip, SERVERPORT);
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -117,7 +116,7 @@ public class Adapter extends BaseAdapter {
                     protected void onProgressUpdate(Void... values) {}
                 }
 
-                new LongOperation().execute("");
+                new LongOperation().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
             }
         });
 
@@ -138,8 +137,8 @@ public class Adapter extends BaseAdapter {
                         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
                         try {
-                            SERVER_IP = pref.getString("ip", "");
-                            InetAddress ip = InetAddress.getByName(SERVER_IP);
+
+                            InetAddress ip = InetAddress.getByName(Global.ip);
                             clientSocket = new Socket(ip, SERVERPORT);
 
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -170,7 +169,7 @@ public class Adapter extends BaseAdapter {
                     @Override
                     protected void onProgressUpdate(Void... values) {}
                 }
-                new LongOperation().execute("");
+                new LongOperation().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
 
 
             }

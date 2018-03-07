@@ -30,7 +30,7 @@ backToTop.addEventListener('click', () => {
 
 /* Get Our Elements */
 const player = document.querySelector('.player');
-const video = player.querySelector('.viewer');
+const video = player.querySelector('video');
 const progress = player.querySelector('.progress');
 const progressBar = player.querySelector('.progressFilled');
 const ranges = player.querySelectorAll('.playerSlider');

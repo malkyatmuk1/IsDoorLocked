@@ -35,7 +35,12 @@
             </nav>
         </div>
         <div class="player">
-            <video class="playerVideo viewer" src="assets\video.mp4"></video>
+          <video width="320" height="240" muted controls>
+              <source src="assets/video.mp4" type="video/mp4">
+              <track  src="assets/video.vtt" kind="subtitles" srclang="bg" label="Bulgarian" z-index: 9999>
+
+          </video>
+
             <div class="playerControls">
                 <div class="progress">
                     <div class="progressFilled"></div>
@@ -132,7 +137,7 @@
                 <img alt="percentages" class="width50" src="images/graph-4.png">
                 <p class="description">CSS</p>
             </div>
-        </div>  
+        </div>
     </div>
 </section>
 <!--**************************-->
@@ -148,7 +153,7 @@
                 <a href="/assets/docs.odt" class="main-button blue-button disabled" id="load-content">Документацията</a>
             </div>-->
             <div class="col-4 float-left">
-                <a href="/assets/uchimi.odt" class="main-button pink-button" id="load-content">УчИМИ</a>
+                <a href="/assets/uchimi.odt" class="main-button pink-button" id="load-content">НОИТ</a>
             </div>
             <!--<div class="col-1 float-left">
                 <a href="/assets/john.odt" class="main-button pink-button" id="load-content">Дж. Атанасов</a>

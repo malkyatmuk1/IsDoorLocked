@@ -70,5 +70,4 @@ progress.addEventListener('mouseup', () => mousedown = false);
 
  window.onload = function() {
 	video.play();
-	video.playbackRate = 2.0;
  }

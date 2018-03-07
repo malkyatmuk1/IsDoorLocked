@@ -23,13 +23,13 @@
     <string name="rewrite_your_password">Rewrite your password</string>
     <string name="wifi_ssid">Wifi-ssid</string>
     <string name="wifi_pass">Wifi-pass</string>
-    <string name="permisson">permisson</string>
+    <string name="permisson">permission</string>
     <string name="mask">mask</string>
     <string name="connect_ip">connect-ip</string>
     <string name="connectButton">CONNECT</string>
     <string name="wifi">Choose a WIFI</string>
-    <string name="auto"><b>\u2022 AUTO- </b>If you choose this option, you will have to choose the AP of the server and write the password.</string>
-    <string name="hand"><b>\u2022 BY HAND- </b>If you choose this option, you will have to write the IP of the server by hands.</string>
+    <string name="auto"><b>\u2022 AUTO- </b>If you click on the AUTO button, you will have to choose the Access Point of the server and connect to it.</string>
+    <string name="hand"><b>\u2022 MANUAL- </b>If you click on the MANUAL button, you will have to write the IP manually.</string>
     <string name="AutoButton">AUTO</string>
-    <string name="HandButton">BY HAND</string>
+    <string name="HandButton">MANUAL</string>
 </resources>

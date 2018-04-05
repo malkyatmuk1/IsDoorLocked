@@ -3,37 +3,33 @@
     android:background="@color/backgroundwithlogo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".FirstFirstPage"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    >
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="130dp"
-            android:src="@drawable/logo"
-            android:contentDescription="@string/logo" />
-        <TextView
-            android:id="@+id/tittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="40sp"
-            android:textColor="@color/bluewithlogo"
-            android:textStyle="bold"
-            android:text="@string/name"
-            />
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="@color/bluewithlogo"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:text="@string/moto"
-            />
 
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/logo" />
+    <TextView
+        android:id="@+id/tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="40sp"
+        android:textColor="@color/bluewithlogo"
+        android:textStyle="bold"
+        android:text="@string/name" />
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/bluewithlogo"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="@string/moto" />
 </LinearLayout>

@@ -60,7 +60,6 @@ public class Client_List extends Fragment {
                           }
                           else break;
                       }
-
                   }
               }
               catch (IOException e){ e.printStackTrace();}
@@ -83,7 +82,6 @@ public class Client_List extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             protected void onPreExecute() {}
 

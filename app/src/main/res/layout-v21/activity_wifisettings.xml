@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:targetApi="11"
-
     tools:context=".WifiSettings"
+
     android:orientation="vertical"
     android:gravity="top">
+
     <TextView
         android:id="@+id/sign"
         android:layout_width="match_parent"
@@ -19,18 +20,13 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="35sp"
-        android:padding="5dp"
-
-
-
-        />
+        android:padding="5dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:orientation="vertical"
-        android:gravity="center"
-        >
+        android:gravity="center" >
         <TextView
             android:id="@+id/welcome"
             android:layout_width="match_parent"
@@ -38,10 +34,7 @@
             android:text="@string/wifi_settings"
             android:textAlignment="center"
             android:textSize="50sp"
-            android:textColor="@color/white"
-            />
-
-
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/wifissid"
@@ -52,9 +45,7 @@
             android:hint="@string/wifi_ssid"
             android:textColorHint="@color/white"
             android:backgroundTint="@color/white"
-            android:layout_marginTop="30dp"
-            />
-
+            android:layout_marginTop="30dp" />
 
         <EditText
             android:id="@+id/wifipass"
@@ -64,9 +55,8 @@
             android:inputType="textPassword"
             android:hint="@string/wifi_pass"
             android:textColorHint="@color/white"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/white" />
 
-            />
         <EditText
             android:id="@+id/username"
             style="@style/Margins"
@@ -75,9 +65,7 @@
             android:inputType="text"
             android:hint="@string/username"
             android:textColorHint="@color/white"
-            android:backgroundTint="@color/white"
-            />
-
+            android:backgroundTint="@color/white" />
 
         <EditText
             android:id="@+id/password"
@@ -87,9 +75,7 @@
             android:inputType="textPassword"
             android:hint="@string/password"
             android:textColorHint="@color/white"
-            android:backgroundTint="@color/white"
-
-            />
+            android:backgroundTint="@color/white" />
 
         <Button
             android:id="@+id/apply"
@@ -104,19 +90,15 @@
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
             android:text="@string/apply"
-            android:background="@drawable/sign"
+            android:background="@drawable/sign" />
 
-
-            />
-       <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/go_back"
-        android:textColor="@color/pink"
-        android:id="@+id/goback"
-        android:layout_marginTop="2dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go_back"
+            android:textColor="@color/pink"
+            android:id="@+id/goback"
+            android:layout_marginTop="2dp"/>
 
     </LinearLayout>
-
-
 </LinearLayout>

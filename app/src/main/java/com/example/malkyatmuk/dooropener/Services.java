@@ -27,14 +27,12 @@ public class Services extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
         locationListener=new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                 Distance distence=new Distance(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
-
+                Distance distence=new Distance(latitude,longitude,Global.latitudeHome,Global.longetudeHome);
                 double dis = distence.getDistance(distence.Expression(distence.DegToRad(latitude),distence.DegToRad(longitude),distence.DegToRad(Global.latitudeHome),distence.DegToRad(Global.longetudeHome)),6371.0);
                 //if the flag is true, the notification should be send
                 dis=dis*1000;
@@ -42,7 +40,6 @@ public class Services extends Service {
                     if(Global.flagforNotify){sendNotification();Global.flagforNotify=false;}
                 }
                 if(dis*2<=Global.meters) Global.flagforNotify=true;
-
             }
 
             @Override

@@ -54,20 +54,14 @@ public class WifiDialog extends DialogFragment {
     }
 
      class WifiReceiver extends BroadcastReceiver {
-
         @Override
-        public void onReceive(Context context, Intent intent) {
-
-        }
+        public void onReceive(Context context, Intent intent) { }
      }
    public void PasswordDialog(final Context context)
     {
-
-        Log.e("tukotPass","tukotPass");
-
         AlertDialog.Builder builderPass = new AlertDialog.Builder(context);
         final EditText input = new EditText(context);
-       input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builderPass .setTitle("Password for "+ networkSSID)
                 .setView(input)
                 .setPositiveButton(R.string.connectButton, new DialogInterface.OnClickListener() {
@@ -78,8 +72,7 @@ public class WifiDialog extends DialogFragment {
                         conf = new WifiConfiguration();
                         conf.SSID = "\"" + networkSSID + "\"";
                         conf.preSharedKey = "\""+ networkPass +"\"";
-
-                         wifiManager = (WifiManager)context.getSystemService(WIFI_SERVICE);
+                        wifiManager = (WifiManager)context.getSystemService(WIFI_SERVICE);
                         wifiManager.setWifiEnabled(true);
                         Boolean flag=false;
                         List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
@@ -95,7 +88,6 @@ public class WifiDialog extends DialogFragment {
                             {
                                 flag=true;
                             }
-
                         }
                         if(flag)
                         {
@@ -108,9 +100,7 @@ public class WifiDialog extends DialogFragment {
                         LongOperation lg=new  LongOperation(context,wifiManager);
                         Log.e("tukotPass","SledLog1");
                         lg.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 //                        progressBar.setVisibility(View.VISIBLE);
-
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -120,11 +110,8 @@ public class WifiDialog extends DialogFragment {
                 }).create().show();
 
         Global.setIP(Global.ip,context);
-
-
     }
-     Dialog AutoOrHandDialog(final Context context)
-    {
+     Dialog AutoOrHandDialog(final Context context){
         AlertDialog.Builder builderPass = new AlertDialog.Builder(getActivity());
 
        TextView inputAuto = new TextView(getActivity());
@@ -150,8 +137,7 @@ public class WifiDialog extends DialogFragment {
         return builderPass.create();
 
     }
-    Dialog wifiDialog(final Context context)
-    {
+    Dialog wifiDialog(final Context context){
 
         final ArrayList<String> WifiArray = new ArrayList<String>();
         mainWifi = (WifiManager) context.getSystemService(WIFI_SERVICE);
@@ -163,32 +149,21 @@ public class WifiDialog extends DialogFragment {
         {
             WifiArray.add(wifi.SSID);
         }
-
-
-
         final CharSequence[] WifiArrayChar = WifiArray.toArray(new String[WifiArray.size()]);
-
-
         AlertDialog.Builder builderWifi = new AlertDialog.Builder(getActivity());
-
         builderWifi .setTitle(R.string.wifi)
                 .setItems(WifiArrayChar,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int selectedIndex) {
                         networkSSID = WifiArray.get(selectedIndex);
                         PasswordDialog(context);
-
-
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
+                    public void onClick(DialogInterface dialog, int id) { }
                 });
         // Create the AlertDialog object and return it
         return builderWifi.create();
     }
-
 }
 class LongOperation extends AsyncTask<String, Void, Void> {
     private static final int SERVERPORT = 3030;
@@ -199,14 +174,12 @@ class LongOperation extends AsyncTask<String, Void, Void> {
     public ProgressBar progressBar;
     public WifiManager wifi;
 
-
     LongOperation (Context context,WifiManager wifiManager)
     {
 
         super();
         Log.e("hh","vKonstruktora");
         this.mContext=context;
-
         this.wifi=wifiManager;
     }
     protected Void doInBackground(String ...Params) {
@@ -230,27 +203,20 @@ class LongOperation extends AsyncTask<String, Void, Void> {
                     Global.ip = modifiedSentence;
                     Global.setIP(modifiedSentence,mContext);
                     wifi.disconnect();
-
                     clientSocket.close();
-
                 }
                 catch (IOException e) {
-
                     System.out.println("Exception " + e);
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-
         return null;
     }
-    protected void onPostExecute(Void result) {
-
-    }
+    protected void onPostExecute(Void result) { }
     @Override
-    protected void onPreExecute() {}
+    protected void onPreExecute() { }
 
     @Override
-    protected void onProgressUpdate(Void... values) {}
+    protected void onProgressUpdate(Void... values) { }
 }

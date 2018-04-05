@@ -22,7 +22,6 @@
             android:textSize="20sp" />
 
         <Button
-
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-
     <Switch
         android:id="@+id/switchPerm"
         android:layout_width="match_parent"
@@ -51,8 +49,5 @@
         android:paddingRight="63sp"
         android:text="permissions"
         android:textAlignment="textStart"
-        android:textColor="@color/pink"
-
-        />
-
+        android:textColor="@color/pink" />
 </LinearLayout>

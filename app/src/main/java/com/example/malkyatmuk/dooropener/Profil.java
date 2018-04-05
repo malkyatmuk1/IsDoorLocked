@@ -14,27 +14,26 @@ import android.widget.TextView;
 
 public class Profil extends Fragment {
 
-    TextView usernamet,permissiont;
+    TextView usernameT,permissionT;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View myFragmentView = inflater.inflate(R.layout.fragment_profil, container, false);
-        usernamet = (TextView) myFragmentView.findViewById(R.id.usernameprofil);
-        permissiont = (TextView) myFragmentView.findViewById(R.id.permissionprofil);
+        usernameT = (TextView) myFragmentView.findViewById(R.id.usernameprofil);
+        permissionT = (TextView) myFragmentView.findViewById(R.id.permissionprofil);
         return myFragmentView;
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        usernamet.setText(Global.username);
-        if(Global.permission=='a')permissiont.setText("admin");
-        else if(Global.permission=='p')permissiont.setText("user");
-        else permissiont.setText("non-user");
+        usernameT.setText(Global.username);
+        if(Global.permission=='a')permissionT.setText("admin");
+        else if(Global.permission=='p')permissionT.setText("user");
+        else permissionT.setText("non-user");
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Profile");
     }

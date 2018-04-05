@@ -20,11 +20,8 @@
             android:bottomRightRadius="10dp"
             android:topLeftRadius="5dp"
             android:topRightRadius="5dp"
-            android:background="@drawable/actionbar_layer_list"
-           />
-
+            android:background="@drawable/actionbar_layer_list" />
     </android.support.design.widget.AppBarLayout>
-
 
     <include
         layout="@layout/content_main"

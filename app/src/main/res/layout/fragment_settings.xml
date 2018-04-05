@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cordinates"
-        android:textColor="@color/white"
-        />
+        android:textColor="@color/white" />
 
     <EditText
         android:id="@+id/metersedit"
@@ -23,7 +22,8 @@
         android:inputType="number"
         android:hint="Meters for reminder"
         android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/white" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,12 +37,13 @@
         android:textSize="15sp"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_marginBottom="20dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@android:color/darker_gray"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +57,5 @@
         android:textSize="17sp"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
-        android:layout_marginTop="20dp"
-        />
-
+        android:layout_marginTop="20dp" />
 </LinearLayout>

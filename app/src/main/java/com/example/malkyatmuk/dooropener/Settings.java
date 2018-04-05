@@ -27,26 +27,24 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class Settings extends Fragment implements LocationListener {
 
-    Button iamathome,meters;
+    Button iamatHome,meters;
     LocationManager locationManager;
     EditText metersedit;
     Location location;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View myFragmentView = inflater.inflate(R.layout.fragment_settings, container, false);
-        iamathome=(Button) myFragmentView.findViewById(R.id.iamathome);
+        iamatHome=(Button) myFragmentView.findViewById(R.id.iamathome);
         meters=(Button) myFragmentView.findViewById(R.id.meters);
         metersedit =(EditText) myFragmentView.findViewById(R.id.metersedit);
 
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-
-        iamathome.setOnClickListener(new View.OnClickListener() {
+        iamatHome.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -54,10 +52,8 @@ public class Settings extends Fragment implements LocationListener {
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
                             , 10);
-
                     }
-                    location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
+                location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 Global.latitudeHome = location.getLatitude();
                 Global.longetudeHome = location.getLongitude();
                 Global.flagforNotify=true;
@@ -74,14 +70,11 @@ public class Settings extends Fragment implements LocationListener {
         return myFragmentView;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         getActivity().setTitle("Settings");
     }
-
 
     @Override
     public void onLocationChanged(final Location location) {

@@ -6,31 +6,32 @@
     android:background="@color/background"
     android:id="@+id/fragment_door"
     tools:context=".Client_Door"
+
     android:gravity="center"
     android:orientation="vertical"
     android:weightSum="1">
-        <TextView
-            android:id="@+id/usernameprofil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textSize="50sp"
-            android:textColor="@color/pink"/>
+    <TextView
+        android:id="@+id/usernameprofil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textSize="50sp"
+        android:textColor="@color/pink"/>
 
-        <ImageView
-            android:id="@+id/profilpicture"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:src="@drawable/user"
-            android:contentDescription="@string/mask"/>
+    <ImageView
+        android:id="@+id/profilpicture"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/user"
+        android:contentDescription="@string/mask"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/permissionprofil"
-            android:text="@string/permisson"
-            android:textSize="40sp"
-            android:textColor="@color/pink"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/permissionprofil"
+        android:text="@string/permisson"
+        android:textSize="40sp"
+        android:textColor="@color/pink"/>
 </LinearLayout>
 
 

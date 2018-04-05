@@ -21,9 +21,9 @@ public class FirstPage extends AppCompatActivity {
 
 
         signin=(Button) findViewById(R.id.signin);
-        signin.setOnClickListener(signin1);
+        signin.setOnClickListener(signInListener);
         signup=(Button) findViewById(R.id.signup);
-        signup.setOnClickListener(signup1);
+        signup.setOnClickListener(signUpListener);
         isdoorlocked=(TextView) findViewById(R.id.isdoorlocked);
         getstart=(TextView) findViewById(R.id.getstarted);
         createorlog=(TextView) findViewById(R.id.logorcreate);
@@ -36,14 +36,12 @@ public class FirstPage extends AppCompatActivity {
 
         getstart.setTypeface(custom_font,Typeface.BOLD);
         createorlog.setTypeface(custom_font);
-        SharedPreferences settings = getSharedPreferences("ip",
-                Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences("ip", Context.MODE_PRIVATE);
         String ip = settings.getString("ip", "");
         Global.ip=ip;
     }
 
-
-   View.OnClickListener signin1=new View.OnClickListener() {
+   View.OnClickListener signInListener=new View.OnClickListener() {
 
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), Signin.class);
@@ -52,7 +50,7 @@ public class FirstPage extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener signup1=new View.OnClickListener() {
+    View.OnClickListener signUpListener=new View.OnClickListener() {
 
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(),Signup.class);

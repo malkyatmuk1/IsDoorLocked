@@ -1,12 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/backgroundwithlogo"
+
     tools:context=".Signin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top">
-
 
     <TextView
         android:id="@+id/sign"
@@ -19,37 +19,31 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="35sp"
-        android:padding="5dp"
-        />
+        android:padding="5dp"/>
 
-
-        <ImageButton
-            android:id="@+id/ip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-
-            android:layout_margin="12dp"
-            android:background="@color/backgroundwithlogo"
-            android:src="@drawable/wifi" />
-
-
-
+    <ImageButton
+        android:id="@+id/ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="12dp"
+        android:background="@color/backgroundwithlogo"
+        android:src="@drawable/wifi"/>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="0.5"
-    android:orientation="vertical"
-    android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:gravity="center">
         <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:gravity="center"
-                android:src="@drawable/logo"
-                android:contentDescription="@string/logo" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo" />
 
-       <AutoCompleteTextView
+        <AutoCompleteTextView
             android:id="@+id/username"
             style="@style/Margins"
             android:ems="10"
@@ -60,8 +54,7 @@
             android:textColorHint="@color/bluewithlogo"
             android:backgroundTint="@color/bluewithlogo"
             android:layout_marginTop="50dp"
-           android:imeOptions="actionNext"
-           />
+            android:imeOptions="actionNext"/>
 
         <EditText
             android:id="@+id/password"
@@ -72,12 +65,13 @@
             android:hint="@string/password"
             android:textColorHint="@color/bluewithlogo"
             android:backgroundTint="@color/bluewithlogo"/>
-       <CheckBox
-           android:id="@+id/check"
-           android:layout_width="266dp"
-           android:layout_height="wrap_content"
-           android:textColor="@color/background"
-           android:text="@string/direct_connection" />
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/background"
+            android:text="@string/direct_connection" />
 
        <Button
            android:id="@+id/signin"

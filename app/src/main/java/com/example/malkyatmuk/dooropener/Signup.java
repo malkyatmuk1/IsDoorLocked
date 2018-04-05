@@ -84,7 +84,6 @@ public class Signup extends Activity {
         pass.setTypeface(custom_font);
         pass2.setTypeface(custom_font);
 
-
     }
     View.OnClickListener signin= new View.OnClickListener() {
         @Override
@@ -94,40 +93,23 @@ public class Signup extends Activity {
             finish();
         }
     };
-    /*
-    View.OnClickListener iplistener= new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(),IP.class);
-            startActivity(intent);
-            finish();
-        }
-    };
-    */
+
     View.OnClickListener settingslistener= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Global.goback=false;
             Intent intent = new Intent(v.getContext(),WifiSettings.class);
-
             startActivity(intent);
-
         }
     };
-
-
 
     TextWatcher textWatcherPass= new TextWatcher() {
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
         @Override
         public void afterTextChanged(Editable editable) {
@@ -142,7 +124,8 @@ public class Signup extends Activity {
             if(pass.length()<5)
             pass.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
             else {pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);pass1TextLayout.setHint("Password");}
-            if(txt.length()==0) {
+            if(txt.length()==0)
+            {
                 pass1TextLayout.setHint("Password");
                 pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                 pass2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
@@ -152,15 +135,10 @@ public class Signup extends Activity {
     TextWatcher textWatcherPassAgain = new TextWatcher() {
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
         @Override
         public void afterTextChanged(Editable arg0) {
@@ -184,10 +162,7 @@ public class Signup extends Activity {
                 pass.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                 pass2.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
             }
-
         }
-
-
     };
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(View v) {
@@ -210,11 +185,7 @@ public class Signup extends Activity {
                 public void run() {
                     try {
 
-
-
                         clientSocket = new Socket(Global.ip, SERVERPORT);
-
-
                         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         outToServer.writeBytes(String.format("signup %s %s \n", username.getText(), pass.getText()));
@@ -224,15 +195,11 @@ public class Signup extends Activity {
                             Intent intent = new Intent(getApplicationContext(), Signin.class);
                             startActivity(intent);
                             finish();
-                        } else {
-
-
-                        }
+                        } else { }
                         clientSocket.close();
                     } catch (IOException e) {
                         System.out.println("Exception " + e);
                     }
-
                 }
             }).start();
         }

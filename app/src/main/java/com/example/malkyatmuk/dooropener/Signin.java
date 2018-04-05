@@ -42,16 +42,12 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
     public  ProgressBar progressBar;
     ImageButton ip;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_log_on);
         Global.ipsignin = true;
-        //progressBar=(ProgressBar) findViewById(R.id.progressBar);
-       // progressBar.setVisibility(View.INVISIBLE);
         username = (AutoCompleteTextView) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,Global.users);
@@ -74,8 +70,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
             username.setText(Global.username);
             password.setText(Global.password);
         }
-
-
     }
 
     View.OnClickListener textview = new View.OnClickListener() {
@@ -92,8 +86,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
 
             WifiDialog wifidialog=new WifiDialog();
             wifidialog.show(getFragmentManager(),"wifi");
-
-
         }
     };
     View.OnClickListener settingslistener = new View.OnClickListener() {
@@ -102,10 +94,8 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
             Intent intent = new Intent(v.getContext(), WifiSettings.class);
             Global.goback = true;
             startActivity(intent);
-
         }
     };
-
 
     View.OnClickListener btn = new View.OnClickListener() {
         public void onClick(final View v) {
@@ -119,7 +109,7 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                 if (Global.ip.isEmpty()) {
                   //  WifiDialog wifidialog=new WifiDialog();
                    // wifidialog.show(getFragmentManager(),"wifi");
-
+                    //TODO
                 }
                 SERVER_IP=Global.ip;
                 Global.setIP(Global.ip, getApplicationContext());
@@ -148,12 +138,9 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
                             if (Global.longetudeHome != 0 && Global.latitudeHome != 0) {
                                 startService(new Intent(getApplicationContext(), Services.class));
                             }
-
-
                             startActivity(intent);
                             finish();
                         }
-
                         clientSocket.close();
                     } catch (IOException e) {
                         System.out.println("Exception " + e);
@@ -167,8 +154,6 @@ public class Signin extends Activity implements GoogleApiClient.ConnectionCallba
         }
 
     };
-
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

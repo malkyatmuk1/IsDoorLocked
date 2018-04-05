@@ -40,7 +40,6 @@ public class IP extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-
         }
     };
     View.OnClickListener apllylistener=new View.OnClickListener() {
@@ -53,5 +52,4 @@ public class IP extends AppCompatActivity {
             toast.show();
         }
     };
-
 }

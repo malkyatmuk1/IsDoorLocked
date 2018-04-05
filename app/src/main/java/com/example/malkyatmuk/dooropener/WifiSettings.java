@@ -31,7 +31,6 @@ public class WifiSettings extends Activity {
     Thread trd;
     public SharedPreferences pref;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +75,6 @@ public class WifiSettings extends Activity {
             Global.wifiusername=wifiusername.getText().toString();
             Global.wifiPassword=wifipassword.getText().toString();
 
-
       trd= new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -84,19 +82,15 @@ public class WifiSettings extends Activity {
 
                         clientSocket = new Socket("192.168.4.1", SERVERPORT);
                         send="setWifi "+wifiusername.getText().toString()+" "+wifipassword.getText().toString()+" "+username.getText().toString()+" "+password.getText().toString()+'\n';
-
                         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         outToServer.writeBytes(send);
                         outToServer.flush();
                         modifiedSentence = inFromServer.readLine();
-
-
                         clientSocket.close();
                     } catch (IOException e) {
                         System.out.println("Exception " + e);
                     }
-
                 }
             });
       trd.start();
@@ -105,17 +99,9 @@ public class WifiSettings extends Activity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-           // String[] ip = new String[2];
-           // if(!modifiedSentence.isEmpty()) ip=modifiedSentence.split(" ");
-           // if(ip[0]==null) modifiedSentence="";
             if(modifiedSentence==null) modifiedSentence="";
-             if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
+            if(!modifiedSentence.equals("false") && !modifiedSentence.equals("error")) {
                 pref = getApplicationContext().getSharedPreferences("IP", Context.MODE_PRIVATE);
-/*
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("ip",ip[1]);
-                editor.apply();
-                */
                 Toast toast=Toast.makeText(view.getContext(),"The wifi was set",Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, 0);
                 toast.show();
@@ -129,8 +115,4 @@ public class WifiSettings extends Activity {
             }
         }
     };
-
 }
-//JohnAndWillow
-//IamSuperProgrammer
-

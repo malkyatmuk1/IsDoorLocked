@@ -55,6 +55,5 @@ public class Global extends Application {
         editor.clear();
         editor.putString("ip", ip);
         editor.apply();
-
     }
 }

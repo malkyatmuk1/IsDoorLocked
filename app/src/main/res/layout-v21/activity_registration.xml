@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:targetApi="11"
-
     tools:context=".Signup"
+
     android:orientation="vertical"
     android:gravity="top">
     <TextView
@@ -19,8 +19,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="35sp"
-        android:padding="5dp"
-        />
+        android:padding="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,15 +36,13 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:textColorHint="@color/white"
-
-            >
+            android:textColorHint="@color/white">
 
             <AutoCompleteTextView
                 android:id="@+id/username"
@@ -58,8 +55,7 @@
                 android:inputType="text"
                 android:maxLength="10"
                 android:textColorHint="@color/white"
-                android:imeOptions="actionNext"
-                />
+                android:imeOptions="actionNext"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -77,9 +73,7 @@
                 android:backgroundTint="@color/white"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/white"
-
-                />
+                android:textColorHint="@color/white"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -87,9 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:textColorHint="@color/white"
-
-            >
+            android:textColorHint="@color/white">
 
             <EditText
                 android:id="@+id/pass2"
@@ -99,7 +91,7 @@
                 android:backgroundTint="@color/white"
                 android:hint="@string/rewrite_your_password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"/>
         </android.support.design.widget.TextInputLayout>
 
         <CheckBox
@@ -107,8 +99,7 @@
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:text="@string/direct_connection"
-            android:textColor="@color/white" />
-
+            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/btnsignup"

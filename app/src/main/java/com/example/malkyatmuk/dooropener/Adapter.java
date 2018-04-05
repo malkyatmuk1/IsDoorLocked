@@ -29,18 +29,13 @@ import java.util.ArrayList;
 public class Adapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<String> mList;
-    private static final int SERVERPORT = 3030;
-    private static  String SERVER_IP ;
-    private Socket clientSocket;
-    Thread thrSwitch,thrButton;
-    String[] spliter;
-    String modif;
+    private String[] spliter;
+    private String modif;
 
     public Adapter(Context context,ArrayList<String> list){
         mContext=context;
         mList=list;
     }
-
 
     @Override
     public int getCount() {
@@ -67,9 +62,9 @@ public class Adapter extends BaseAdapter {
             holder.textView = (TextView) convertView.findViewById(R.id.name);
             holder.DelButton = (Button) convertView.findViewById(R.id.delete);
             holder.switchP = (Switch) convertView.findViewById(R.id.switchPerm);
-
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -116,7 +111,7 @@ public class Adapter extends BaseAdapter {
                     protected void onProgressUpdate(Void... values) {}
                 }
 
-                new LongOperation().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);;
+                new LongOperation().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         });
 
@@ -130,7 +125,6 @@ public class Adapter extends BaseAdapter {
                 } else holder.switchP.setText("non-user");
                 class LongOperation extends AsyncTask<String, Void, Void> {
                     private static final int SERVERPORT = 3030;
-                    private String SERVER_IP;
                     private Socket clientSocket;
 
                     protected Void doInBackground(String... Param) {
@@ -180,7 +174,6 @@ public class Adapter extends BaseAdapter {
         if(spliter[1].equals("d")) holder.switchP.setText("non-user");
         else holder.switchP.setText("user");
 
-
         if(spliter[1].equals("p") || spliter[1].equals("a")){holder.switchP.setOnCheckedChangeListener(null);holder.switchP.setChecked(true);holder.switchP.setOnCheckedChangeListener(checkListener);}
         else {holder.switchP.setOnCheckedChangeListener (null);holder.switchP.setChecked(false);holder.switchP.setOnCheckedChangeListener(checkListener);}
         return convertView;
@@ -190,6 +183,5 @@ public class Adapter extends BaseAdapter {
         TextView textView;
         Button DelButton;
         Switch switchP;
-
     }
 }

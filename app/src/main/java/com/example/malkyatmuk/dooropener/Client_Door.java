@@ -30,7 +30,6 @@ public class Client_Door extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View myFragmentView = inflater.inflate(R.layout.fragment_door, container, false);
         check = (Button) myFragmentView.findViewById(R.id.check);
         door = (ImageView) myFragmentView.findViewById(R.id.door);
@@ -46,8 +45,6 @@ public class Client_Door extends Fragment {
                         try {
 
                             clientSocket = new Socket(Global.ip, SERVERPORT);
-
-
                             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                             outToServer.writeBytes("take " +Global.username+" "+Global.password+'\n');
@@ -58,7 +55,6 @@ public class Client_Door extends Fragment {
                                 {
                                     public void run() {
                                         door.setImageResource(R.drawable.opendoor);
-
                                     }
                                 });
                             } else {
@@ -81,14 +77,8 @@ public class Client_Door extends Fragment {
             }
         });
 
-
-
-
         return myFragmentView;
     }
-
-
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

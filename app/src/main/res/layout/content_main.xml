@@ -9,13 +9,9 @@
     tools:context="com.example.malkyatmuk.dooropener.Start_menu"
     tools:showIn="@layout/app_bar_main">
 
-
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:background="@color/background"
-        />
-
+        android:background="@color/background" />
 </RelativeLayout>

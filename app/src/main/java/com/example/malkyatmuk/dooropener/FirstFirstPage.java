@@ -32,7 +32,5 @@ public class FirstFirstPage extends AppCompatActivity {
         }, TIME_OUT);
         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("ip",MODE_PRIVATE);
         Global.ip = sharedPreferences.getString("ip", "");
-
-
     }
 }

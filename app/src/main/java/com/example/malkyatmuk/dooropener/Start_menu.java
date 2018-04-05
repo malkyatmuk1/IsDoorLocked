@@ -31,9 +31,7 @@ public class Start_menu extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
-
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View txtusern=(View) navigationView.getHeaderView(0);
         TextView txt=txtusern.findViewById(R.id.username);
@@ -41,7 +39,6 @@ public class Start_menu extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         displaySelectedScreen(R.id.nav_menu1);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -53,17 +50,12 @@ public class Start_menu extends AppCompatActivity
         }
     }
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -74,10 +66,8 @@ public class Start_menu extends AppCompatActivity
         return true;
     }
     private void displaySelectedScreen(int itemId) {
-
         //creating fragment object
         Fragment fragment = null;
-
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_menu1:
@@ -121,5 +111,3 @@ public class Start_menu extends AppCompatActivity
     }
 
 }
-//kogato kazvame wifi to shte se znae za koe ustroistvo sme vzimame ip
-// kogato sme izvun nas moje da iskame kum drugo ip da se svurjem, to moje da ima menu s ip i da si izbirame kum koq vrata da se svurjem

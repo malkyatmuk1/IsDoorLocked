@@ -34,7 +34,7 @@ public class Start_menu extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View txtusern=(View) navigationView.getHeaderView(0);
-        TextView txt=txtusern.findViewById(R.id.username);
+        TextView txt=txtusern.findViewById(R.id.usernameprofil);
         txt.setText(Global.username.toString());
         navigationView.setNavigationItemSelectedListener(this);
         displaySelectedScreen(R.id.nav_menu1);
